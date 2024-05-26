@@ -38,7 +38,7 @@ app.on('ready', () => {
   });
 
   const menu = Menu.buildFromTemplate([
-    { label: 'Test', click: () => console.log('click'), accelerator: 'Command+U' },
+    { label: 'Open UI', click: () => createWindow(), accelerator: 'Command+U' },
     { role: 'quit', label: 'Quit Commands', accelerator: 'Command+Q' },
   ])
 
@@ -47,8 +47,6 @@ app.on('ready', () => {
   }
 
   tray.setContextMenu(menu)
-
-  createWindow();
 });
 
 app.on('window-all-closed', () => {
