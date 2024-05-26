@@ -35,13 +35,13 @@ app.on('ready', () => {
   // const home = homedir();
   // const filePath = join(home, 'projects/commands/src', 'commands.json');
   const fileContent = readFileSync('src/commands.json', 'utf-8');
-  const jsonData = JSON.parse(fileContent);
-  console.log(jsonData);
+  const commands = JSON.parse(fileContent);
+  console.log(commands);
 
-  Object.keys(jsonData).forEach((key) => {
+  Object.keys(commands).forEach((key) => {
     globalShortcut.register(key, () => {
-      console.log(`running ${ jsonData[key] } from input ${ key }`);
-      exec(jsonData[key]);
+      console.log(`running ${ commands[key] } from input ${ key }`);
+      exec(commands[key]);
     });
   });
 
