@@ -1,0 +1,4 @@
+{
+    "Option+CommandOrControl+P": "osascript -e 'do shell script \"code -n\"'",
+    "Option+CommandOrControl+I": "osascript -e 'quit app \"safari.app\"'"
+}
