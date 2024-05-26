@@ -26,8 +26,8 @@ const createWindow = (): void => {
 
 app.on('ready', () => {
   app.dock.hide();
-  globalShortcut.register('CommandOrControl+I', () => {
-    const command = `do shell script "code"`;
+  globalShortcut.register('Option+CommandOrControl+P', () => {
+    const command = `do shell script "code -n"`;
 
     exec(`osascript -e '${command}'`);
 
