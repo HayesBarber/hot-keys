@@ -45,16 +45,23 @@ app.on('ready', () => {
     });
   });
 
+  globalShortcut.register('Option+Shift+Space', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    } else {
+      BrowserWindow.getFocusedWindow().close();
+    }
+  });
+
   const menu = Menu.buildFromTemplate([
-    { label: 'Open UI', click: () => createWindow(), accelerator: 'Command+U' },
     { role: 'quit', label: 'Quit Commands', accelerator: 'Command+Q' },
-  ])
+  ]);
 
   if (!tray) {
-    tray = new Tray('src/icon.png')
+    tray = new Tray('src/icon.png');
   }
 
-  tray.setContextMenu(menu)
+  tray.setContextMenu(menu);
 });
 
 app.on('window-all-closed', () => {
