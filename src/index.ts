@@ -11,6 +11,7 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
+let commands: any = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -39,7 +40,7 @@ app.on('ready', async () => {
   // const home = homedir();
   // const filePath = join(home, 'projects/commands/src', 'commands.json');
   const fileContent = readFileSync('src/commands.json', 'utf-8');
-  const commands = JSON.parse(fileContent);
+  commands = JSON.parse(fileContent);
   console.log(commands);
 
   Object.keys(commands).forEach((key) => {
