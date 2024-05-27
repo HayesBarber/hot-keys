@@ -1,4 +1,5 @@
 import Command from "../command";
+import { useState, useEffect } from "react";
 
 import {
     Command as CommandComponent,
@@ -11,9 +12,22 @@ import {
   } from "../components/command"
 
 const App: React.FC = () => {
-    const queryString = global.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const commandsParam = urlParams.get('commands');
+    const [commands, setCommands] = useState<Command[]>([]);
+
+    useEffect(() => {
+      const queryString = global.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const commandsParam = urlParams.get('commands');
+  
+      if (commandsParam) {
+        try {
+          const parsedCommands: Command[] = JSON.parse(decodeURIComponent(commandsParam));
+          setCommands(parsedCommands);
+        } catch (error) {
+          console.error('Failed to parse commands parameter:', error);
+        }
+      }
+    }, []);
 
     return (
         <CommandComponent className="rounded-lg border">
@@ -22,7 +36,7 @@ const App: React.FC = () => {
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Settings">
               <CommandItem>
-                <span>{commandsParam}</span>
+                <span>{commands.length ? commands[0].displayName : ''}</span>
                 <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
             </CommandGroup>
