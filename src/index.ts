@@ -53,13 +53,7 @@ app.on('ready', async () => {
   await createWindow();
 
   globalShortcut.register('Command+Shift+Space', () => {
-    console.log(`open input event`);
-
-    if (window.isFocused()) {
-      window.hide();
-    } else {
-      window.show();
-    }
+    toggle();
   });
 
   const menu = Menu.buildFromTemplate([
@@ -73,14 +67,20 @@ app.on('ready', async () => {
   tray.setContextMenu(menu);
 });
 
+
+const toggle = () => {
+  console.log(`open input event`);
+
+  if (window.isFocused()) {
+    window.hide();
+  } else {
+    window.show();
+  }
+}
+
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
   }
 });
