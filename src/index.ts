@@ -28,6 +28,7 @@ const createWindow = (): Promise<void> => {
     transparent: true,
     show: true,
   });
+  window.setVisibleOnAllWorkspaces(true);
 
   return window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
