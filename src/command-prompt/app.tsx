@@ -1,5 +1,7 @@
-  import {
-    Command,
+import Command from "../command";
+
+import {
+    Command as CommandComponent,
     CommandEmpty,
     CommandGroup,
     CommandInput,
@@ -9,32 +11,23 @@
   } from "../components/command"
 
 const App: React.FC = () => {
-  
-    const commands: any = global.location.search;
-
-    
+    const queryString = global.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const commandsParam = urlParams.get('commands');
 
     return (
-        <Command className="rounded-lg border">
+        <CommandComponent className="rounded-lg border">
           <CommandInput autoFocus={true} placeholder="Search..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Settings">
               <CommandItem>
-                <span>Command</span>
+                <span>{commandsParam}</span>
                 <CommandShortcut>⌘P</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <span>Command</span>
-                <CommandShortcut>⌘B</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <span>Command</span>
-                <CommandShortcut>⌘S</CommandShortcut>
               </CommandItem>
             </CommandGroup>
           </CommandList>
-        </Command>
+        </CommandComponent>
     );
 }
 

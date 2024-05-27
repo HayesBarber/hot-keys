@@ -31,8 +31,8 @@ const createWindow = async (): Promise<void> => {
   });
   window.setVisibleOnAllWorkspaces(true);
 
-  const url = `${ MAIN_WINDOW_WEBPACK_ENTRY }?commands=${ commands }`;
-
+  const stringify = JSON.stringify(commands);
+  const url = `${ MAIN_WINDOW_WEBPACK_ENTRY }?commands=${ stringify }`;
   await window.loadURL(url);
 
   app.dock.hide();
@@ -69,8 +69,6 @@ app.on('ready', async () => {
 
 
 const toggle = () => {
-  console.log(`open input event`);
-
   if (window.isFocused()) {
     window.hide();
   } else {
