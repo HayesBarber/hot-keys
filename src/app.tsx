@@ -1,9 +1,3 @@
-import {
-    CreditCard,
-    Settings,
-    User,
-  } from "lucide-react"
-   
   import {
     Command,
     CommandEmpty,
@@ -22,18 +16,15 @@ const App: React.FC = () => {
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Settings">
               <CommandItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
+                <span>Command</span>
                 <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <span>Billing</span>
+                <span>Command</span>
                 <CommandShortcut>⌘B</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
+                <span>Command</span>
                 <CommandShortcut>⌘S</CommandShortcut>
               </CommandItem>
             </CommandGroup>

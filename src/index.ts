@@ -20,7 +20,7 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = (): Promise<void> => {
   window = new BrowserWindow({
-    height: 250,
+    height: 500,
     width: 700,
     frame: false,
     fullscreenable: false,
