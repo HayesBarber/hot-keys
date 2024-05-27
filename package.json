@@ -43,8 +43,7 @@
   },
   "keywords": [],
   "author": {
-    "name": "Hayes Barber",
-    "email": "you@example.com"
+    "name": "Hayes Barber"
   },
   "license": "MIT",
   "dependencies": {
