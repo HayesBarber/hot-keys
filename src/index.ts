@@ -33,6 +33,10 @@ app.on('ready', async () => {
   ipcMain.on('command-selected', onCommandSelected)
 
   await createWindow();
+  
+  setTimeout(() => {
+    app.dock.hide();
+  }, 2000);
 });
 
 const registerHotKeys = () => {
@@ -92,8 +96,6 @@ const createWindow = async (): Promise<void> => {
   const stringify = JSON.stringify(Object.values(commands));
   const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?commands=${stringify}`;
   await window.loadURL(url);
-
-  app.dock.hide();
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: string) => {
