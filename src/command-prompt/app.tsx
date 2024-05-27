@@ -24,7 +24,7 @@ const App: React.FC = () => {
           const parsedCommands: Command[] = JSON.parse(decodeURIComponent(commandsParam));
           setCommands(parsedCommands);
         } catch (error) {
-          console.error('Failed to parse commands parameter:', error);
+          console.error('Failed to parse');
         }
       }
     }, []);
