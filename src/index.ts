@@ -21,6 +21,18 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
+  registerHotKeys();
+
+  globalShortcut.register('Command+Shift+Space', () => {
+    toggle();
+  });
+
+  buildMenu();
+
+  createWindow();
+});
+
+const registerHotKeys = () => {
   const fileContent = readFileSync('src/commands.json', 'utf-8');
   const objects: Array<Command> = JSON.parse(fileContent);
   console.log(objects);
@@ -33,15 +45,15 @@ app.on('ready', async () => {
       exec(value.command);
     });
   });
+}
 
-  globalShortcut.register('Command+Shift+Space', () => {
-    toggle();
-  });
-
-  buildMenu();
-
-  createWindow();
-});
+const toggle = () => {
+  if (window.isFocused()) {
+    window.hide();
+  } else {
+    window.show();
+  }
+}
 
 const buildMenu = () => {
   const menu = Menu.buildFromTemplate([
@@ -53,14 +65,6 @@ const buildMenu = () => {
   }
 
   tray.setContextMenu(menu);
-}
-
-const toggle = () => {
-  if (window.isFocused()) {
-    window.hide();
-  } else {
-    window.show();
-  }
 }
 
 const createWindow = async (): Promise<void> => {
@@ -78,6 +82,7 @@ const createWindow = async (): Promise<void> => {
     },
     show: true,
   });
+
   window.setVisibleOnAllWorkspaces(true);
 
   const stringify = JSON.stringify(Object.values(commands));
