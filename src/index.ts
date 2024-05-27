@@ -50,7 +50,7 @@ app.on('ready', async () => {
 
   await createWindow();
 
-  globalShortcut.register('Option+Shift+Space', () => {
+  globalShortcut.register('Command+Shift+Space', () => {
     if (window.isFocused()) {
       window.hide();
     } else {
