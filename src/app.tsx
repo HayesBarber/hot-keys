@@ -1,7 +1,7 @@
 
 const App: React.FC = () => {
     return (
-        <div> hello </div>
+        <input autoFocus={true} type="text" />
     );
 }
 
