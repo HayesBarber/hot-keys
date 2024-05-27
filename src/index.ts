@@ -33,7 +33,7 @@ app.on('ready', async () => {
   ipcMain.on('command-selected', onCommandSelected)
 
   await createWindow();
-  
+
   setTimeout(() => {
     app.dock.hide();
   }, 2000);
@@ -99,6 +99,13 @@ const createWindow = async (): Promise<void> => {
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: string) => {
-  console.log((new URL(event.senderFrame.url)).host);
-  if ((new URL(event.senderFrame.url)).host !== 'electronjs.org') return
+  const host = (new URL(event.senderFrame.url)).host;
+  if (host !== 'localhost:3000') return;
+
+  const key = command.split(' ').join('+');
+  const actual = commands[key]?.command;
+
+  if(!actual) return;
+
+  exec(actual);
 }
