@@ -11,6 +11,14 @@ import {
     CommandShortcut,
   } from "../components/command"
 
+const map: Record<string, string> = {
+  'Command': '⌘',
+  'Option': '⌥',
+  'Shift': '⇧',
+  'Control': '⌃',
+  'Caps Lock': '⇪',
+};
+
 const App: React.FC = () => {
     const [commands, setCommands] = useState<Command[]>([]);
 
@@ -43,10 +51,15 @@ const App: React.FC = () => {
 }
 
 const Item: React.FC<Command> = ({displayName, hotKey}) => {
+  const parts = hotKey.split(' ');
+  parts.forEach((part, index, arr) => {
+    arr[index] = map[part] ?? part;
+  });
+
   return (
     <CommandItem>
       <span>{displayName}</span>
-      <CommandShortcut>{hotKey}</CommandShortcut>
+      <CommandShortcut>{parts.join('')}</CommandShortcut>
     </CommandItem>
   );
 }
