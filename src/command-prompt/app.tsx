@@ -10,7 +10,6 @@ import {
     CommandList,
     CommandShortcut,
   } from "../components/command"
-import { Divide } from "lucide-react";
 
 const App: React.FC = () => {
     const [commands, setCommands] = useState<Command[]>([]);
