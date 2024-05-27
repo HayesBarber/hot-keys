@@ -10,7 +10,7 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 // declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let tray: Tray | null = null
-// let window: BrowserWindow | null = null;
+let window: BrowserWindow | null = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -18,7 +18,7 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): Promise<void> => {
-  const window = new BrowserWindow({
+  window = new BrowserWindow({
     height: 75,
     width: 700,
     frame: false,
@@ -53,12 +53,10 @@ app.on('ready', async () => {
   globalShortcut.register('Command+Shift+Space', () => {
     console.log(`open input event`);
 
-    let windows = BrowserWindow.getAllWindows();
-
-    if (windows.length === 0) {
-      createWindow();
+    if (window.isFocused()) {
+      window.hide();
     } else {
-      windows.forEach((w) => w.close());
+      window.show();
     }
   });
 
