@@ -1,9 +1,6 @@
 import {
-    Calculator,
-    Calendar,
     CreditCard,
     Settings,
-    Smile,
     User,
   } from "lucide-react"
    
@@ -14,7 +11,6 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-    CommandSeparator,
     CommandShortcut,
   } from "./components/command"
 
@@ -24,21 +20,6 @@ const App: React.FC = () => {
           <CommandInput autoFocus={true} placeholder="Search..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <CommandItem>
-                <Calendar className="mr-2 h-4 w-4" />
-                <span>Calendar</span>
-              </CommandItem>
-              <CommandItem>
-                <Smile className="mr-2 h-4 w-4" />
-                <span>Search Emoji</span>
-              </CommandItem>
-              <CommandItem>
-                <Calculator className="mr-2 h-4 w-4" />
-                <span>Calculator</span>
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
             <CommandGroup heading="Settings">
               <CommandItem>
                 <User className="mr-2 h-4 w-4" />
