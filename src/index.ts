@@ -7,7 +7,7 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
-let commands: Array<Command> | null = null;
+let commands: Record<string, Command> = {};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -31,7 +31,7 @@ const createWindow = async (): Promise<void> => {
   });
   window.setVisibleOnAllWorkspaces(true);
 
-  const stringify = JSON.stringify(commands);
+  const stringify = JSON.stringify(Object.values(commands));
   const url = `${ MAIN_WINDOW_WEBPACK_ENTRY }?commands=${ stringify }`;
   await window.loadURL(url);
 
@@ -40,10 +40,12 @@ const createWindow = async (): Promise<void> => {
 
 app.on('ready', async () => {
   const fileContent = readFileSync('src/commands.json', 'utf-8');
-  commands = JSON.parse(fileContent);
-  console.log(commands);
+  const objects: Array<Command> = JSON.parse(fileContent);
+  console.log(objects);
 
-  commands.forEach((value) => {
+  objects.forEach((value) => {
+    commands[value.hotKey] = value;
+
     globalShortcut.register(value.hotKey, () => {
       console.log(`running ${ value.command } from input ${ value.hotKey }`);
       exec(value.command);
