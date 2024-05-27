@@ -34,7 +34,7 @@ const App: React.FC = () => {
           <CommandInput autoFocus={true} placeholder="Search..." />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Settings">
+            <CommandGroup heading="Hot-Keys">
               <CommandItem>
                 <span>{commands.length ? commands[0].displayName : ''}</span>
                 <CommandShortcut>⌘P</CommandShortcut>
