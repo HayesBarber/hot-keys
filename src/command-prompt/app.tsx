@@ -6,7 +6,7 @@
     CommandItem,
     CommandList,
     CommandShortcut,
-  } from "./components/command"
+  } from "../components/command"
 
 const App: React.FC = () => {
     return (

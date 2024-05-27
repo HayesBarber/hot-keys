@@ -25,8 +25,8 @@ const config: ForgeConfig = {
         config: rendererConfig,
         entryPoints: [
           {
-            html: './src/index.html',
-            js: './src/renderer.tsx',
+            html: './src/command-prompt/index.html',
+            js: './src/command-prompt/renderer.tsx',
             name: 'main_window',
           },
         ],
