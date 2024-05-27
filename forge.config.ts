@@ -28,6 +28,9 @@ const config: ForgeConfig = {
             html: './src/command-prompt/index.html',
             js: './src/command-prompt/renderer.tsx',
             name: 'main_window',
+            preload: {
+              js: './src/command-prompt/preload.ts',
+            },
           },
         ],
       },

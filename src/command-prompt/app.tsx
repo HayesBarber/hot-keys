@@ -57,7 +57,7 @@ const Item: React.FC<Command> = ({displayName, hotKey}) => {
   });
 
   return (
-    <CommandItem>
+    <CommandItem onSelect={() => window.electronAPI.commandSelected(hotKey)}>
       <span>{displayName}</span>
       <CommandShortcut>{parts.join('')}</CommandShortcut>
     </CommandItem>

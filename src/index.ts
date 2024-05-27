@@ -1,9 +1,10 @@
-import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain } from 'electron';
+import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent } from 'electron';
 import { exec } from 'child_process';
 import { readFileSync } from 'fs';
 import Command from './command';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
@@ -29,7 +30,9 @@ app.on('ready', async () => {
 
   buildMenu();
 
-  createWindow();
+  ipcMain.on('command-selected', onCommandSelected)
+
+  await createWindow();
 });
 
 const registerHotKeys = () => {
@@ -78,7 +81,8 @@ const createWindow = async (): Promise<void> => {
     transparent: true,
     webPreferences: {
       nodeIntegration: false,
-      contextIsolation: true
+      contextIsolation: true,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
     show: true,
   });
@@ -91,3 +95,8 @@ const createWindow = async (): Promise<void> => {
 
   app.dock.hide();
 };
+
+const onCommandSelected = (event: IpcMainEvent, command: string) => {
+  console.log((new URL(event.senderFrame.url)).host);
+  if ((new URL(event.senderFrame.url)).host !== 'electronjs.org') return
+}
