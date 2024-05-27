@@ -10,6 +10,7 @@ import {
     CommandList,
     CommandShortcut,
   } from "../components/command"
+import { Divide } from "lucide-react";
 
 const App: React.FC = () => {
     const [commands, setCommands] = useState<Command[]>([]);
@@ -35,14 +36,20 @@ const App: React.FC = () => {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Hot-Keys">
-              <CommandItem>
-                <span>{commands.length ? commands[0].displayName : ''}</span>
-                <CommandShortcut>⌘P</CommandShortcut>
-              </CommandItem>
+              {commands.length ? commands.map((command) => <Item displayName={command.displayName} hotKey={command.hotKey} command={command.command}/>) : <div/>}
             </CommandGroup>
           </CommandList>
         </CommandComponent>
     );
+}
+
+const Item: React.FC<Command> = ({displayName, hotKey}) => {
+  return (
+    <CommandItem>
+      <span>{displayName}</span>
+      <CommandShortcut>{hotKey}</CommandShortcut>
+    </CommandItem>
+  );
 }
 
 export default App;
