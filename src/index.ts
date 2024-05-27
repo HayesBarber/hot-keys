@@ -27,6 +27,10 @@ const createWindow = (): Promise<void> => {
     resizable: false,
     movable: false,
     transparent: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true
+    },
     show: true,
   });
   window.setVisibleOnAllWorkspaces(true);
