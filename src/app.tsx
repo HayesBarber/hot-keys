@@ -1,7 +1,9 @@
 
 const App: React.FC = () => {
     return (
-        <input autoFocus={true} type="text" />
+        <div className="text-blue-500 bg-red-500 w-[100px] h-[50px]">
+            hello
+        </div>
     );
 }
 

@@ -25,7 +25,7 @@ const createWindow = (): Promise<void> => {
     fullscreenable: false,
     resizable: false,
     movable: false,
-    show: false,
+    show: true,
   });
 
   return window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
