@@ -18,7 +18,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = (): Promise<void> => {
+const createWindow = async (): Promise<void> => {
   window = new BrowserWindow({
     height: 500,
     width: 700,
@@ -37,12 +37,12 @@ const createWindow = (): Promise<void> => {
 
   const url = `${ MAIN_WINDOW_WEBPACK_ENTRY }`;
 
-  return window.loadURL(url);
+  await window.loadURL(url);
+
+  app.dock.hide();
 };
 
 app.on('ready', async () => {
-  app.dock.hide();
-
   // const home = homedir();
   // const filePath = join(home, 'projects/commands/src', 'commands.json');
   const fileContent = readFileSync('src/commands.json', 'utf-8');
