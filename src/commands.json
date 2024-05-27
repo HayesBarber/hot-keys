@@ -1,4 +1,12 @@
-{
-    "Option+CommandOrControl+P": "osascript -e 'do shell script \"code -n\"'",
-    "Option+CommandOrControl+I": "osascript -e 'quit app \"safari.app\"'"
-}
+[
+    {
+        "hotKey": "Option+CommandOrControl+P",
+        "command": "osascript -e 'do shell script \"code -n\"'",
+        "displayName": "Open new VSCode window"
+    },
+    {
+        "hotKey": "Option+CommandOrControl+I",
+        "command": "osascript -e 'quit app \"safari.app\"'",
+        "displayName": "Close Safari"
+    }
+]

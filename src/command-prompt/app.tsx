@@ -9,6 +9,11 @@
   } from "../components/command"
 
 const App: React.FC = () => {
+  
+    const commands: any = global.location.search;
+
+    
+
     return (
         <Command className="rounded-lg border">
           <CommandInput autoFocus={true} placeholder="Search..." />
