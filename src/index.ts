@@ -31,7 +31,9 @@ const createWindow = (): Promise<void> => {
   });
   window.setVisibleOnAllWorkspaces(true);
 
-  return window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  const url = `${ MAIN_WINDOW_WEBPACK_ENTRY }`;
+
+  return window.loadURL(url);
 };
 
 app.on('ready', async () => {
