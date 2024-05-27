@@ -108,4 +108,6 @@ const onCommandSelected = (event: IpcMainEvent, command: string) => {
   if(!actual) return;
 
   exec(actual);
+
+  window.hide();
 }
