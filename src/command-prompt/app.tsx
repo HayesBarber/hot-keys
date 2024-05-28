@@ -22,6 +22,7 @@ const map: Record<string, string> = {
 
 const App: React.FC = () => {
   const [commands, setCommands] = useState<CommandClient[]>([]);
+  useEscapeKey(() => window.electronAPI.hide());
 
   useEffect(() => {
     const queryString = global.location.search;
@@ -37,12 +38,6 @@ const App: React.FC = () => {
       }
     }
   }, []);
-
-  const handleEscape = () => {
-    window.electronAPI.hide();
-  };
-
-  useEscapeKey(handleEscape);
 
   const onCommandSelected = (command: CommandClient) => {
     window.electronAPI.commandSelected(command);
