@@ -6,18 +6,28 @@ import { homedir } from 'os';
 import { join } from 'path';
 import { quit } from './quit';
 
+const parseCommands = (): Command[] => {
+    try {
+        const home = homedir();
+        const filePath = join(home, 'commands.json');
+        const fileContent = readFileSync(filePath, 'utf-8');
+        const commands: Command[] = JSON.parse(fileContent);
+
+        return commands;
+    } catch (error) {
+        return [];
+    }
+}
+
 const registerHotKeys = (
-    commands: CommandExecutable[],
+    commandExecutables: CommandExecutable[],
     toggleFunction: () => void,
     hideWindow: () => void,
 ) => {
-    const home = homedir();
-    const filePath = join(home, 'commands.json');
-    const fileContent = readFileSync(filePath, 'utf-8');
-    const objects: Command[] = JSON.parse(fileContent);
+    const commands = parseCommands();
 
-    objects.forEach((value) => {
-        commands.push({
+    commands.forEach((value) => {
+        commandExecutables.push({
             hotKey: value.hotKey,
             displayName: value.displayName,
             execute: () => exec(value.command),
@@ -29,7 +39,7 @@ const registerHotKeys = (
             });
         }
     });
-    
+
     const toggle: CommandExecutable = {
         hotKey: 'Command+Shift+Space',
         displayName: 'Show / Hide',
@@ -40,8 +50,8 @@ const registerHotKeys = (
         toggleFunction();
     });
 
-    commands.push(toggle);
-    commands.push(quit);
+    commandExecutables.push(toggle);
+    commandExecutables.push(quit);
 }
 
 export {

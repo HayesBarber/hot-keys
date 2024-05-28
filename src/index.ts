@@ -52,7 +52,7 @@ const buildMenu = () => {
 }
 
 const buildIcon = () => {
-  const path = 'src/tray-icon.png';
+  const path = 'src/assets/tray-icon.png';
 
   let icon = nativeImage.createFromPath(path);
   icon = icon.resize({ width: 28, height: 28 });
