@@ -34,6 +34,7 @@ app.on('ready', async () => {
 
   ipcMain.on('command-selected', onCommandSelected);
   ipcMain.on('hide', () => window.hide());
+  ipcMain.on('quit', () => app.quit());
 
   await createWindow();
 
