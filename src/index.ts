@@ -88,7 +88,7 @@ const createWindow = async (): Promise<void> => {
   await window.loadURL(url);
 };
 
-const onCommandSelected = (event: IpcMainEvent, command: Command) => {
+const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
   const host = (new URL(event.senderFrame.url)).host;
   if (host !== 'localhost:3000') return;
 
