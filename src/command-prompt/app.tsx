@@ -1,6 +1,7 @@
 import { CommandClient } from "../lib/command";
 import { useState, useEffect, useCallback } from "react";
 import useEscapeKey from "../lib/useEscapeKey";
+import { modifierKeyMap } from "../lib/modifierKeyMap";
 
 import {
   Command as CommandComponent,
@@ -11,14 +12,6 @@ import {
   CommandList,
   CommandShortcut,
 } from "../components/command"
-
-const map: Record<string, string> = {
-  'Command': '⌘',
-  'Option': '⌥',
-  'Shift': '⇧',
-  'Control': '⌃',
-  'Caps Lock': '⇪',
-};
 
 const App: React.FC = () => {
   const [commands, setCommands] = useState<CommandClient[]>([]);
@@ -63,7 +56,7 @@ const App: React.FC = () => {
 const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
   const parts: string[] = command.hotKey.split(' ');
   parts.forEach((part, index, arr) => {
-    arr[index] = map[part] ?? part;
+    arr[index] = modifierKeyMap[part] ?? part;
   });
 
   return (
