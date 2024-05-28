@@ -41,9 +41,13 @@ const App: React.FC = () => {
     window.electronAPI.commandSelected(hotKey);
   }
 
+  const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    e.target.select();
+  }
+
   return (
     <CommandComponent className="rounded-xl border">
-      <CommandInput autoFocus={true} onFocus={(e) => e.target.select()} placeholder="Search..." />
+      <CommandInput autoFocus={true} onFocus={onFocus} placeholder="Search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Hot-Keys">
