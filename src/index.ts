@@ -23,11 +23,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys(commands);
-
-  globalShortcut.register('Command+Shift+Space', () => {
-    toggle();
-  });
+  registerHotKeys(commands, toggle);
 
   buildMenu();
 

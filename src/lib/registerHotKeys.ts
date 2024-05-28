@@ -13,7 +13,7 @@ const quit: Command = {
 };
 const quitKey = createKey(quit);
 
-const registerHotKeys = (commands: Record<string, Command>) => {
+const registerHotKeys = (commands: Record<string, Command>, toggle: () => void) => {
     const home = homedir();
     const filePath = join(home, 'commands.json');
     const fileContent = readFileSync(filePath, 'utf-8');
@@ -32,6 +32,10 @@ const registerHotKeys = (commands: Record<string, Command>) => {
     });
 
     commands[quitKey] = quit;
+
+    globalShortcut.register('Command+Shift+Space', () => {
+        toggle();
+    });
 }
 
 export {
