@@ -103,7 +103,7 @@ const createWindow = async (): Promise<void> => {
 
   const clientCommands: CommandClient[] = Object.values(commands).map((e) => {
     return {
-      hotkey: e.hotKey ?? '',
+      hotKey: e.hotKey ?? '',
       displayName: e.displayName,
     };
   });

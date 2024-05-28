@@ -5,7 +5,7 @@ interface Command {
 }
 
 interface CommandClient {
-    hotKey?: string | null | undefined,
+    hotKey: string,
     displayName: string,
 }
 

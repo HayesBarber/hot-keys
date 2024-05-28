@@ -61,7 +61,7 @@ const App: React.FC = () => {
 }
 
 const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
-  const parts = command.hotKey?.split(' ') ?? [];
+  const parts: string[] = command.hotKey.split(' ');
   parts.forEach((part, index, arr) => {
     arr[index] = map[part] ?? part;
   });
