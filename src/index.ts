@@ -23,7 +23,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys(commands, toggle, window);
+  registerHotKeys(commands, toggle, hide);
 
   buildMenu();
 
@@ -43,6 +43,10 @@ const toggle = () => {
   } else {
     window.show();
   }
+}
+
+const hide = () => {
+  window.hide();
 }
 
 const buildMenu = () => {
