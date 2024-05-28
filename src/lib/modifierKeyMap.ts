@@ -4,4 +4,5 @@ export const modifierKeyMap: Record<string, string> = {
     'Shift': '⇧',
     'Control': '⌃',
     'Caps Lock': '⇪',
+    'Function': 'Fn',
   };
