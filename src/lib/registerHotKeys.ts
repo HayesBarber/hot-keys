@@ -6,18 +6,24 @@ import { homedir } from 'os';
 import { join } from 'path';
 import { quit } from './quit';
 
-const registerHotKeys = (
-    commands: CommandExecutable[],
-    toggleFunction: () => void,
-    hideWindow: () => void,
-) => {
+const parseCommands = (): Command[] => {
     const home = homedir();
     const filePath = join(home, 'commands.json');
     const fileContent = readFileSync(filePath, 'utf-8');
-    const objects: Command[] = JSON.parse(fileContent);
+    const commands: Command[] = JSON.parse(fileContent);
 
-    objects.forEach((value) => {
-        commands.push({
+    return commands;
+}
+
+const registerHotKeys = (
+    commandExecutables: CommandExecutable[],
+    toggleFunction: () => void,
+    hideWindow: () => void,
+) => {
+    const commands = parseCommands();
+
+    commands.forEach((value) => {
+        commandExecutables.push({
             hotKey: value.hotKey,
             displayName: value.displayName,
             execute: () => exec(value.command),
@@ -40,8 +46,8 @@ const registerHotKeys = (
         toggleFunction();
     });
 
-    commands.push(toggle);
-    commands.push(quit);
+    commandExecutables.push(toggle);
+    commandExecutables.push(quit);
 }
 
 export {
