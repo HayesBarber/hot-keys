@@ -10,7 +10,7 @@ import { quit, quitKey } from './quit';
 const registerHotKeys = (
     commands: Record<string, CommandExecutable>,
     toggleFunction: () => void,
-    hide: () => void,
+    hideWindow: () => void,
 ) => {
     const home = homedir();
     const filePath = join(home, 'commands.json');
@@ -36,7 +36,7 @@ const registerHotKeys = (
     const toggle: CommandExecutable = {
         hotKey: 'Command+Shift+Space',
         displayName: 'Show / Hide',
-        execute: () => hide(),
+        execute: () => hideWindow(),
     };
     const toggleKey = createKey(toggle);
 
