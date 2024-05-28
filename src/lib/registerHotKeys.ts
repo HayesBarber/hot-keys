@@ -15,7 +15,6 @@ const registerHotKeys = (
     const filePath = join(home, 'commands.json');
     const fileContent = readFileSync(filePath, 'utf-8');
     const objects: Command[] = JSON.parse(fileContent);
-    console.log(objects);
 
     objects.forEach((value) => {
         commands.push({
@@ -26,7 +25,6 @@ const registerHotKeys = (
 
         if (value.hotKey) {
             globalShortcut.register(value.hotKey, () => {
-                console.log(`running ${value.command} from input ${value.hotKey}`);
                 exec(value.command);
             });
         }
