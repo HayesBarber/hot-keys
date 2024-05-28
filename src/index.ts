@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent } from 'electron';
+import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } from 'electron';
 import { CommandClient, CommandExecutable } from './lib/command';
 import { createKey } from './lib/createKey';
 import { registerHotKeys } from './lib/registerHotKeys';
@@ -47,9 +47,9 @@ const buildMenu = () => {
     { role: 'quit', label: quit.displayName, accelerator: quit.hotKey },
   ]);
 
-  if (!tray) {
-    tray = new Tray('src/icon.png');
-  }
+  let icon = nativeImage.createFromPath('src/tray-icon.png');
+  icon = icon.resize({ width: 28, height: 28 });
+  tray = new Tray(icon);
 
   tray.setContextMenu(menu);
 }
