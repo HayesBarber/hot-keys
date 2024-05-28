@@ -28,7 +28,7 @@ app.on('ready', async () => {
   buildMenu();
 
   ipcMain.on('command-selected', onCommandSelected);
-  ipcMain.on('hide', () => window.hide());
+  ipcMain.on('hide', () => hide());
 
   await createWindow();
 
@@ -37,16 +37,16 @@ app.on('ready', async () => {
   }, 2000);
 });
 
-const toggle = () => {
-  if (window.isFocused()) {
-    window.hide();
-  } else {
-    window.show();
-  }
-}
+const focused = () => window.isFocused();
+const hide = () => window.hide();
+const show = () => window.show();
 
-const hide = () => {
-  window.hide();
+const toggle = () => {
+  if (focused()) {
+    hide();
+  } else {
+    show();
+  }
 }
 
 const buildMenu = () => {
@@ -104,5 +104,5 @@ const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
 
   actual();
 
-  window.hide();
+  hide();
 }
