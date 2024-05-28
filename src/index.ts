@@ -101,10 +101,12 @@ const createWindow = async (): Promise<void> => {
 
   window.setVisibleOnAllWorkspaces(true);
 
-  const clientCommands: CommandClient[] = Object.values(commands).map((e) => ({
-    hotkey: e.hotKey,
-    displayName: e.displayName,
-  }));
+  const clientCommands: CommandClient[] = Object.values(commands).map((e) => {
+    return {
+      hotkey: e.hotKey ?? '',
+      displayName: e.displayName,
+    };
+  });
 
   const stringify = JSON.stringify(clientCommands);
   const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?commands=${stringify}`;
