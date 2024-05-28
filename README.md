@@ -4,3 +4,11 @@
 </div>
 
 # Hot Keys
+
+Map commands to keyboard shortcuts.
+
+## Built with
+
+## Installing
+
+## Dev environment setup
