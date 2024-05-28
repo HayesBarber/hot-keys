@@ -40,14 +40,7 @@ app.on('ready', async () => {
 const focused = () => window.isFocused();
 const hide = () => window.hide();
 const show = () => window.show();
-
-const toggle = () => {
-  if (focused()) {
-    hide();
-  } else {
-    show();
-  }
-}
+const toggle = () => focused() ? hide() : show();
 
 const buildMenu = () => {
   const menu = Menu.buildFromTemplate([
