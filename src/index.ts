@@ -12,6 +12,18 @@ let tray: Tray | null = null
 let window: BrowserWindow | null = null;
 let commands: Record<string, Command> = {};
 
+const createKey = (command: Command) => {
+  const key = command.hotKey?.split(' ').join('+') ?? '';
+  return `${key}-${command.displayName}`;
+}
+
+const quit: Command = {
+  hotKey: 'Command+Q',
+  displayName: 'Quit',
+  command: '',
+};
+const quitKey = createKey(quit);
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -34,7 +46,6 @@ app.on('ready', async () => {
 
   ipcMain.on('command-selected', onCommandSelected);
   ipcMain.on('hide', () => window.hide());
-  ipcMain.on('quit', () => app.quit());
 
   await createWindow();
 
@@ -60,11 +71,8 @@ const registerHotKeys = () => {
       });
     }
   });
-}
 
-const createKey = (command: Command) => {
-  const key = command.hotKey?.split(' ').join('+') ?? '';
-  return `${key}-${command.displayName}`;
+  commands[quitKey] = quit;
 }
 
 const toggle = () => {
@@ -77,7 +85,7 @@ const toggle = () => {
 
 const buildMenu = () => {
   const menu = Menu.buildFromTemplate([
-    { role: 'quit', label: 'Quit Commands', accelerator: 'Command+Q' },
+    { role: 'quit', label: quit.displayName, accelerator: quit.hotKey },
   ]);
 
   if (!tray) {
@@ -123,6 +131,12 @@ const onCommandSelected = (event: IpcMainEvent, command: Command) => {
   if (host !== 'localhost:3000') return;
 
   const key = createKey(command);
+
+  if(key === quitKey){
+    app.quit();
+    return;
+  }
+
   const actual = commands[key]?.command;
 
   if(!actual) return;
