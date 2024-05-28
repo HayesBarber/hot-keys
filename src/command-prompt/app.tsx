@@ -1,5 +1,5 @@
 import { CommandClient } from "../lib/command";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import useEscapeKey from "../lib/useEscapeKey";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 

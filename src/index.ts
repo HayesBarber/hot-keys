@@ -1,6 +1,5 @@
 import { app, BrowserWindow, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } from 'electron';
 import { CommandClient, CommandExecutable } from './lib/command';
-import { createKey } from './lib/createKey';
 import { registerHotKeys } from './lib/registerHotKeys';
 import { quit } from './lib/quit';
 
@@ -9,7 +8,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
-let commands: Record<string, CommandExecutable> = {};
+let commands: CommandExecutable[] = [];
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -80,10 +79,11 @@ const createWindow = async (): Promise<void> => {
 
   window.setVisibleOnAllWorkspaces(true);
 
-  const clientCommands: CommandClient[] = Object.values(commands).map((e) => {
+  const clientCommands: CommandClient[] = Object.values(commands).map((e, i) => {
     return {
       hotKey: e.hotKey ?? '',
       displayName: e.displayName,
+      index: i,
     };
   });
 
@@ -96,13 +96,11 @@ const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
   const host = (new URL(event.senderFrame.url)).host;
   if (host !== 'localhost:3000') return;
 
-  const key = createKey(command);
+  const i = command.index;
 
-  const actual = commands[key]?.execute;
+  if(i > commands.length - 1) return;
 
-  if(!actual) return;
-
-  actual();
+  commands[i].execute();
 
   hide();
 }

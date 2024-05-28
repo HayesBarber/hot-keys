@@ -4,26 +4,25 @@ import { readFileSync } from 'fs';
 import { Command, CommandExecutable } from './command';
 import { homedir } from 'os';
 import { join } from 'path';
-import { createKey } from './createKey';
-import { quit, quitKey } from './quit';
+import { quit } from './quit';
 
 const registerHotKeys = (
-    commands: Record<string, CommandExecutable>,
+    commands: CommandExecutable[],
     toggleFunction: () => void,
     hideWindow: () => void,
 ) => {
     const home = homedir();
     const filePath = join(home, 'commands.json');
     const fileContent = readFileSync(filePath, 'utf-8');
-    const objects: Array<Command> = JSON.parse(fileContent);
+    const objects: Command[] = JSON.parse(fileContent);
     console.log(objects);
 
     objects.forEach((value) => {
-        commands[createKey(value)] = {
+        commands.push({
             hotKey: value.hotKey,
             displayName: value.displayName,
             execute: () => exec(value.command),
-        };
+        });
 
         if (value.hotKey) {
             globalShortcut.register(value.hotKey, () => {
@@ -38,14 +37,13 @@ const registerHotKeys = (
         displayName: 'Show / Hide',
         execute: () => hideWindow(),
     };
-    const toggleKey = createKey(toggle);
 
     globalShortcut.register(toggle.hotKey, () => {
         toggleFunction();
     });
 
-    commands[toggleKey] = toggle;
-    commands[quitKey] = quit;
+    commands.push(toggle);
+    commands.push(quit);
 }
 
 export {

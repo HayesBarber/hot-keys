@@ -7,6 +7,7 @@ interface Command {
 interface CommandClient {
     hotKey: string,
     displayName: string,
+    index: number,
 }
 
 interface CommandExecutable {
