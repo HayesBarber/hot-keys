@@ -2,7 +2,7 @@ import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent }
 import { exec } from 'child_process';
 import { Command, CommandClient } from './command';
 import { createKey } from './lib/createKey';
-import { quit, quitKey, registerHotKeys } from './lib/registerHotKeys';
+import { quit, quitKey, registerHotKeys, toggleKey } from './lib/registerHotKeys';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -96,6 +96,9 @@ const onCommandSelected = (event: IpcMainEvent, command: Command) => {
 
   if(key === quitKey){
     app.quit();
+    return;
+  } else if (key == toggleKey) {
+    window.hide();
     return;
   }
 
