@@ -1,5 +1,5 @@
 import Command from "../command";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import {
   Command as CommandComponent,
@@ -36,6 +36,21 @@ const App: React.FC = () => {
       }
     }
   }, []);
+
+  const escFunction = useCallback((event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      window.electronAPI.hide();
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      window.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction]);
 
   const onCommandSelected = (hotKey: string) => {
     window.electronAPI.commandSelected(hotKey);

@@ -1,5 +1,6 @@
 export interface IElectronAPI {
     commandSelected: (command: string) => Promise<void>,
+    hide: () => Promise<void>,
 }
   
 declare global {

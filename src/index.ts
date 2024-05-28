@@ -30,7 +30,8 @@ app.on('ready', async () => {
 
   buildMenu();
 
-  ipcMain.on('command-selected', onCommandSelected)
+  ipcMain.on('command-selected', onCommandSelected);
+  ipcMain.on('hide', () => window.hide());
 
   await createWindow();
 
