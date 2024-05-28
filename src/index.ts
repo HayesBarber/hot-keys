@@ -2,6 +2,8 @@ import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent }
 import { exec } from 'child_process';
 import { readFileSync } from 'fs';
 import { Command, CommandClient } from './command';
+import { homedir } from 'os';
+import { join } from 'path';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -41,7 +43,9 @@ app.on('ready', async () => {
 });
 
 const registerHotKeys = () => {
-  const fileContent = readFileSync('src/commands.json', 'utf-8');
+  const home = homedir();
+  const filePath = join(home, 'commands.json');
+  const fileContent = readFileSync(filePath, 'utf-8');
   const objects: Array<Command> = JSON.parse(fileContent);
   console.log(objects);
 
@@ -110,7 +114,6 @@ const createWindow = async (): Promise<void> => {
 
   const stringify = JSON.stringify(clientCommands);
   const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?commands=${stringify}`;
-  console.log(url);
   await window.loadURL(url);
 };
 
