@@ -44,8 +44,8 @@ const App: React.FC = () => {
 
   useEscapeKey(handleEscape);
 
-  const onCommandSelected = (hotKey: string) => {
-    window.electronAPI.commandSelected(hotKey);
+  const onCommandSelected = (command: Command) => {
+    window.electronAPI.commandSelected(command);
   }
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -58,22 +58,22 @@ const App: React.FC = () => {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Hot-Keys">
-          {commands.length ? commands.map((command) => <Item displayName={command.displayName} hotKey={command.hotKey} onSelect={onCommandSelected} />) : <div />}
+          {commands.length ? commands.map((command) => <Item command={command} onSelect={onCommandSelected} />) : <div />}
         </CommandGroup>
       </CommandList>
     </CommandComponent>
   );
 }
 
-const Item: React.FC<{ displayName: string, hotKey: string, onSelect: (hotKey: string) => void }> = ({ displayName, hotKey, onSelect }) => {
-  const parts = hotKey.split(' ');
+const Item: React.FC<{ command: Command, onSelect: (hotKey: Command) => void }> = ({ command, onSelect }) => {
+  const parts = command.hotKey.split(' ');
   parts.forEach((part, index, arr) => {
     arr[index] = map[part] ?? part;
   });
 
   return (
-    <CommandItem onSelect={() => onSelect(hotKey)}>
-      <span>{displayName}</span>
+    <CommandItem onSelect={() => onSelect(command)}>
+      <span>{command.displayName}</span>
       <CommandShortcut>{parts.join('')}</CommandShortcut>
     </CommandItem>
   );

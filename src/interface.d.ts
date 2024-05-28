@@ -1,5 +1,7 @@
+import Command from "./command";
+
 export interface IElectronAPI {
-    commandSelected: (command: string) => Promise<void>,
+    commandSelected: (command: Command) => Promise<void>,
     hide: () => Promise<void>,
 }
   

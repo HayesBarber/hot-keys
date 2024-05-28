@@ -46,13 +46,18 @@ const registerHotKeys = () => {
   console.log(objects);
 
   objects.forEach((value) => {
-    commands[value.hotKey] = value;
+    commands[createKey(value)] = value;
 
     globalShortcut.register(value.hotKey, () => {
       console.log(`running ${value.command} from input ${value.hotKey}`);
       exec(value.command);
     });
   });
+}
+
+const createKey = (command: Command) => {
+  const key = command.hotKey.split(' ').join('+');
+  return `${key}-${command.displayName}`;
 }
 
 const toggle = () => {
@@ -99,11 +104,11 @@ const createWindow = async (): Promise<void> => {
   await window.loadURL(url);
 };
 
-const onCommandSelected = (event: IpcMainEvent, command: string) => {
+const onCommandSelected = (event: IpcMainEvent, command: Command) => {
   const host = (new URL(event.senderFrame.url)).host;
   if (host !== 'localhost:3000') return;
 
-  const key = command.split(' ').join('+');
+  const key = createKey(command);
   const actual = commands[key]?.command;
 
   if(!actual) return;
