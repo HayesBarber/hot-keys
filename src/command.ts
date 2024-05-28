@@ -1,5 +1,5 @@
 interface Command {
-    hotKey: string,
+    hotKey?: string | null | undefined,
     command: string,
     displayName: string,
 }

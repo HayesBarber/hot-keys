@@ -48,15 +48,17 @@ const registerHotKeys = () => {
   objects.forEach((value) => {
     commands[createKey(value)] = value;
 
-    globalShortcut.register(value.hotKey, () => {
-      console.log(`running ${value.command} from input ${value.hotKey}`);
-      exec(value.command);
-    });
+    if(value.hotKey) {
+      globalShortcut.register(value.hotKey, () => {
+        console.log(`running ${value.command} from input ${value.hotKey}`);
+        exec(value.command);
+      });
+    }
   });
 }
 
 const createKey = (command: Command) => {
-  const key = command.hotKey.split(' ').join('+');
+  const key = command.hotKey?.split(' ').join('+') ?? '';
   return `${key}-${command.displayName}`;
 }
 

@@ -66,7 +66,7 @@ const App: React.FC = () => {
 }
 
 const Item: React.FC<{ command: Command, onSelect: (hotKey: Command) => void }> = ({ command, onSelect }) => {
-  const parts = command.hotKey.split(' ');
+  const parts = command.hotKey?.split(' ') ?? [];
   parts.forEach((part, index, arr) => {
     arr[index] = map[part] ?? part;
   });
@@ -74,7 +74,7 @@ const Item: React.FC<{ command: Command, onSelect: (hotKey: Command) => void }> 
   return (
     <CommandItem onSelect={() => onSelect(command)}>
       <span>{command.displayName}</span>
-      <CommandShortcut>{parts.join('')}</CommandShortcut>
+      {parts.length ? <CommandShortcut>{parts.join('')}</CommandShortcut> : <div/>}
     </CommandItem>
   );
 }
