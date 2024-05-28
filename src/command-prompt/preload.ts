@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import Command from '../command';
+import {CommandClient} from '../command';
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    commandSelected: (command: Command) => ipcRenderer.send('command-selected', command),
+    commandSelected: (command: CommandClient) => ipcRenderer.send('command-selected', command),
     hide: () => ipcRenderer.send('hide'),
 });

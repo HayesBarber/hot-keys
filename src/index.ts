@@ -1,7 +1,7 @@
 import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent } from 'electron';
 import { exec } from 'child_process';
 import { readFileSync } from 'fs';
-import Command from './command';
+import { Command, CommandClient } from './command';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -101,8 +101,14 @@ const createWindow = async (): Promise<void> => {
 
   window.setVisibleOnAllWorkspaces(true);
 
-  const stringify = JSON.stringify(Object.values(commands));
+  const clientCommands: CommandClient[] = Object.values(commands).map((e) => ({
+    hotkey: e.hotKey,
+    displayName: e.displayName,
+  }));
+
+  const stringify = JSON.stringify(clientCommands);
   const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?commands=${stringify}`;
+  console.log(url);
   await window.loadURL(url);
 };
 

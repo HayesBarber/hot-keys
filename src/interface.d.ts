@@ -1,7 +1,7 @@
-import Command from "./command";
+import {CommandClient} from './command'
 
 export interface IElectronAPI {
-    commandSelected: (command: Command) => Promise<void>,
+    commandSelected: (command: CommandClient) => Promise<void>,
     hide: () => Promise<void>,
 }
   

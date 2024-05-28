@@ -1,4 +1,4 @@
-import Command from "../command";
+import {CommandClient} from "../command";
 import { useState, useEffect, useCallback } from "react";
 import useEscapeKey from "../lib/useEscapeKey";
 
@@ -21,7 +21,7 @@ const map: Record<string, string> = {
 };
 
 const App: React.FC = () => {
-  const [commands, setCommands] = useState<Command[]>([]);
+  const [commands, setCommands] = useState<CommandClient[]>([]);
 
   useEffect(() => {
     const queryString = global.location.search;
@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
     if (commandsParam) {
       try {
-        const parsedCommands: Command[] = JSON.parse(decodeURIComponent(commandsParam));
+        const parsedCommands: CommandClient[] = JSON.parse(decodeURIComponent(commandsParam));
         setCommands(parsedCommands);
       } catch (error) {
         console.error('Failed to parse');
@@ -44,7 +44,7 @@ const App: React.FC = () => {
 
   useEscapeKey(handleEscape);
 
-  const onCommandSelected = (command: Command) => {
+  const onCommandSelected = (command: CommandClient) => {
     window.electronAPI.commandSelected(command);
   }
 
@@ -65,7 +65,7 @@ const App: React.FC = () => {
   );
 }
 
-const Item: React.FC<{ command: Command, onSelect: (hotKey: Command) => void }> = ({ command, onSelect }) => {
+const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
   const parts = command.hotKey?.split(' ') ?? [];
   parts.forEach((part, index, arr) => {
     arr[index] = map[part] ?? part;

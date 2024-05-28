@@ -4,4 +4,9 @@ interface Command {
     displayName: string,
 }
 
-export default Command;
+interface CommandClient {
+    hotKey?: string | null | undefined,
+    displayName: string,
+}
+
+export { Command, CommandClient };
