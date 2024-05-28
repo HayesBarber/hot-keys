@@ -21,7 +21,6 @@ const map: Record<string, string> = {
 
 const App: React.FC = () => {
   const [commands, setCommands] = useState<Command[]>([]);
-  const [value, setValue] = useState<string>('');
 
   useEffect(() => {
     const queryString = global.location.search;
@@ -40,12 +39,11 @@ const App: React.FC = () => {
 
   const onCommandSelected = (hotKey: string) => {
     window.electronAPI.commandSelected(hotKey);
-    setValue('');
   }
 
   return (
     <CommandComponent className="rounded-xl border">
-      <CommandInput autoFocus={true} value={value} onValueChange={(v: string) => setValue(v)} placeholder="Search..." />
+      <CommandInput autoFocus={true} onFocus={(e) => e.target.select()} placeholder="Search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Hot-Keys">
