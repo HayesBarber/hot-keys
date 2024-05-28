@@ -1,9 +1,8 @@
 import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent } from 'electron';
 import { exec } from 'child_process';
-import { readFileSync } from 'fs';
 import { Command, CommandClient } from './command';
-import { homedir } from 'os';
-import { join } from 'path';
+import { createKey } from './lib/createKey';
+import { quit, quitKey, registerHotKeys } from './lib/registerHotKeys';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -11,18 +10,6 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
 let commands: Record<string, Command> = {};
-
-const createKey = (command: Command) => {
-  const key = command.hotKey?.split(' ').join('+') ?? '';
-  return `${key}-${command.displayName}`;
-}
-
-const quit: Command = {
-  hotKey: 'Command+Q',
-  displayName: 'Quit',
-  command: '',
-};
-const quitKey = createKey(quit);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -36,7 +23,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys();
+  registerHotKeys(commands);
 
   globalShortcut.register('Command+Shift+Space', () => {
     toggle();
@@ -53,27 +40,6 @@ app.on('ready', async () => {
     app.dock.hide();
   }, 2000);
 });
-
-const registerHotKeys = () => {
-  const home = homedir();
-  const filePath = join(home, 'commands.json');
-  const fileContent = readFileSync(filePath, 'utf-8');
-  const objects: Array<Command> = JSON.parse(fileContent);
-  console.log(objects);
-
-  objects.forEach((value) => {
-    commands[createKey(value)] = value;
-
-    if(value.hotKey) {
-      globalShortcut.register(value.hotKey, () => {
-        console.log(`running ${value.command} from input ${value.hotKey}`);
-        exec(value.command);
-      });
-    }
-  });
-
-  commands[quitKey] = quit;
-}
 
 const toggle = () => {
   if (window.isFocused()) {
