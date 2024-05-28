@@ -1,5 +1,5 @@
 import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent } from 'electron';
-import { CommandClient, CommandExecutable } from './command';
+import { CommandClient, CommandExecutable } from './lib/command';
 import { createKey } from './lib/createKey';
 import { registerHotKeys } from './lib/registerHotKeys';
 import { quit } from './lib/quit';

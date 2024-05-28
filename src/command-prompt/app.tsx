@@ -1,4 +1,4 @@
-import { CommandClient } from "../command";
+import { CommandClient } from "../lib/command";
 import { useState, useEffect, useCallback } from "react";
 import useEscapeKey from "../lib/useEscapeKey";
 

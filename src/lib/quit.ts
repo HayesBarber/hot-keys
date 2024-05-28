@@ -1,4 +1,4 @@
-import { CommandExecutable } from '../command';
+import { CommandExecutable } from './command';
 import { createKey } from './createKey';
 import { app } from 'electron';
 
