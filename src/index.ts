@@ -1,15 +1,15 @@
 import { app, BrowserWindow, globalShortcut, Tray, Menu, ipcMain, IpcMainEvent } from 'electron';
-import { exec } from 'child_process';
-import { Command, CommandClient } from './command';
+import { CommandClient, CommandExecutable } from './command';
 import { createKey } from './lib/createKey';
-import { quit, quitKey, registerHotKeys, toggleKey } from './lib/registerHotKeys';
+import { registerHotKeys } from './lib/registerHotKeys';
+import { quit } from './lib/quit';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
-let commands: Record<string, Command> = {};
+let commands: Record<string, CommandExecutable> = {};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -23,7 +23,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys(commands, toggle);
+  registerHotKeys(commands, toggle, window);
 
   buildMenu();
 
@@ -94,19 +94,11 @@ const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
 
   const key = createKey(command);
 
-  if(key === quitKey){
-    app.quit();
-    return;
-  } else if (key == toggleKey) {
-    window.hide();
-    return;
-  }
-
-  const actual = commands[key]?.command;
+  const actual = commands[key]?.execute;
 
   if(!actual) return;
 
-  exec(actual);
+  actual();
 
   window.hide();
 }

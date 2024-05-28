@@ -9,4 +9,10 @@ interface CommandClient {
     displayName: string,
 }
 
-export { Command, CommandClient };
+interface CommandExecutable {
+    hotKey: string,
+    displayName: string,
+    execute: () => void,
+}
+
+export { Command, CommandClient, CommandExecutable };

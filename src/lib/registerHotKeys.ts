@@ -1,26 +1,17 @@
-import { globalShortcut } from 'electron';
+import { globalShortcut, BrowserWindow } from 'electron';
 import { exec } from 'child_process';
 import { readFileSync } from 'fs';
-import { Command } from '../command';
+import { Command, CommandExecutable } from '../command';
 import { homedir } from 'os';
 import { join } from 'path';
 import { createKey } from './createKey';
+import { quit, quitKey } from './quit';
 
-const quit: Command = {
-    hotKey: 'Command+Q',
-    displayName: 'Quit',
-    command: '',
-};
-const quitKey = createKey(quit);
-
-const toggle: Command = {
-    hotKey: 'Command+Shift+Space',
-    displayName: 'Show/Hide',
-    command: '',
-};
-const toggleKey = createKey(toggle);
-
-const registerHotKeys = (commands: Record<string, Command>, toggleFunction: () => void) => {
+const registerHotKeys = (
+    commands: Record<string, CommandExecutable>,
+    toggleFunction: () => void,
+    window: BrowserWindow | null
+) => {
     const home = homedir();
     const filePath = join(home, 'commands.json');
     const fileContent = readFileSync(filePath, 'utf-8');
@@ -28,7 +19,11 @@ const registerHotKeys = (commands: Record<string, Command>, toggleFunction: () =
     console.log(objects);
 
     objects.forEach((value) => {
-        commands[createKey(value)] = value;
+        commands[createKey(value)] = {
+            hotKey: value.hotKey,
+            displayName: value.displayName,
+            execute: () => exec(value.command),
+        };
 
         if (value.hotKey) {
             globalShortcut.register(value.hotKey, () => {
@@ -37,6 +32,13 @@ const registerHotKeys = (commands: Record<string, Command>, toggleFunction: () =
             });
         }
     });
+    
+    const toggle: CommandExecutable = {
+        hotKey: 'Command+Shift+Space',
+        displayName: 'Show-Hide',
+        execute: () => window.hide(),
+    };
+    const toggleKey = createKey(toggle);
 
     globalShortcut.register(toggle.hotKey, () => {
         toggleFunction();
@@ -47,9 +49,5 @@ const registerHotKeys = (commands: Record<string, Command>, toggleFunction: () =
 }
 
 export {
-    quit,
-    quitKey,
-    toggle,
-    toggleKey,
     registerHotKeys,
 };
