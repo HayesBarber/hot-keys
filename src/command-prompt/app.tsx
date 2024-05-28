@@ -1,5 +1,6 @@
 import Command from "../command";
 import { useState, useEffect, useCallback } from "react";
+import useEscapeKey from "../lib/useEscapeKey";
 
 import {
   Command as CommandComponent,
@@ -37,20 +38,11 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const escFunction = useCallback((event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-      event.preventDefault();
-      window.electronAPI.hide();
-    }
-  }, []);
+  const handleEscape = () => {
+    window.electronAPI.hide();
+  };
 
-  useEffect(() => {
-    window.addEventListener("keydown", escFunction, false);
-
-    return () => {
-      window.removeEventListener("keydown", escFunction, false);
-    };
-  }, [escFunction]);
+  useEscapeKey(handleEscape);
 
   const onCommandSelected = (hotKey: string) => {
     window.electronAPI.commandSelected(hotKey);
