@@ -7,12 +7,16 @@ import { join } from 'path';
 import { quit } from './quit';
 
 const parseCommands = (): Command[] => {
-    const home = homedir();
-    const filePath = join(home, 'commands.json');
-    const fileContent = readFileSync(filePath, 'utf-8');
-    const commands: Command[] = JSON.parse(fileContent);
+    try {
+        const home = homedir();
+        const filePath = join(home, 'commands.json');
+        const fileContent = readFileSync(filePath, 'utf-8');
+        const commands: Command[] = JSON.parse(fileContent);
 
-    return commands;
+        return commands;
+    } catch (error) {
+        return [];
+    }
 }
 
 const registerHotKeys = (
@@ -35,7 +39,7 @@ const registerHotKeys = (
             });
         }
     });
-    
+
     const toggle: CommandExecutable = {
         hotKey: 'Command+Shift+Space',
         displayName: 'Show / Hide',
