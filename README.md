@@ -61,3 +61,6 @@ Hitting ***Command+Shift+Space*** will toggle the UI to be shown.
 *Note: The UI does not have to be visible for the hotKeys to work. You do not have to use the UI.*
 
 ## Dev environment setup
+
+todo
+
