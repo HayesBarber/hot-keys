@@ -35,6 +35,19 @@ Each object should contain these fields:
 
 ### Example commands.json
 
+```bash
+cd ~
+```
+
+```bash
+touch commands.json
+```
+
+```bash
+# if using VSCode
+code commands.json
+```
+
 ```json
 [
     {
