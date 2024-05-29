@@ -25,6 +25,15 @@ const App: React.FC = () => {
     if (commandsParam) {
       try {
         const parsedCommands: CommandClient[] = JSON.parse(decodeURIComponent(commandsParam));
+
+        if (parsedCommands.length <= 2) {
+          parsedCommands.unshift({
+            hotKey: '',
+            index: -1,
+            displayName: 'Your commands.json was either not found, empty, or failed to parse',
+          });
+        }
+
         setCommands(parsedCommands);
       } catch (error) {
         console.error('Failed to parse');
@@ -62,7 +71,7 @@ const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient)
   return (
     <CommandItem onSelect={() => onSelect(command)}>
       <span>{command.displayName}</span>
-      {parts.length ? <CommandShortcut>{parts.join('')}</CommandShortcut> : <div/>}
+      {parts.length ? <CommandShortcut>{parts.join('')}</CommandShortcut> : <div />}
     </CommandItem>
   );
 }

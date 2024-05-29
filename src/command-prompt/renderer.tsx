@@ -1,5 +1,5 @@
 import '../index.css';
-import App from './app';
+import App from './prompt';
 import { createRoot } from 'react-dom/client'
 
 const container = document.getElementById('app');
