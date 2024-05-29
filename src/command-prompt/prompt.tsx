@@ -1,6 +1,7 @@
 import { CommandClient } from "../lib/command";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useEscapeKey from "../lib/useEscapeKey";
+import useFocus from "../lib/useFocus";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 
 import {
@@ -15,6 +16,7 @@ import {
 
 const App: React.FC = () => {
   const [commands, setCommands] = useState<CommandClient[]>([]);
+  const inputRef = useFocus();
   useEscapeKey(() => window.electronAPI.hide());
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const App: React.FC = () => {
 
   return (
     <CommandComponent className="rounded-xl border outline-none focus:outline-none">
-      <CommandInput autoFocus={true} onFocus={onFocus} placeholder="Search..." />
+      <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Hot-Keys">
