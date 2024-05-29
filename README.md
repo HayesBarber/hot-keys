@@ -7,7 +7,9 @@
 
 Map commands to keyboard shortcuts.
 
-todo add image of ui
+<div align="center">
+    <img src="src/assets/ui-image.png" alt="UI"/>
+</div>
 
 ## Built with
 
