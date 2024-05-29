@@ -56,7 +56,7 @@ Each object should contain these fields:
 
 You can execute the commands by their ```hotKey``` or via the UI.
 
-Hitting ***Command+Shift+Space*** will toggle the UI to be shown.
+Hitting ***Command+Shift+Space*** will toggle the UI to be shown / hidden.
 
 *Note: The UI does not have to be visible for the hotKeys to work. You do not have to use the UI.*
 
