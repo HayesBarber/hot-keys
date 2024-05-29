@@ -87,8 +87,15 @@ const createWindow = async (): Promise<void> => {
     };
   });
 
+  let errorOrEmpty = false;
+
+  // min length is two for toggle ui and quit
+  if(clientCommands.length <= 2) {
+    errorOrEmpty = true;
+  }
+
   const stringify = JSON.stringify(clientCommands);
-  const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?commands=${stringify}`;
+  const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?errorOrEmpty=${errorOrEmpty}&commands=${stringify}`;
   await window.loadURL(url);
 };
 
