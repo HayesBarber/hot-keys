@@ -19,11 +19,11 @@ todo add image of ui
 
 ## Quick Start
 
-Download and install the latest release ***todo***
+Download and install the latest release. ***todo***
 
-Hot-Keys will read from a ```commands.json``` file in your ***home directory***
+Hot-Keys will read from a ```commands.json``` file in your ***home directory***.
 
-This should be an ***array of json objects***
+This should be an ***array of json objects***.
 
 Each object should contain these fields:
 
@@ -52,9 +52,9 @@ Each object should contain these fields:
 ]
 ```
 
-You can execute the commands by their ```hotKey``` or via the UI
+You can execute the commands by their ```hotKey``` or via the UI.
 
-Hitting ***Command+Shift+Space*** will toggle the UI to be shown
+Hitting ***Command+Shift+Space*** will toggle the UI to be shown.
 
 *Note: The UI does not have to be visible for the hotKeys to work. You do not have to use the UI.*
 
