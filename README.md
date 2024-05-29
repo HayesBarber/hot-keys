@@ -16,6 +16,7 @@ Map commands to keyboard shortcuts.
 * [**Electron**](https://www.electronjs.org)
 * [**React**](https://react.dev)
 * [**shadcn/ui**](https://ui.shadcn.com)
+* [**cmdk**](https://github.com/pacocoursey/cmdk)
 * [**tailwindcss**](https://tailwindcss.com)
 * [**Geist Font**](https://github.com/vercel/geist-font/blob/main/LICENSE.txt)
 
