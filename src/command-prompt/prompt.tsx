@@ -50,7 +50,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <CommandComponent className="rounded-xl border">
+    <CommandComponent className="rounded-xl border outline-none focus:outline-none">
       <CommandInput autoFocus={true} onFocus={onFocus} placeholder="Search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
