@@ -3,7 +3,7 @@
     <img src="src/assets/tray-icon.png" alt="Icon" height="200px"/>
 </div>
 
-# Hot-Keys
+# Hot-Keys ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/hayesbarber/hot-keys/total)
 
 Map commands to keyboard shortcuts.
 
