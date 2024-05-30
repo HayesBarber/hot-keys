@@ -76,5 +76,12 @@ Hitting ***Command+Shift+Space*** will toggle the UI to be shown / hidden.
 
 ## Dev environment setup
 
-todo
-
+1. Clone the repo
+2. Install dependencies
+```bash
+npm install
+```
+3. Run the application
+```bash
+npm run start
+```
