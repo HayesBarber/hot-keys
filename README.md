@@ -1,6 +1,6 @@
 
 <div align="center">
-    <img src="src/assets/tray-icon.png" alt="Icon" height="200px"/>
+    <img src="src/assets/tray-icon.png" alt="Icon" height="300px"/>
 </div>
 
 # Hot-Keys ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/hayesbarber/hot-keys/total)
