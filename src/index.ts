@@ -98,9 +98,12 @@ const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
 
   const i = command.index;
 
-  if(i < 0 || i > commands.length - 1) return;
+  if (i < 0 || i > commands.length - 1) return;
 
-  commands[i].execute();
+  try {
+    commands[i].execute();
+  } catch (error) { }
+
 
   hide();
 }
