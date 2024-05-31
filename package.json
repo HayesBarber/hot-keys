@@ -1,8 +1,8 @@
 {
   "name": "hot-keys",
   "productName": "hot-keys",
-  "version": "1.0.0",
-  "description": "A macOS app for shortcuts",
+  "version": "0.1.0",
+  "description": "An app for shortcuts",
   "license": "MIT",
   "main": ".webpack/main",
   "keywords": [],
