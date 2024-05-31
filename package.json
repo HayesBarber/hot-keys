@@ -12,7 +12,7 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "SIGN=1 electron-forge make",
+    "make": "SIGN=1 electron-forge make --arch universal",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
