@@ -1,6 +1,6 @@
 {
   "name": "hot-keys",
-  "productName": "Hot-Keys",
+  "productName": "hot-keys",
   "version": "1.0.0",
   "description": "A macOS app for shortcuts",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make",
+    "make": "SIGN=1 electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
