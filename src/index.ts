@@ -2,6 +2,7 @@ import { app, BrowserWindow, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } fr
 import { CommandClient, CommandExecutable } from './lib/command';
 import { registerHotKeys } from './lib/registerHotKeys';
 import { quit } from './lib/quit';
+import { join } from 'path';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -52,7 +53,13 @@ const buildMenu = () => {
 }
 
 const buildIcon = () => {
-  const path = 'src/assets/tray-icon.png';
+  let assetsPath = 'src/assets';
+
+  if(app.isPackaged) {
+    assetsPath = process.resourcesPath;
+  }
+
+  const path = join(assetsPath, 'tray-icon.png');
 
   let icon = nativeImage.createFromPath(path);
   icon = icon.resize({ width: 28, height: 28 });
