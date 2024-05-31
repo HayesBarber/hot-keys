@@ -100,9 +100,6 @@ const createWindow = async (): Promise<void> => {
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
-  const host = (new URL(event.senderFrame.url)).host;
-  if (host !== 'localhost:3000') return;
-
   const i = command.index;
 
   if (i < 0 || i > commands.length - 1) return;
