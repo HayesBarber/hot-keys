@@ -17,19 +17,19 @@ const config: ForgeConfig = {
     icon: './src/assets/icon',
     ...(process.env.SIGN
       ? {
-          osxSign: {
-            identity: process.env.APPLE_IDENTITY,
-          },
-          osxNotarize: {
-            appleId: process.env.APPLE_ID || '',
-            appleIdPassword: process.env.APPLE_PASSWORD || '',
-            teamId: process.env.APPLE_TEAM_ID || '',
-          },
-        }
+        osxSign: {
+          identity: process.env.APPLE_IDENTITY,
+        },
+        osxNotarize: {
+          appleId: process.env.APPLE_ID || '',
+          appleIdPassword: process.env.APPLE_PASSWORD || '',
+          teamId: process.env.APPLE_TEAM_ID || '',
+        },
+      }
       : {}),
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [new MakerZIP({}, ['darwin'])],
   plugins: [
     new AutoUnpackNativesPlugin({}),
     new WebpackPlugin({
