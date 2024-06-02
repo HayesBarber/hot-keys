@@ -48,9 +48,9 @@ const Prompt: React.FC = () => {
 const Footer: React.FC = () => {
   return (
     <div className="flex justify-end items-center border-t h-[45px] bg-background rounded-b-xl">
-      <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide ⌥Space</CommandShortcut></Button>
+      <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
       <hr className="h-[20px] w-[1px] bg-border my-1" />
-      <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit ⌘Q</CommandShortcut></Button>
+      <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
     </div>
   );
 };
