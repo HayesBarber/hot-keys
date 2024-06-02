@@ -14,7 +14,7 @@ import {
   CommandShortcut,
 } from "../components/command"
 
-const App: React.FC = () => {
+const Prompt: React.FC = () => {
   const inputRef = useFocus();
   useEscapeKey(() => window.electronAPI.hide());
   const commands = useCommands();
@@ -54,4 +54,4 @@ const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient)
   );
 }
 
-export default App;
+export { Prompt };
