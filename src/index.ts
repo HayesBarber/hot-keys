@@ -81,7 +81,7 @@ const createWindow = async (): Promise<void> => {
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
-    show: true,
+    show: false,
   });
 
   window.setVisibleOnAllWorkspaces(true);
@@ -94,9 +94,9 @@ const createWindow = async (): Promise<void> => {
     };
   });
 
-  const stringify = JSON.stringify(clientCommands);
-  const url = `${MAIN_WINDOW_WEBPACK_ENTRY}?commands=${stringify}`;
-  await window.loadURL(url);
+  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  window.webContents.send('sendCommands', clientCommands);
+  window.show();
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
