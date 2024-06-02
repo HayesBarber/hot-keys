@@ -1,7 +1,8 @@
 import { app, BrowserWindow, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } from 'electron';
-import { CommandClient, CommandExecutable } from './lib/command';
+import { CommandClient, CommandExecutable } from './models/command';
 import { registerHotKeys } from './lib/registerHotKeys';
 import { quit } from './lib/quit';
+import { join } from 'path';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -52,7 +53,13 @@ const buildMenu = () => {
 }
 
 const buildIcon = () => {
-  const path = 'src/assets/tray-icon.png';
+  let assetsPath = 'src/assets';
+
+  if(app.isPackaged) {
+    assetsPath = process.resourcesPath;
+  }
+
+  const path = join(assetsPath, 'tray-icon.png');
 
   let icon = nativeImage.createFromPath(path);
   icon = icon.resize({ width: 28, height: 28 });
@@ -93,9 +100,6 @@ const createWindow = async (): Promise<void> => {
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
-  const host = (new URL(event.senderFrame.url)).host;
-  if (host !== 'localhost:3000') return;
-
   const i = command.index;
 
   if (i < 0 || i > commands.length - 1) return;

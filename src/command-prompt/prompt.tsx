@@ -1,7 +1,7 @@
-import { CommandClient } from "../lib/command";
+import { CommandClient } from "../models/command";
 import { useState, useEffect, useRef } from "react";
-import useEscapeKey from "../lib/useEscapeKey";
-import useFocus from "../lib/useFocus";
+import useEscapeKey from "../hooks/useEscapeKey";
+import useFocus from "../hooks/useFocus";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 
 import {

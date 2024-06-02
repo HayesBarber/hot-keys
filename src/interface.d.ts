@@ -1,4 +1,4 @@
-import { CommandClient } from './lib/command'
+import { CommandClient } from './models/command'
 
 export interface IElectronAPI {
     commandSelected: (command: CommandClient) => Promise<void>,
