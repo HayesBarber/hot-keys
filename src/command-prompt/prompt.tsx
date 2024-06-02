@@ -12,7 +12,9 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "../components/command"
+} from "../components/command";
+
+import { Button } from "../components/button";
 
 const Prompt: React.FC = () => {
   const inputRef = useFocus();
@@ -45,9 +47,10 @@ const Prompt: React.FC = () => {
 
 const Footer: React.FC = () => {
   return (
-    <div className="flex justify-end items-center border-t h-[40px] bg-background rounded-b-xl">
-      <p>quit</p>
-      <p>quit</p>
+    <div className="flex justify-end items-center border-t h-[45px] bg-background rounded-b-xl">
+      <Button variant="ghost">Show / Hide<CommandShortcut>⌥Space</CommandShortcut></Button>
+      <hr className="h-[20px] w-[1px] bg-border my-1" />
+      <Button variant="ghost">Quit<CommandShortcut>⌘Q</CommandShortcut></Button>
     </div>
   );
 };
