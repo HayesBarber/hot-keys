@@ -41,7 +41,7 @@ const registerHotKeys = (
     });
 
     const toggle: CommandExecutable = {
-        hotKey: 'Command+Shift+Space',
+        hotKey: 'Option+Space',
         displayName: 'Show / Hide',
         execute: () => hideWindow(),
     };
