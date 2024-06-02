@@ -1,7 +1,7 @@
 import { globalShortcut, BrowserWindow } from 'electron';
 import { exec } from 'child_process';
 import { readFileSync } from 'fs';
-import { Command, CommandExecutable } from './command';
+import { Command, CommandExecutable } from '../models/command';
 import { homedir } from 'os';
 import { join } from 'path';
 import { quit } from './quit';

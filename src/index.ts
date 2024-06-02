@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } from 'electron';
-import { CommandClient, CommandExecutable } from './lib/command';
+import { CommandClient, CommandExecutable } from './models/command';
 import { registerHotKeys } from './lib/registerHotKeys';
 import { quit } from './lib/quit';
 import { join } from 'path';
