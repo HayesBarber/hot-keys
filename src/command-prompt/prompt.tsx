@@ -1,7 +1,7 @@
 import { CommandClient } from "../models/command";
-import { useState, useEffect, useRef } from "react";
 import useEscapeKey from "../hooks/useEscapeKey";
 import useFocus from "../hooks/useFocus";
+import useCommands from "../hooks/useCommands";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 
 import {
@@ -14,41 +14,17 @@ import {
   CommandShortcut,
 } from "../components/command"
 
-const App: React.FC = () => {
-  const [commands, setCommands] = useState<CommandClient[]>([]);
+const Prompt: React.FC = () => {
   const inputRef = useFocus();
   useEscapeKey(() => window.electronAPI.hide());
-
-  useEffect(() => {
-    const queryString = global.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const commandsParam = urlParams.get('commands');
-
-    if (commandsParam) {
-      try {
-        const parsedCommands: CommandClient[] = JSON.parse(decodeURIComponent(commandsParam));
-
-        if (parsedCommands.length <= 2) {
-          parsedCommands.unshift({
-            hotKey: '',
-            index: -1,
-            displayName: 'Your commands.json was either not found, empty, or failed to parse',
-          });
-        }
-
-        setCommands(parsedCommands);
-      } catch (error) {
-        console.error('Failed to parse');
-      }
-    }
-  }, []);
-
-  const onCommandSelected = (command: CommandClient) => {
-    window.electronAPI.commandSelected(command);
-  }
+  const commands = useCommands();
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.target.select();
+  }
+
+  const onCommandSelected = (command: CommandClient) => {
+    window.electronAPI.commandSelected(command);
   }
 
   return (
@@ -78,4 +54,4 @@ const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient)
   );
 }
 
-export default App;
+export { Prompt };
