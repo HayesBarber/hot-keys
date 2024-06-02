@@ -18,6 +18,8 @@ const useCommands = () => {
 
     window.electronAPI.getCommands(onGetCommands);
 
+    window.electronAPI.ready();
+
     return commands;
 }
 

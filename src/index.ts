@@ -11,6 +11,14 @@ let tray: Tray | null = null
 let window: BrowserWindow | null = null;
 let commands: CommandExecutable[] = [];
 
+const getClientCommands = () => Object.values(commands).map((e, i) => {
+  return {
+    hotKey: e.hotKey ?? '',
+    displayName: e.displayName,
+    index: i,
+  };
+});
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -29,6 +37,7 @@ app.on('ready', async () => {
 
   ipcMain.on('command-selected', onCommandSelected);
   ipcMain.on('hide', () => hide());
+  ipcMain.on('ready', (e) => e.reply('sendCommands', getClientCommands()));
 
   await createWindow();
 
@@ -81,22 +90,13 @@ const createWindow = async (): Promise<void> => {
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
-    show: false,
+    show: true,
   });
 
   window.setVisibleOnAllWorkspaces(true);
 
-  const clientCommands: CommandClient[] = Object.values(commands).map((e, i) => {
-    return {
-      hotKey: e.hotKey ?? '',
-      displayName: e.displayName,
-      index: i,
-    };
-  });
-
   await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  window.webContents.send('sendCommands', clientCommands);
-  window.show();
+  window.webContents.openDevTools();
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
