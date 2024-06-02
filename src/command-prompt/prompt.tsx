@@ -28,15 +28,17 @@ const Prompt: React.FC = () => {
   }
 
   return (
-    <CommandComponent className="rounded-xl border outline-none focus:outline-none">
-      <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Hot-Keys">
-          {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
-        </CommandGroup>
-      </CommandList>
-    </CommandComponent>
+    <div>
+      <CommandComponent className="rounded-xl border outline-none focus:outline-none">
+        <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Hot-Keys">
+            {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
+          </CommandGroup>
+        </CommandList>
+      </CommandComponent>
+    </div>
   );
 }
 
