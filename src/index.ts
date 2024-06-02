@@ -96,7 +96,6 @@ const createWindow = async (): Promise<void> => {
   window.setVisibleOnAllWorkspaces(true);
 
   await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  window.webContents.openDevTools();
 };
 
 const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
