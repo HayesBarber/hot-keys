@@ -17,7 +17,7 @@ const useCommands = () => {
     }
 
     useEffect(() => {
-        window.electronAPI.getCommands(onGetCommands);
+        window.electronAPI.listenForCommands(onGetCommands);
         window.electronAPI.ready();
     }, []);
 
