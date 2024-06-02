@@ -33,7 +33,7 @@ const Prompt: React.FC = () => {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Hot-Keys">
-          {commands.length ? commands.map((command) => <Item command={command} onSelect={onCommandSelected} />) : <div />}
+          {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
         </CommandGroup>
       </CommandList>
     </CommandComponent>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CommandClient } from "../models/command";
 
 const useCommands = () => {
@@ -16,9 +16,11 @@ const useCommands = () => {
         setCommands(commands);
     }
 
-    window.electronAPI.getCommands(onGetCommands);
+    useEffect(() => {
+        window.electronAPI.getCommands(onGetCommands);
 
-    window.electronAPI.ready();
+        window.electronAPI.ready();
+    }, []);
 
     return commands;
 }
