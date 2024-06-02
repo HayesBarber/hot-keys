@@ -28,19 +28,29 @@ const Prompt: React.FC = () => {
   }
 
   return (
-    <div>
-      <CommandComponent className="rounded-xl border outline-none focus:outline-none">
+    <div className="border bg-background rounded-b-xl">
+      <CommandComponent className="rounded-xl outline-none focus:outline-none">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
-        <CommandList>
+        <CommandList >
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Hot-Keys">
             {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
           </CommandGroup>
         </CommandList>
       </CommandComponent>
+      <Footer />
     </div>
   );
-}
+};
+
+const Footer: React.FC = () => {
+  return (
+    <div className="flex justify-end items-center border-t h-[40px] bg-background rounded-b-xl">
+      <p>quit</p>
+      <p>quit</p>
+    </div>
+  );
+};
 
 const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
   const parts: string[] = command.hotKey.split('+');
@@ -54,6 +64,6 @@ const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient)
       {parts.length ? <CommandShortcut>{parts.join('')}</CommandShortcut> : <div />}
     </CommandItem>
   );
-}
+};
 
 export { Prompt };

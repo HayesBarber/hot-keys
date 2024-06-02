@@ -4,7 +4,6 @@ import { readFileSync } from 'fs';
 import { Command, CommandExecutable } from '../models/command';
 import { homedir } from 'os';
 import { join } from 'path';
-import { quit } from './quit';
 
 const parseCommands = (): Command[] => {
     try {
@@ -22,7 +21,6 @@ const parseCommands = (): Command[] => {
 const registerHotKeys = (
     commandExecutables: CommandExecutable[],
     toggleFunction: () => void,
-    hideWindow: () => void,
 ) => {
     const commands = parseCommands();
 
@@ -40,18 +38,9 @@ const registerHotKeys = (
         }
     });
 
-    const toggle: CommandExecutable = {
-        hotKey: 'Option+Space',
-        displayName: 'Show / Hide',
-        execute: () => hideWindow(),
-    };
-
-    globalShortcut.register(toggle.hotKey, () => {
+    globalShortcut.register('Option+Space', () => {
         toggleFunction();
     });
-
-    commandExecutables.push(toggle);
-    commandExecutables.push(quit);
 }
 
 export {

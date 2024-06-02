@@ -31,12 +31,13 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys(commands, toggle, hide);
+  registerHotKeys(commands, toggle);
 
   buildMenu();
 
   ipcMain.on('command-selected', onCommandSelected);
   ipcMain.on('hide', () => hide());
+  ipcMain.on('quit', () => app.quit());
   ipcMain.on('ready', (e) => e.reply('sendCommands', getClientCommands()));
 
   await createWindow();
