@@ -33,7 +33,7 @@ const Prompt: React.FC = () => {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Hot-Keys">
-          {commands.length ? commands.map((command) => <Item command={command} onSelect={onCommandSelected} />) : <div />}
+          {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
         </CommandGroup>
       </CommandList>
     </CommandComponent>
@@ -41,7 +41,7 @@ const Prompt: React.FC = () => {
 }
 
 const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
-  const parts: string[] = command.hotKey.split(' ');
+  const parts: string[] = command.hotKey.split('+');
   parts.forEach((part, index, arr) => {
     arr[index] = modifierKeyMap[part] ?? part;
   });
