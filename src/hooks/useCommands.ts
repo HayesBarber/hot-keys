@@ -5,7 +5,7 @@ const useCommands = () => {
     const [commands, setCommands] = useState<CommandClient[]>([]);
 
     const onGetCommands = (commands: CommandClient[]) => {
-        if (commands.length <= 2) {
+        if (commands.length <= 0) {
             commands.unshift({
                 hotKey: '',
                 index: -1,
