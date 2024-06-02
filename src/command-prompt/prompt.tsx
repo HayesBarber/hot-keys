@@ -19,12 +19,12 @@ const App: React.FC = () => {
   useEscapeKey(() => window.electronAPI.hide());
   const commands = useCommands();
 
-  const onCommandSelected = (command: CommandClient) => {
-    window.electronAPI.commandSelected(command);
-  }
-
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.target.select();
+  }
+
+  const onCommandSelected = (command: CommandClient) => {
+    window.electronAPI.commandSelected(command);
   }
 
   return (
