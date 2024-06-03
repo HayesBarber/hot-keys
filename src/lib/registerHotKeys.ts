@@ -4,6 +4,7 @@ import { readFileSync } from 'fs';
 import { Command, CommandExecutable } from '../models/command';
 import { homedir } from 'os';
 import { join } from 'path';
+import { readClipboard } from './clipboardService';
 
 const parseCommands = (): Command[] => {
     try {
@@ -40,6 +41,10 @@ const registerHotKeys = (
 
     globalShortcut.register('Option+Space', () => {
         toggleFunction();
+    });
+
+    globalShortcut.register('Command+Shift+V', () => {
+        readClipboard();
     });
 }
 
