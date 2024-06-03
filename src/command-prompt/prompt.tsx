@@ -12,7 +12,9 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "../components/command"
+} from "../components/command";
+
+import { Button } from "../components/button";
 
 const Prompt: React.FC = () => {
   const inputRef = useFocus();
@@ -28,17 +30,30 @@ const Prompt: React.FC = () => {
   }
 
   return (
-    <CommandComponent className="rounded-xl border outline-none focus:outline-none">
-      <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Hot-Keys">
-          {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
-        </CommandGroup>
-      </CommandList>
-    </CommandComponent>
+    <div className="bg-background rounded-b-xl">
+      <CommandComponent className="rounded-xl outline-none focus:outline-none">
+        <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
+        <CommandList >
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Hot-Keys">
+            {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
+          </CommandGroup>
+        </CommandList>
+      </CommandComponent>
+      <Footer />
+    </div>
   );
-}
+};
+
+const Footer: React.FC = () => {
+  return (
+    <div className="flex justify-end items-center border-t h-[45px] bg-background rounded-b-xl">
+      <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
+      <hr className="h-[20px] w-[1px] bg-border" />
+      <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+    </div>
+  );
+};
 
 const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
   const parts: string[] = command.hotKey.split('+');
@@ -52,6 +67,6 @@ const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient)
       {parts.length ? <CommandShortcut>{parts.join('')}</CommandShortcut> : <div />}
     </CommandItem>
   );
-}
+};
 
 export { Prompt };
