@@ -3,6 +3,8 @@ import useEscapeKey from "../hooks/useEscapeKey";
 import useFocus from "../hooks/useFocus";
 import useCommands from "../hooks/useCommands";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
+import { Button } from "../components/button";
+import { Clipboard } from "lucide-react"
 
 import {
   Command as CommandComponent,
@@ -14,7 +16,6 @@ import {
   CommandShortcut,
 } from "../components/command";
 
-import { Button } from "../components/button";
 
 const Prompt: React.FC = () => {
   const inputRef = useFocus();
@@ -47,10 +48,13 @@ const Prompt: React.FC = () => {
 
 const Footer: React.FC = () => {
   return (
-    <div className="flex justify-end items-center border-t h-[45px] bg-background rounded-b-xl">
-      <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
-      <hr className="h-[20px] w-[1px] bg-border" />
-      <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+    <div className="flex justify-between items-center border-t h-[45px] bg-background rounded-b-xl">
+      <Button variant="ghost" onClick={() => { }}><CommandShortcut className="flex items-center" ><Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard: ⌥⇧V</CommandShortcut></Button>
+      <div className="flex items-center">
+        <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
+        <hr className="h-[20px] w-[1px] bg-border" />
+        <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+      </div>
     </div>
   );
 };
