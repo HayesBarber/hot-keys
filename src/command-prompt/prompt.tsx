@@ -30,7 +30,7 @@ const Prompt: React.FC = () => {
   }
 
   return (
-    <div className="border bg-background rounded-b-xl">
+    <div className="bg-background rounded-b-xl">
       <CommandComponent className="rounded-xl outline-none focus:outline-none">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
         <CommandList >
@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
   return (
     <div className="flex justify-end items-center border-t h-[45px] bg-background rounded-b-xl">
       <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
-      <hr className="h-[20px] w-[1px] bg-border my-1" />
+      <hr className="h-[20px] w-[1px] bg-border" />
       <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
     </div>
   );
