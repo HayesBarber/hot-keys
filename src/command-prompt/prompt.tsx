@@ -6,6 +6,7 @@ import usePasteboard from "../hooks/usePasteboard";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 import { Button } from "../components/button";
 import { Clipboard } from "lucide-react"
+import { useState } from "react";
 
 import {
   Command as CommandComponent,
@@ -22,7 +23,8 @@ const Prompt: React.FC = () => {
   const inputRef = useFocus();
   useEscapeKey(() => window.electronAPI.hide());
   const commands = useCommands();
-  const pasteboard = usePasteboard();
+  const pasteboardItems = usePasteboard();
+  const [showPasteboard, setShowPasteboard] = useState(false);
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.target.select();
@@ -43,19 +45,21 @@ const Prompt: React.FC = () => {
           </CommandGroup>
         </CommandList>
       </CommandComponent>
-      <Footer />
+      <Footer showPasteboard={ () => setShowPasteboard(!showPasteboard) } />
     </div>
   );
 };
 
-const Footer: React.FC = () => {
+const Footer: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) => {
   return (
-    <div className="flex justify-between items-center border-t h-[45px] bg-background rounded-b-xl">
-      <Button variant="ghost" onClick={() => { }}><CommandShortcut className="flex items-center" ><Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard</CommandShortcut></Button>
-      <div className="flex items-center">
-        <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
-        <hr className="h-[20px] w-[1px] bg-border" />
-        <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+    <div className="px-2">
+      <div className="flex justify-between items-center border-t h-[45px] bg-background rounded-b-xl">
+        <Button variant="ghost" onClick={showPasteboard}><CommandShortcut className="flex items-center" ><Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard</CommandShortcut></Button>
+        <div className="flex items-center">
+          <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
+          <hr className="h-[20px] w-[1px] bg-border" />
+          <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+        </div>
       </div>
     </div>
   );
