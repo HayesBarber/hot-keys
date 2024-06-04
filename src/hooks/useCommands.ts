@@ -18,7 +18,7 @@ const useCommands = () => {
 
     useEffect(() => {
         window.electronAPI.listenForCommands(onGetCommands);
-        window.electronAPI.ready();
+        window.electronAPI.readyForCommands();
     }, []);
 
     return commands;

@@ -39,7 +39,8 @@ app.on('ready', async () => {
   ipcMain.on('command-selected', onCommandSelected);
   ipcMain.on('hide', () => hide());
   ipcMain.on('quit', () => app.quit());
-  ipcMain.on('ready', (e) => e.reply('sendCommands', getClientCommands()));
+  ipcMain.on('readyForCommands', (e) => e.reply('sendCommands', getClientCommands()));
+  ipcMain.on('readyForPasteboard', (e) => e.reply('sendPasteboard', clipboardService.clipboardRecords));
 
   await createWindow();
 
