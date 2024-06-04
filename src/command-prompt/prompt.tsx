@@ -40,7 +40,8 @@ const Prompt: React.FC = () => {
       <CommandComponent className="rounded-xl outline-none focus:outline-none">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
         <CommandList >
-          <Commands commands={commands} onCommandSelected={onCommandSelected} />
+          {!showPasteboard && <Commands commands={commands} onCommandSelected={onCommandSelected} />}
+          {showPasteboard && <Pasteboard pasteboardItems={pasteboardItems} />}
         </CommandList>
       </CommandComponent>
       <Footer showPasteboard={() => setShowPasteboard(!showPasteboard)} />
