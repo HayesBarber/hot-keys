@@ -2,6 +2,7 @@ import { app, BrowserWindow, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } fr
 import { CommandClient, CommandExecutable } from './models/command';
 import { registerHotKeys } from './lib/registerHotKeys';
 import { join } from 'path';
+import ClipboardService from './lib/clipboardService';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -9,6 +10,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
 let commands: CommandExecutable[] = [];
+const clipboardService = new ClipboardService();
 
 const getClientCommands = () => Object.values(commands).map((e, i) => {
   return {
@@ -30,7 +32,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys(commands, toggle);
+  registerHotKeys(commands, toggle, clipboardService);
 
   buildMenu();
 

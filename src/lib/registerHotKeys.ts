@@ -4,6 +4,7 @@ import { readFileSync } from 'fs';
 import { Command, CommandExecutable } from '../models/command';
 import { homedir } from 'os';
 import { join } from 'path';
+import ClipboardService from './clipboardService';
 
 const parseCommands = (): Command[] => {
     try {
@@ -21,6 +22,7 @@ const parseCommands = (): Command[] => {
 const registerHotKeys = (
     commandExecutables: CommandExecutable[],
     toggleFunction: () => void,
+    clipboardService: ClipboardService,
 ) => {
     const commands = parseCommands();
 
@@ -43,7 +45,7 @@ const registerHotKeys = (
     });
 
     globalShortcut.register('Command+Shift+V', () => {
-
+        clipboardService.readClipboard();
     });
 }
 
