@@ -57,7 +57,7 @@ const buildMenu = () => {
       label: 'Restart',
       click: () => {
         app.relaunch();
-        app.quit();
+        app.exit();
       },
     },
     {
