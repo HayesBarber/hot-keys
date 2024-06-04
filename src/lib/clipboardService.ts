@@ -6,7 +6,7 @@ import { ClipboardRecord } from "../models/clipboardItem";
 
 
 class ClipboardService {
-    public clipboardRecords: ClipboardRecord[];
+    private clipboardRecords: ClipboardRecord[];
 
     constructor() {
         this.clipboardRecords = this.readClipboardFile();
