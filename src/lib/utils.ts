@@ -24,5 +24,5 @@ export function readFileFromHomeDirectory<T>(fileName: string, defaultValue: T) 
 export function writeFileInHomeDirectory(fileName: string, content: any) {
   const home = homedir();
   const filePath = join(home, fileName);
-  writeFileSync(fileName, JSON.stringify(content), 'utf-8');
+  writeFileSync(filePath, JSON.stringify(content), 'utf-8');
 };
