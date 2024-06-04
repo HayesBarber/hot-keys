@@ -38,7 +38,9 @@ const Prompt: React.FC = () => {
     <div className={`bg-background rounded-b-xl flex flex-col ${showPasteboard ? 'h-screen' : ''}`}>
       <CommandComponent className="rounded-xl outline-none focus:outline-none">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
-        <Commands commands={commands} onCommandSelected={onCommandSelected} />
+        <CommandList >
+          <Commands commands={commands} onCommandSelected={onCommandSelected} />
+        </CommandList>
       </CommandComponent>
       <Footer showPasteboard={() => setShowPasteboard(!showPasteboard)} />
     </div>
@@ -47,12 +49,12 @@ const Prompt: React.FC = () => {
 
 const Commands: React.FC<{ commands: CommandClient[], onCommandSelected: (command: CommandClient) => void }> = ({ commands, onCommandSelected }) => {
   return (
-    <CommandList >
+    <div>
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Hot-Keys">
         {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
       </CommandGroup>
-    </CommandList>
+    </div>
   );
 };
 
