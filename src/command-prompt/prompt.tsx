@@ -39,6 +39,7 @@ const Prompt: React.FC = () => {
     <div className="bg-background rounded-b-xl flex flex-col h-screen">
       <CommandComponent className="rounded-xl outline-none focus:outline-none">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
+        <NoResults />
         <CommandList >
           {!showPasteboard && <Commands commands={commands} onCommandSelected={onCommandSelected} />}
           {showPasteboard && <Pasteboard pasteboardItems={pasteboardItems} />}
@@ -52,7 +53,6 @@ const Prompt: React.FC = () => {
 const Commands: React.FC<{ commands: CommandClient[], onCommandSelected: (command: CommandClient) => void }> = ({ commands, onCommandSelected }) => {
   return (
     <div>
-      <NoResults />
       <CommandGroup heading="Hot-Keys">
         {commands.length ? commands.map((command, i) => <CommandListItem key={i} command={command} onSelect={onCommandSelected} />) : <div />}
       </CommandGroup>
@@ -62,7 +62,17 @@ const Commands: React.FC<{ commands: CommandClient[], onCommandSelected: (comman
 
 const Pasteboard: React.FC<{ pasteboardItems: ClipboardRecord[] }> = ({ pasteboardItems }) => {
   return (
-    <NoResults />
+    <div className="flex">
+      <div className="w-[40%]">
+        <CommandGroup heading="Pasteboard">
+          {pasteboardItems.length ? pasteboardItems.map((item, i) => <PasteboardListItem key={i} record={item} onSelect={(item) => { }} />) : <div />}
+        </CommandGroup>
+      </div>
+      <hr className="w-[1px] mx-1 bg-border" />
+      <div className="w-[60%] ml-1 bg-red-500">
+
+      </div>
+    </div>
   );
 };
 
@@ -93,6 +103,14 @@ const CommandListItem: React.FC<{ command: CommandClient, onSelect: (hotKey: Com
     <CommandItem onSelect={() => onSelect(command)}>
       <span>{command.displayName}</span>
       {parts.length ? <CommandShortcut>{parts.join('')}</CommandShortcut> : <div />}
+    </CommandItem>
+  );
+};
+
+const PasteboardListItem: React.FC<{ record: ClipboardRecord, onSelect: (record: ClipboardRecord) => void }> = ({ record, onSelect }) => {
+  return (
+    <CommandItem onSelect={() => onSelect(record)}>
+      <span>{1}</span>
     </CommandItem>
   );
 };
