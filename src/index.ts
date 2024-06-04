@@ -1,7 +1,6 @@
 import { app, BrowserWindow, Tray, Menu, ipcMain, IpcMainEvent, nativeImage } from 'electron';
 import { CommandClient, CommandExecutable } from './models/command';
 import { registerHotKeys } from './lib/registerHotKeys';
-import { quit } from './lib/quit';
 import { join } from 'path';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -54,7 +53,18 @@ const toggle = () => focused() ? hide() : show();
 
 const buildMenu = () => {
   const menu = Menu.buildFromTemplate([
-    { role: 'quit', label: quit.displayName, accelerator: quit.hotKey },
+    {
+      label: 'Restart',
+      click: () => {
+        app.relaunch();
+        app.quit();
+      },
+    },
+    {
+      role: 'quit',
+      label: 'Quit',
+      accelerator: 'Command+Q'
+    },
   ]);
 
   let icon = buildIcon();
