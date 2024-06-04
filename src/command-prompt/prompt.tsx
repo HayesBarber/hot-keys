@@ -1,4 +1,5 @@
 import { CommandClient } from "../models/command";
+import { ClipboardRecord } from "../models/clipboardItem";
 import useEscapeKey from "../hooks/useEscapeKey";
 import useFocus from "../hooks/useFocus";
 import useCommands from "../hooks/useCommands";
@@ -50,13 +51,21 @@ const Prompt: React.FC = () => {
 const Commands: React.FC<{ commands: CommandClient[], onCommandSelected: (command: CommandClient) => void }> = ({ commands, onCommandSelected }) => {
   return (
     <div>
-      <CommandEmpty>No results found.</CommandEmpty>
+      <NoResults />
       <CommandGroup heading="Hot-Keys">
-        {commands.length ? commands.map((command, i) => <Item key={i} command={command} onSelect={onCommandSelected} />) : <div />}
+        {commands.length ? commands.map((command, i) => <CommandListItem key={i} command={command} onSelect={onCommandSelected} />) : <div />}
       </CommandGroup>
     </div>
   );
 };
+
+const Pasteboard: React.FC<{ pasteboardItems: ClipboardRecord[] }> = ({ pasteboardItems }) => {
+  return (
+    <NoResults />
+  );
+};
+
+const NoResults = () => <CommandEmpty>No results found.</CommandEmpty>;
 
 const Footer: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) => {
   return (
@@ -73,7 +82,7 @@ const Footer: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) =>
   );
 };
 
-const Item: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
+const CommandListItem: React.FC<{ command: CommandClient, onSelect: (hotKey: CommandClient) => void }> = ({ command, onSelect }) => {
   const parts: string[] = command.hotKey.split('+');
   parts.forEach((part, index, arr) => {
     arr[index] = modifierKeyMap[part] ?? part;
