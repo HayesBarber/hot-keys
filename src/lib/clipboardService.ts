@@ -1,7 +1,6 @@
 import { clipboard } from "electron";
 import { ClipboardRecord } from "../models/clipboardItem";
-import { readFileFromHomeDirectory } from "./utils";
-
+import { readFileFromHomeDirectory } from "./fileUtils";
 
 class ClipboardService {
     public clipboardRecords: ClipboardRecord[];
@@ -24,7 +23,7 @@ class ClipboardService {
 
         const data = clipboard.readImage();
         if (!data.isEmpty()) {
-            console.log('image');
+            console.log(data.toDataURL());
             return;
         }
     };

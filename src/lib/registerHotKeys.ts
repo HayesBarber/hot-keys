@@ -2,7 +2,7 @@ import { globalShortcut, BrowserWindow } from 'electron';
 import { exec } from 'child_process';
 import { Command, CommandExecutable } from '../models/command';
 import ClipboardService from './clipboardService';
-import { readFileFromHomeDirectory } from "./utils";
+import { readFileFromHomeDirectory } from "./fileUtils";
 
 const parseCommands = () => readFileFromHomeDirectory<Command[]>('commands.json', []);
 
