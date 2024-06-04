@@ -35,7 +35,7 @@ const Prompt: React.FC = () => {
   }
 
   return (
-    <div className="bg-background rounded-b-xl">
+    <div className={`bg-background rounded-b-xl flex flex-col ${showPasteboard ? 'h-screen' : ''}`}>
       <CommandComponent className="rounded-xl outline-none focus:outline-none">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
         <CommandList >
