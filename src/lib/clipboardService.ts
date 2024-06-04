@@ -1,7 +1,6 @@
 import { clipboard } from "electron";
-import { writeFileSync } from 'fs';
 import { ClipboardRecord } from "../models/clipboardItem";
-import { readFileFromHomeDirctory } from "./utils";
+import { readFileFromHomeDirectory } from "./utils";
 
 
 class ClipboardService {
@@ -30,7 +29,7 @@ class ClipboardService {
         }
     };
 
-    private readClipboardFile = () => readFileFromHomeDirctory<ClipboardRecord[]>('hot-keys-pasteboard.json', []);
+    private readClipboardFile = () => readFileFromHomeDirectory<ClipboardRecord[]>('hot-keys-pasteboard.json', []);
 }
 
 export default ClipboardService;

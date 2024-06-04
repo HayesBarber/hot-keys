@@ -2,9 +2,9 @@ import { globalShortcut, BrowserWindow } from 'electron';
 import { exec } from 'child_process';
 import { Command, CommandExecutable } from '../models/command';
 import ClipboardService from './clipboardService';
-import { readFileFromHomeDirctory } from "./utils";
+import { readFileFromHomeDirectory } from "./utils";
 
-const parseCommands = () => readFileFromHomeDirctory<Command[]>('commands.json', []);
+const parseCommands = () => readFileFromHomeDirectory<Command[]>('commands.json', []);
 
 const registerHotKeys = (
     commandExecutables: CommandExecutable[],

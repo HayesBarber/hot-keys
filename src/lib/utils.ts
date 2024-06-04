@@ -2,13 +2,13 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { homedir } from 'os';
 import { join } from 'path';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
+};
 
-export function readFileFromHomeDirctory<T>(fileName: string, defaultValue: T) {
+export function readFileFromHomeDirectory<T>(fileName: string, defaultValue: T) {
   try {
     const home = homedir();
     const filePath = join(home, fileName);
@@ -19,4 +19,10 @@ export function readFileFromHomeDirctory<T>(fileName: string, defaultValue: T) {
   } catch (error) {
     return defaultValue;
   }
-}
+};
+
+export function writeFileInHomeDirectory(fileName: string, content: any) {
+  const home = homedir();
+  const filePath = join(home, fileName);
+  writeFileSync(fileName, JSON.stringify(content), 'utf-8');
+};
