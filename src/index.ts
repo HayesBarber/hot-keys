@@ -92,7 +92,7 @@ const buildIcon = () => {
 
 const createWindow = async (): Promise<void> => {
   window = new BrowserWindow({
-    height: 500,
+    height: 400,
     width: 700,
     frame: false,
     fullscreenable: false,
