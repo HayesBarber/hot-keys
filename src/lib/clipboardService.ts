@@ -1,8 +1,7 @@
 import { clipboard } from "electron";
-import { homedir } from 'os';
-import { join } from 'path';
-import { readFileSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { ClipboardRecord } from "../models/clipboardItem";
+import { readFileFromHomeDirctory } from "./utils";
 
 
 class ClipboardService {
@@ -31,19 +30,7 @@ class ClipboardService {
         }
     };
 
-    private readClipboardFile = () => {
-        try {
-            const home = homedir();
-            const filePath = join(home, 'hot-keys-pasteboard.json');
-            const fileContent = readFileSync(filePath, 'utf-8');
-            const clipboardRecords: ClipboardRecord[] = JSON.parse(fileContent);
-
-            return clipboardRecords;
-        } catch (error) {
-            return [];
-        }
-    };
-
+    private readClipboardFile = () => readFileFromHomeDirctory<ClipboardRecord[]>('hot-keys-pasteboard.json', []);
 }
 
 export default ClipboardService;
