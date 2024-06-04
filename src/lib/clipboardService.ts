@@ -26,8 +26,12 @@ class ClipboardService {
             }
         }
         
-        // todo check that we don't already have this clipboard record
         if(content) {
+            for (let i = 0; i < this.clipboardRecords.length; i++) {
+                const element = this.clipboardRecords[i];
+                if(content === element.content) return;
+            }
+
             this.clipboardRecords.push({ content });
             this.writeToClipboardFile();
         }
