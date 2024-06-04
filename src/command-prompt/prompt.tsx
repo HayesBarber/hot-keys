@@ -2,6 +2,7 @@ import { CommandClient } from "../models/command";
 import useEscapeKey from "../hooks/useEscapeKey";
 import useFocus from "../hooks/useFocus";
 import useCommands from "../hooks/useCommands";
+import usePasteboard from "../hooks/usePasteboard";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 import { Button } from "../components/button";
 import { Clipboard } from "lucide-react"
@@ -21,6 +22,7 @@ const Prompt: React.FC = () => {
   const inputRef = useFocus();
   useEscapeKey(() => window.electronAPI.hide());
   const commands = useCommands();
+  const pasteboard = usePasteboard();
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.target.select();
