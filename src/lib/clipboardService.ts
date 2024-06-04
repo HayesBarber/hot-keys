@@ -4,7 +4,7 @@ import { readFileFromHomeDirectory } from "./utils";
 
 
 class ClipboardService {
-    private clipboardRecords: ClipboardRecord[];
+    public clipboardRecords: ClipboardRecord[];
 
     constructor() {
         this.clipboardRecords = this.readClipboardFile();
