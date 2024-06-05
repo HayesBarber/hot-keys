@@ -37,7 +37,7 @@ const Prompt: React.FC = () => {
       {showPasteboard && <Pasteboard back={() => setShowPasteboard(false)} />}
       {
         !showPasteboard &&
-        <div className="bg-background rounded-b-xl flex flex-col h-screen">
+        <div className="window">
           <CommandComponent className="rounded-xl outline-none focus:outline-none flex flex-col grow">
             <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
             <CommandEmpty>No results found.</CommandEmpty>

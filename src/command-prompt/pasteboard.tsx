@@ -13,7 +13,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
 
     return (
-        <div className="bg-background rounded-b-xl flex flex-col h-screen">
+        <div className="window">
             <div className="flex grow overflow-hidden">
                 <div className="w-[40%]">
                     <CommandComponent className="rounded-xl outline-none focus:outline-none flex flex-col">

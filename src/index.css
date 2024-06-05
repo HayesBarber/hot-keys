@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer util {
+  .window {
+    @apply bg-background rounded-b-xl flex flex-col h-screen
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
