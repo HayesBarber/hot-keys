@@ -5,7 +5,7 @@ import useCommands from "../hooks/useCommands";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 import { useState } from "react";
 import Pasteboard from "./pasteboard";
-import { Footer } from "./footer";
+import { FooterMain } from "./footer";
 
 import {
   Command as CommandComponent,
@@ -33,7 +33,7 @@ const Prompt: React.FC = () => {
 
   return (
     <>
-      {showPasteboard && <Pasteboard />}
+      {showPasteboard && <Pasteboard back={() => setShowPasteboard(false)} />}
       {
         !showPasteboard &&
         <div className="bg-background rounded-b-xl flex flex-col h-screen">
@@ -44,7 +44,7 @@ const Prompt: React.FC = () => {
               <Commands commands={commands} onCommandSelected={onCommandSelected} />
             </CommandList>
           </CommandComponent>
-          <Footer showPasteboard={() => setShowPasteboard(!showPasteboard)} />
+          <FooterMain showPasteboard={() => setShowPasteboard(!showPasteboard)} />
         </div>
       }
     </>

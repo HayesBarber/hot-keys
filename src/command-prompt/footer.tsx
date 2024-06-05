@@ -2,7 +2,7 @@ import { Button } from "../components/button";
 import { Clipboard } from "lucide-react"
 import { CommandShortcut, } from "../components/command";
 
-export const Footer: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) => {
+export const FooterMain: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) => {
     return (
         <div className="px-2">
             <div className="flex justify-between items-center border-t h-[45px] bg-background rounded-b-xl">
