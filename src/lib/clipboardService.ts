@@ -24,7 +24,6 @@ class ClipboardService {
             const data = clipboard.readImage();
             if (!data.isEmpty()) {
                 content = data.toDataURL();
-
             }
         }
 

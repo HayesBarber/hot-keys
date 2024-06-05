@@ -30,7 +30,9 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
 
 const PasteboardListItem: React.FC<{ record: ClipboardRecord, onSelect: (record: ClipboardRecord) => void }> = ({ record, onSelect }) => {
     return (
-        <li>{record.type}</li>
+        <>
+            {record.type === 'Text' ? <li>{record.type}</li> : <img src={record.content} />}
+        </>
     );
 };
 
