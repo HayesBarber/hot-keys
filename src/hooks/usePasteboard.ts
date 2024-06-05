@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ClipboardRecord } from "../models/clipboardItem";
+import { ClipboardRecord } from "../models/clipboardRecord";
 
 const usePasteboard = () => {
     const [pasteboard, setPasteboard] = useState<ClipboardRecord[]>([]);

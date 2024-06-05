@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { CommandClient } from '../models/command';
-import { ClipboardRecord } from '../models/clipboardItem';
+import { ClipboardRecord } from '../models/clipboardRecord';
 
 contextBridge.exposeInMainWorld('electronAPI', {
     commandSelected: (command: CommandClient) => ipcRenderer.send('command-selected', command),

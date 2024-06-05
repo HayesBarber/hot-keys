@@ -1,5 +1,5 @@
 import { clipboard } from "electron";
-import { ClipboardRecord } from "../models/clipboardItem";
+import { ClipboardRecord } from "../models/clipboardRecord";
 import { readFileFromHomeDirectory, writeFileInHomeDirectory } from "./fileUtils";
 
 class ClipboardService {

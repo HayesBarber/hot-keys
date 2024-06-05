@@ -1,5 +1,5 @@
 import { CommandClient } from './models/command'
-import { ClipboardRecord } from './models/clipboardItem'
+import { ClipboardRecord } from './models/clipboardRecord'
 
 export interface IElectronAPI {
     commandSelected: (command: CommandClient) => void,
