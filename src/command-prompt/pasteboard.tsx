@@ -22,7 +22,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
                         </CommandList>
                     </CommandComponent>
                 </div>
-                <div className="w-[60%]">
+                <div className="w-[60%] border-l">
 
                 </div>
             </div>
