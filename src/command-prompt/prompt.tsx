@@ -6,7 +6,6 @@ import { modifierKeyMap } from "../lib/modifierKeyMap";
 import { useState } from "react";
 import Pasteboard from "./pasteboard";
 import { FooterButton, FooterMain } from "./footer";
-import { Button } from "../components/button";
 import { Clipboard } from "lucide-react"
 
 import {
