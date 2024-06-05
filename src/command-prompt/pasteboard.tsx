@@ -1,6 +1,9 @@
 import { ClipboardRecord } from "../models/clipboardRecord";
 import usePasteboard from "../hooks/usePasteboard";
 import { FooterMain } from "./footer";
+import { Button } from "../components/button";
+import { CommandShortcut } from "../components/command";
+import { ArrowBigLeft } from "lucide-react"
 
 const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
@@ -18,7 +21,9 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
 
                 </div>
             </div>
-            <FooterMain showPasteboard={back} />
+            <FooterMain>
+                <Button variant="ghost" onClick={() => back()}><CommandShortcut className="flex items-center" ><ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back</CommandShortcut></Button>
+            </FooterMain>
         </div>
     );
 };

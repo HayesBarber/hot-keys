@@ -6,6 +6,8 @@ import { modifierKeyMap } from "../lib/modifierKeyMap";
 import { useState } from "react";
 import Pasteboard from "./pasteboard";
 import { FooterMain } from "./footer";
+import { Button } from "../components/button";
+import { Clipboard } from "lucide-react"
 
 import {
   Command as CommandComponent,
@@ -44,7 +46,14 @@ const Prompt: React.FC = () => {
               <Commands commands={commands} onCommandSelected={onCommandSelected} />
             </CommandList>
           </CommandComponent>
-          <FooterMain showPasteboard={() => setShowPasteboard(!showPasteboard)} />
+          <FooterMain >
+            <Button variant="ghost" onClick={() => setShowPasteboard(true)}><CommandShortcut className="flex items-center" ><Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard</CommandShortcut></Button>
+            <div className="flex items-center">
+              <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
+              <hr className="h-[20px] w-[1px] bg-border" />
+              <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+            </div>
+          </FooterMain>
         </div>
       }
     </>
