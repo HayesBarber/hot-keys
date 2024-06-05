@@ -116,7 +116,7 @@ const createWindow = async (): Promise<void> => {
   await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
-const onCommandSelected = (event: IpcMainEvent, command: CommandClient) => {
+const onCommandSelected = (_event: IpcMainEvent, command: CommandClient) => {
   const i = command.index;
 
   if (i < 0 || i > commands.length - 1) return;

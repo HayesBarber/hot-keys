@@ -1,4 +1,4 @@
-import { BrowserWindow, clipboard, ipcMain } from "electron";
+import { BrowserWindow, clipboard, ipcMain, IpcMainEvent } from "electron";
 import { ClipboardRecord } from "../models/clipboardRecord";
 import { readFileFromHomeDirectory, writeFileInHomeDirectory } from "./fileUtils";
 
@@ -10,6 +10,7 @@ class ClipboardService {
         this.clipboardRecords = this.readClipboardFile();
         ipcMain.on('pasteToPasteboard', () => this.readClipboard());
         ipcMain.on('clearPasteboard', () => this.clear());
+        ipcMain.on('deletePasteboardItem', (_event: IpcMainEvent, i: number) => this.deletePasteboardItem(i));
     }
 
     public readClipboard = () => {
@@ -47,14 +48,21 @@ class ClipboardService {
     private sendThenWrite = () => {
         this.send();
         this.writeToClipboardFile();
-    }
+    };
 
     private readClipboardFile = () => readFileFromHomeDirectory<ClipboardRecord[]>(this.clipboardFileName, []);
 
     private clear = () => {
         this.clipboardRecords = [];
         this.sendThenWrite();
-    }
+    };
+
+    private deletePasteboardItem = (i: number) => {
+        if(i < 0 || i > this.clipboardRecords.length - 1) return;
+
+        this.clipboardRecords.splice(i, 1);
+        this.sendThenWrite();
+    };
 }
 
 export default ClipboardService;
