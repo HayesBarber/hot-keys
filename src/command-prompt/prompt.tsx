@@ -69,7 +69,7 @@ const Pasteboard: React.FC<{ pasteboardItems: ClipboardRecord[] }> = ({ pasteboa
         </CommandGroup>
       </div>
       <hr className="w-[1px] mx-1 bg-border" />
-      <div className="w-[60%] ml-1 bg-red-500">
+      <div className="w-[60%] ml-1">
 
       </div>
     </div>
