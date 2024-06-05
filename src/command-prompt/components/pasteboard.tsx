@@ -1,5 +1,5 @@
-import { ClipboardRecord } from "../models/clipboardRecord";
-import usePasteboard from "../hooks/usePasteboard";
+import { ClipboardRecord } from "../../models/clipboardRecord";
+import usePasteboard from "../../hooks/usePasteboard";
 import { FooterButton, FooterMain } from "./footer";
 import { ArrowBigLeft, Copy } from "lucide-react"
 import {
@@ -7,7 +7,7 @@ import {
     CommandList,
     CommandGroup,
     CommandItem,
-} from "../components/command";
+} from "../../components/command";
 import { useState } from "react";
 
 const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {

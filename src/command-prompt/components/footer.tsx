@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
-import { Button } from "../components/button";
-import { CommandShortcut } from "../components/command";
+import { Button } from "../../components/button";
+import { CommandShortcut } from "../../components/command";
 
 export const FooterMain: React.FC<PropsWithChildren> = ({ children }) => {
     return (

@@ -1,7 +1,7 @@
 import useEscapeKey from "../hooks/useEscapeKey";
 import { useState } from "react";
-import Pasteboard from "./pasteboard";
-import Commands from "./commands";
+import Pasteboard from "./components/pasteboard";
+import Commands from "./components/commands";
 
 const Prompt: React.FC = () => {
   useEscapeKey(() => window.electronAPI.hide());

@@ -1,7 +1,7 @@
-import { CommandClient } from "../models/command";
-import useFocus from "../hooks/useFocus";
-import useCommands from "../hooks/useCommands";
-import { modifierKeyMap } from "../lib/modifierKeyMap";
+import { CommandClient } from "../../models/command";
+import useFocus from "../../hooks/useFocus";
+import useCommands from "../../hooks/useCommands";
+import { modifierKeyMap } from "../../lib/modifierKeyMap";
 import { FooterButton, FooterMain } from "./footer";
 import { Clipboard } from "lucide-react"
 import {
@@ -12,7 +12,7 @@ import {
     CommandItem,
     CommandList,
     CommandShortcut,
-} from "../components/command";
+} from "../../components/command";
 
 const Commands: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) => {
     const inputRef = useFocus();
