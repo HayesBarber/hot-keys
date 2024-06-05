@@ -1,5 +1,7 @@
 type ClipboardRecord = {
-    content: string
+    content: string,
+    type: 'Text' | 'Image',
+    timeOfCopy: number,
 };
 
 export { ClipboardRecord };

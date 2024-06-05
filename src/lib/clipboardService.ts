@@ -16,6 +16,7 @@ class ClipboardService {
         const isText = formats.includes('text/plain');
 
         let content: string = null;
+        let timeOfCopy = Date.now();
 
         if (isText) {
             content = clipboard.readText().trim();
@@ -23,16 +24,17 @@ class ClipboardService {
             const data = clipboard.readImage();
             if (!data.isEmpty()) {
                 content = data.toDataURL();
+
             }
         }
-        
-        if(content) {
+
+        if (content) {
             for (let i = 0; i < this.clipboardRecords.length; i++) {
                 const element = this.clipboardRecords[i];
-                if(content === element.content) return;
+                if (content === element.content) return;
             }
 
-            this.clipboardRecords.push({ content });
+            this.clipboardRecords.push({ content, type: isText ? 'Text' : 'Image', timeOfCopy });
             this.writeToClipboardFile();
         }
     };
