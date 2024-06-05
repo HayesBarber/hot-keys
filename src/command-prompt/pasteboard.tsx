@@ -1,7 +1,7 @@
 import { ClipboardRecord } from "../models/clipboardRecord";
 import usePasteboard from "../hooks/usePasteboard";
 import { FooterButton, FooterMain } from "./footer";
-import { ArrowBigLeft } from "lucide-react"
+import { ArrowBigLeft, Copy } from "lucide-react"
 import {
     Command as CommandComponent,
     CommandList,
@@ -63,7 +63,7 @@ const PasteboardListItem: React.FC<{ index: number, isSelected: boolean, record:
                 <div>{record.type}</div>
                 <div className="text-xs text-muted-foreground">{new Date(record.timeOfCopy).toLocaleString()}</div>
             </div>
-            {isSelected && <div>Copy</div>}
+            {isSelected && <div className="flex items-center justify-center text-muted-foreground"><Copy className="mr-2 h-4 w-4 shrink-0 opacity-50" />Copy</div>}
         </CommandItem>
     );
 };
