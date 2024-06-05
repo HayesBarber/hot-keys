@@ -5,7 +5,7 @@ import useCommands from "../hooks/useCommands";
 import { modifierKeyMap } from "../lib/modifierKeyMap";
 import { useState } from "react";
 import Pasteboard from "./pasteboard";
-import { FooterMain } from "./footer";
+import { FooterButton, FooterMain } from "./footer";
 import { Button } from "../components/button";
 import { Clipboard } from "lucide-react"
 
@@ -47,11 +47,17 @@ const Prompt: React.FC = () => {
             </CommandList>
           </CommandComponent>
           <FooterMain >
-            <Button variant="ghost" onClick={() => setShowPasteboard(true)}><CommandShortcut className="flex items-center" ><Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard</CommandShortcut></Button>
+            <FooterButton onClick={() => setShowPasteboard(true)} >
+              <Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard
+            </FooterButton>
             <div className="flex items-center">
-              <Button variant="ghost" onClick={() => window.electronAPI.hide()}><CommandShortcut>Show/Hide: ⌥Space</CommandShortcut></Button>
+              <FooterButton onClick={() => window.electronAPI.hide()} >
+                Show/Hide: ⌥Space
+              </FooterButton>
               <hr className="h-[20px] w-[1px] bg-border" />
-              <Button variant="ghost" onClick={() => window.electronAPI.quit()}><CommandShortcut>Quit: ⌘Q</CommandShortcut></Button>
+              <FooterButton onClick={() => window.electronAPI.quit()} >
+                Quit: ⌘Q
+              </FooterButton>
             </div>
           </FooterMain>
         </div>

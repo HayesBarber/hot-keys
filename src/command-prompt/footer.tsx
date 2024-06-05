@@ -1,4 +1,6 @@
 import { PropsWithChildren } from "react";
+import { Button } from "../components/button";
+import { CommandShortcut } from "../components/command";
 
 export const FooterMain: React.FC<PropsWithChildren> = ({ children }) => {
     return (
@@ -7,5 +9,11 @@ export const FooterMain: React.FC<PropsWithChildren> = ({ children }) => {
                 {children}
             </div>
         </div>
+    );
+};
+
+export const FooterButton: React.FC<PropsWithChildren<{ onClick: () => void }>> = ({ onClick, children }) => {
+    return (
+        <Button variant="ghost" onClick={onClick}><CommandShortcut className="flex items-center">{children}</CommandShortcut></Button>
     );
 };
