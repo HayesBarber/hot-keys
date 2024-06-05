@@ -37,10 +37,10 @@ const Prompt: React.FC = () => {
 
   return (
     <div className="bg-background rounded-b-xl flex flex-col h-screen">
-      <CommandComponent className="rounded-xl outline-none focus:outline-none">
+      <CommandComponent className="rounded-xl outline-none focus:outline-none flex flex-col grow">
         <CommandInput ref={inputRef} onFocus={onFocus} placeholder="Search..." />
         <NoResults />
-        <CommandList >
+        <CommandList className="grow" >
           {!showPasteboard && <Commands commands={commands} onCommandSelected={onCommandSelected} />}
           {showPasteboard && <Pasteboard pasteboardItems={pasteboardItems} />}
         </CommandList>
