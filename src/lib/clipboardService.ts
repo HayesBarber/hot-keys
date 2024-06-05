@@ -11,6 +11,7 @@ class ClipboardService {
         ipcMain.on('pasteToPasteboard', () => this.readClipboard());
         ipcMain.on('clearPasteboard', () => this.clear());
         ipcMain.on('deletePasteboardItem', (_event: IpcMainEvent, i: number) => this.deletePasteboardItem(i));
+        ipcMain.on('copyToClipboard', (_event: IpcMainEvent, clipboardRecord: ClipboardRecord) => this.copyToClipboard(clipboardRecord));
     }
 
     public readClipboard = () => {
@@ -63,6 +64,9 @@ class ClipboardService {
         this.clipboardRecords.splice(i, 1);
         this.sendThenWrite();
     };
+
+    // todo
+    private copyToClipboard = (clipboardRecord: ClipboardRecord) => {};
 }
 
 export default ClipboardService;

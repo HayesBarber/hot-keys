@@ -12,6 +12,7 @@ export interface IElectronAPI {
     pasteToPasteboard: () => void,
     clearPasteboard: () => void,
     deletePasteboardItem: (i: number) => void
+    copyToClipboard: (clipboardRecord: ClipboardRecord) => void
 }
 
 declare global {

@@ -30,7 +30,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
             </div>
             <FooterMain>
                 <FooterButton onClick={() => back()} >
-                   <ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back
+                    <ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back
                 </FooterButton>
                 <div className="flex items-center">
                     <FooterButton onClick={() => window.electronAPI.clearPasteboard()} >
@@ -58,9 +58,12 @@ const PasteboardItems: React.FC<{ selectedIndex: number, records: ClipboardRecor
 
 const PasteboardListItem: React.FC<{ index: number, isSelected: boolean, record: ClipboardRecord, onSelect: (record: ClipboardRecord) => void }> = ({ index, isSelected, record, onSelect }) => {
     return (
-        <CommandItem value={`${index}`} className="flex flex-col items-start justify-center" onSelect={() => onSelect(record)}>
-            <div>{record.type}</div>
-            <div className="text-xs text-muted-foreground">{new Date(record.timeOfCopy).toLocaleString()}</div>
+        <CommandItem value={`${index}`} className="flex justify-between" onSelect={() => onSelect(record)}>
+            <div className="flex flex-col items-start justify-center">
+                <div>{record.type}</div>
+                <div className="text-xs text-muted-foreground">{new Date(record.timeOfCopy).toLocaleString()}</div>
+            </div>
+            {isSelected && <div>Copy</div>}
         </CommandItem>
     );
 };

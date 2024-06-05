@@ -17,4 +17,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
     pasteToPasteboard: () => ipcRenderer.send('pasteToPasteboard'),
     clearPasteboard: () => ipcRenderer.send('clearPasteboard'),
     deletePasteboardItem: (i: number) => ipcRenderer.send('deletePasteboardItem', i),
+    copyToClipboard: (clipboardRecord: ClipboardRecord) => ipcRenderer.send('copyToClipboard', clipboardRecord),
 });
