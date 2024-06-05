@@ -16,6 +16,11 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
 
     const hasItems = () => pasteboardItems.length > 0;
 
+    const selectedIsImage = () => {
+        // assuming hasItems has already been called
+        return pasteboardItems[selected].type === 'Image';
+    }
+
     return (
         <div className="window">
             <div className="flex grow overflow-hidden">
