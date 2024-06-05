@@ -37,7 +37,7 @@ const Commands: React.FC<{ showPasteboard: () => void }> = ({ showPasteboard }) 
             </CommandComponent>
             <FooterMain >
                 <FooterButton onClick={() => showPasteboard()} >
-                    <Clipboard className="mr-2 h-4 w-4 shrink-0 opacity-50" />View Pasteboard
+                    <Clipboard className="icon" />View Pasteboard
                 </FooterButton>
                 <div className="flex items-center">
                     <FooterButton onClick={() => window.electronAPI.hide()} >

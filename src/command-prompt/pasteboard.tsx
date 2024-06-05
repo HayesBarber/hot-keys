@@ -30,7 +30,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
             </div>
             <FooterMain>
                 <FooterButton onClick={() => back()} >
-                    <ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back
+                    <ArrowBigLeft className="icon" />Back
                 </FooterButton>
                 <div className="flex items-center">
                     <FooterButton onClick={() => window.electronAPI.clearPasteboard()} >
@@ -63,7 +63,7 @@ const PasteboardListItem: React.FC<{ index: number, isSelected: boolean, record:
                 <div>{record.type}</div>
                 <div className="text-xs text-muted-foreground">{new Date(record.timeOfCopy).toLocaleString()}</div>
             </div>
-            {isSelected && <div className="flex items-center justify-center text-muted-foreground"><Copy className="mr-2 h-4 w-4 shrink-0 opacity-50" />Copy</div>}
+            {isSelected && <div className="flex items-center justify-center text-muted-foreground"><Copy className="icon" />Copy</div>}
         </CommandItem>
     );
 };
