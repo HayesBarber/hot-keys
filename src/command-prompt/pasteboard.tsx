@@ -14,6 +14,8 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
     const [selected, setSelected] = useState(0);
 
+    const hasItems = () => pasteboardItems.length > 0;
+
     return (
         <div className="window">
             <div className="flex grow overflow-hidden">
@@ -25,7 +27,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
                     </CommandComponent>
                 </div>
                 <div className="w-[60%] my-2 border-l">
-
+                    {hasItems() && pasteboardItems[selected].content}
                 </div>
             </div>
             <FooterMain>
