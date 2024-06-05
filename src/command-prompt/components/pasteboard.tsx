@@ -14,13 +14,6 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
     const [selected, setSelected] = useState(0);
 
-    const hasItems = () => pasteboardItems.length > 0;
-
-    const selectedIsImage = () => {
-        // assuming hasItems has already been called
-        return pasteboardItems[selected].type === 'Image';
-    }
-
     return (
         <div className="window">
             <div className="flex grow overflow-hidden">
@@ -32,7 +25,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
                     </CommandComponent>
                 </div>
                 <div className="w-[60%] my-2 border-l">
-                    {hasItems() && pasteboardItems[selected].content}
+                    <ClipboardContent records={pasteboardItems} selected={selected} />
                 </div>
             </div>
             <FooterMain>
@@ -49,6 +42,21 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
                     </FooterButton>
                 </div>
             </FooterMain>
+        </div>
+    );
+};
+
+const ClipboardContent: React.FC<{ records: ClipboardRecord[], selected: number }> = ({ records, selected }) => {
+    const hasItems = () => records.length > 0;
+
+    const selectedIsImage = () => {
+        // assuming hasItems has already been called
+        return records[selected].type === 'Image';
+    }
+
+    return (
+        <div>
+            {hasItems() && records[selected].content}
         </div>
     );
 };
