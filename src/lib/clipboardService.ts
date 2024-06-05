@@ -36,7 +36,7 @@ class ClipboardService {
                 if (content === element.content) return;
             }
 
-            this.clipboardRecords.push({ content, type: isText ? 'Text' : 'Image', timeOfCopy });
+            this.clipboardRecords.unshift({ content, type: isText ? 'Text' : 'Image', timeOfCopy });
             this.sendThenWrite();
         }
     };

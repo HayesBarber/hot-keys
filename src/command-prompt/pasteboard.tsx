@@ -22,7 +22,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
                         </CommandList>
                     </CommandComponent>
                 </div>
-                <div className="w-[60%] border-l">
+                <div className="w-[60%] my-2 border-l">
 
                 </div>
             </div>
@@ -56,8 +56,9 @@ const PasteboardItems: React.FC<{ records: ClipboardRecord[], onRecordSelected: 
 
 const PasteboardListItem: React.FC<{ record: ClipboardRecord, onSelect: (record: ClipboardRecord) => void }> = ({ record, onSelect }) => {
     return (
-        <CommandItem onSelect={() => onSelect(record)}>
-            <span>{record.timeOfCopy}</span>
+        <CommandItem className="flex flex-col items-start justify-center" onSelect={() => onSelect(record)}>
+            <div>{record.type}</div>
+            <div className="text-xs text-muted-foreground">{new Date(record.timeOfCopy).toLocaleString()}</div>
         </CommandItem>
     );
 };
