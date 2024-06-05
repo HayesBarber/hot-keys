@@ -8,9 +8,11 @@ import {
     CommandGroup,
     CommandItem,
 } from "../components/command";
+import { useState } from "react";
 
 const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
+    const [selected, setSelected] = useState(pasteboardItems.length > 0 ? pasteboardItems[0] : null);
 
     return (
         <div className="window">
