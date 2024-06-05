@@ -12,15 +12,15 @@ import { useState } from "react";
 
 const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
-    const [selected, setSelected] = useState(pasteboardItems.length > 0 ? pasteboardItems[0] : null);
+    const [selected, setSelected] = useState(0);
 
     return (
         <div className="window">
             <div className="flex grow overflow-hidden">
                 <div className="w-[40%]">
-                    <CommandComponent className="rounded-xl outline-none focus:outline-none flex flex-col">
+                    <CommandComponent value={`${selected}`} onValueChange={(value) => setSelected(parseInt(value))} className="rounded-xl outline-none focus:outline-none flex flex-col">
                         <CommandList className="grow" >
-                            <PasteboardItems records={pasteboardItems} onRecordSelected={() => { }} />
+                            <PasteboardItems selectedIndex={selected} records={pasteboardItems} onRecordSelected={() => { }} />
                         </CommandList>
                     </CommandComponent>
                 </div>
@@ -30,7 +30,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
             </div>
             <FooterMain>
                 <FooterButton onClick={() => back()} >
-                    <ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back
+                   <ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back
                 </FooterButton>
                 <div className="flex items-center">
                     <FooterButton onClick={() => window.electronAPI.clearPasteboard()} >
@@ -46,19 +46,19 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     );
 };
 
-const PasteboardItems: React.FC<{ records: ClipboardRecord[], onRecordSelected: (record: ClipboardRecord) => void }> = ({ records, onRecordSelected }) => {
+const PasteboardItems: React.FC<{ selectedIndex: number, records: ClipboardRecord[], onRecordSelected: (record: ClipboardRecord) => void }> = ({ selectedIndex, records, onRecordSelected }) => {
     return (
         <div>
             <CommandGroup heading="Pasteboard">
-                {records.length ? records.map((record, i) => <PasteboardListItem key={i} record={record} onSelect={onRecordSelected} />) : <div />}
+                {records.length ? records.map((record, i) => <PasteboardListItem key={i} index={i} isSelected={i === selectedIndex} record={record} onSelect={onRecordSelected} />) : <div />}
             </CommandGroup>
         </div>
     );
 };
 
-const PasteboardListItem: React.FC<{ record: ClipboardRecord, onSelect: (record: ClipboardRecord) => void }> = ({ record, onSelect }) => {
+const PasteboardListItem: React.FC<{ index: number, isSelected: boolean, record: ClipboardRecord, onSelect: (record: ClipboardRecord) => void }> = ({ index, isSelected, record, onSelect }) => {
     return (
-        <CommandItem className="flex flex-col items-start justify-center" onSelect={() => onSelect(record)}>
+        <CommandItem value={`${index}`} className="flex flex-col items-start justify-center" onSelect={() => onSelect(record)}>
             <div>{record.type}</div>
             <div className="text-xs text-muted-foreground">{new Date(record.timeOfCopy).toLocaleString()}</div>
         </CommandItem>
