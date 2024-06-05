@@ -9,6 +9,7 @@ class ClipboardService {
     constructor(private readonly browserWindow: BrowserWindow) {
         this.clipboardRecords = this.readClipboardFile();
         ipcMain.on('pasteToPasteboard', () => this.readClipboard());
+        ipcMain.on('clearPasteboard', () => this.clear());
     }
 
     public readClipboard = () => {
@@ -35,14 +36,25 @@ class ClipboardService {
             }
 
             this.clipboardRecords.push({ content, type: isText ? 'Text' : 'Image', timeOfCopy });
-            this.browserWindow.webContents.send('sendPasteboard', this.clipboardRecords);
-            this.writeToClipboardFile();
+            this.sendThenWrite();
         }
     };
 
-    private readClipboardFile = () => readFileFromHomeDirectory<ClipboardRecord[]>(this.clipboardFileName, []);
+    private send = () => this.browserWindow.webContents.send('sendPasteboard', this.clipboardRecords);
 
     private writeToClipboardFile = () => writeFileInHomeDirectory(this.clipboardFileName, this.clipboardRecords);
+
+    private sendThenWrite = () => {
+        this.send();
+        this.writeToClipboardFile();
+    }
+
+    private readClipboardFile = () => readFileFromHomeDirectory<ClipboardRecord[]>(this.clipboardFileName, []);
+
+    private clear = () => {
+        this.clipboardRecords = [];
+        this.sendThenWrite();
+    }
 }
 
 export default ClipboardService;

@@ -15,4 +15,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
         ipcRenderer.on('sendPasteboard', (_event, value: ClipboardRecord[]) => callback(value));
     },
     pasteToPasteboard: () => ipcRenderer.send('pasteToPasteboard'),
+    clearPasteboard: () => ipcRenderer.send('clearPasteboard'),
 });

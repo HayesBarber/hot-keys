@@ -10,6 +10,7 @@ export interface IElectronAPI {
     readyForPasteboard: () => void,
     listenForPasteboard: (callback: (value: ClipboardRecord[]) => any) => void,
     pasteToPasteboard: () => void,
+    clearPasteboard: () => void,
 }
 
 declare global {
