@@ -10,13 +10,13 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
 
     return (
         <div className="bg-background rounded-b-xl flex flex-col h-screen">
-            <div className="flex grow">
+            <div className="flex grow overflow-y-scroll">
                 <div className="w-[40%]">
                     <ul>
                         {pasteboardItems.length ? pasteboardItems.map((item, i) => <PasteboardListItem key={i} record={item} onSelect={(item) => { }} />) : <div />}
                     </ul>
                 </div>
-                <hr className="w-[1px] mx-1 bg-border" />
+                <hr className="w-[1px] mx-1 bg-border h-full" />
                 <div className="w-[60%]">
 
                 </div>
