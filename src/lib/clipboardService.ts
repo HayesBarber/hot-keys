@@ -1,4 +1,4 @@
-import { BrowserWindow, clipboard } from "electron";
+import { BrowserWindow, clipboard, ipcMain } from "electron";
 import { ClipboardRecord } from "../models/clipboardRecord";
 import { readFileFromHomeDirectory, writeFileInHomeDirectory } from "./fileUtils";
 
@@ -8,6 +8,7 @@ class ClipboardService {
 
     constructor(private readonly browserWindow: BrowserWindow) {
         this.clipboardRecords = this.readClipboardFile();
+        ipcMain.on('pasteToPasteboard', () => this.readClipboard());
     }
 
     public readClipboard = () => {

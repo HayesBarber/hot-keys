@@ -30,7 +30,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
                 <FooterButton onClick={() => back()} >
                     <ArrowBigLeft className="mr-2 h-4 w-4 shrink-0 opacity-50" />Back
                 </FooterButton>
-                <FooterButton onClick={() => { }} >
+                <FooterButton onClick={() => window.electronAPI.pasteToPasteboard()} >
                     Add to pasteboard: ⌘⇧V
                 </FooterButton>
             </FooterMain>
