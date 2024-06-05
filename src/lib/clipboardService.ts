@@ -1,4 +1,4 @@
-import { clipboard } from "electron";
+import { BrowserWindow, clipboard } from "electron";
 import { ClipboardRecord } from "../models/clipboardRecord";
 import { readFileFromHomeDirectory, writeFileInHomeDirectory } from "./fileUtils";
 
@@ -6,7 +6,7 @@ class ClipboardService {
     public clipboardRecords: ClipboardRecord[];
     private clipboardFileName = 'hot-keys-pasteboard.json';
 
-    constructor() {
+    constructor(private readonly browserWindow: BrowserWindow) {
         this.clipboardRecords = this.readClipboardFile();
     }
 
@@ -35,6 +35,7 @@ class ClipboardService {
             }
 
             this.clipboardRecords.push({ content, type: isText ? 'Text' : 'Image', timeOfCopy });
+            this.browserWindow.webContents.send('sendPasteboard', this.clipboardRecords);
             this.writeToClipboardFile();
         }
     };

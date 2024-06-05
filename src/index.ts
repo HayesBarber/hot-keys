@@ -10,7 +10,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 let tray: Tray | null = null
 let window: BrowserWindow | null = null;
 let commands: CommandExecutable[] = [];
-const clipboardService = new ClipboardService();
+let clipboardService: ClipboardService = null;
 
 const getClientCommands = () => Object.values(commands).map((e, i) => {
   return {
@@ -32,17 +32,21 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-  registerHotKeys(commands, toggle, clipboardService);
-
   buildMenu();
-
+  
   ipcMain.on('command-selected', onCommandSelected);
   ipcMain.on('hide', () => hide());
   ipcMain.on('quit', () => app.quit());
   ipcMain.on('readyForCommands', (e) => e.reply('sendCommands', getClientCommands()));
   ipcMain.on('readyForPasteboard', (e) => e.reply('sendPasteboard', clipboardService.clipboardRecords));
-
+  
   await createWindow();
+
+  clipboardService = new ClipboardService(window);
+  
+  registerHotKeys(commands, toggle, clipboardService);
+
+  show();
 
   setTimeout(() => {
     app.dock.hide();
@@ -104,7 +108,7 @@ const createWindow = async (): Promise<void> => {
       contextIsolation: true,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
-    show: true,
+    show: false,
   });
 
   window.setVisibleOnAllWorkspaces(true);
