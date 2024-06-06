@@ -1,6 +1,7 @@
 import { ClipboardRecord } from "../../models/clipboardRecord";
 import usePasteboard from "../../hooks/usePasteboard";
 import { FooterButton, FooterMain } from "./footer";
+import useFocus from "../../hooks/useFocus";
 import { ArrowBigLeft, Copy } from "lucide-react"
 import {
     Command as CommandComponent,
@@ -13,12 +14,13 @@ import { useState } from "react";
 const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
     const pasteboardItems = usePasteboard();
     const [selected, setSelected] = useState(0);
+    const ref = useFocus();
 
     return (
         <div className="window">
             <div className="flex grow overflow-hidden">
                 <div className="w-[40%]">
-                    <CommandComponent value={`${selected}`} onValueChange={(value) => setSelected(parseInt(value))} className="rounded-xl outline-none focus:outline-none flex flex-col">
+                    <CommandComponent ref={ref} value={`${selected}`} onValueChange={(value) => setSelected(parseInt(value))} className="rounded-xl outline-none focus:outline-none flex flex-col">
                         <CommandList className="grow" >
                             <PasteboardItems selectedIndex={selected} records={pasteboardItems} onRecordSelected={() => { }} />
                         </CommandList>
