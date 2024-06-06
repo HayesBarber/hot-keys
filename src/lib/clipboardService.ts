@@ -29,6 +29,11 @@ class ClipboardService {
     );
   }
 
+  public showPasteboard = () => {
+    this.browserWindow.webContents.send("showPasteboard");
+    this.browserWindow.show();
+  };
+
   public readClipboard = () => {
     const formats = clipboard.availableFormats();
 
