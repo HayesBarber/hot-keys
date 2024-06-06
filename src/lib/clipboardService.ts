@@ -98,6 +98,8 @@ class ClipboardService {
         nativeImage.createFromDataURL(clipboardRecord.content)
       );
     }
+
+    this.browserWindow.hide();
   };
 }
 
