@@ -66,7 +66,7 @@ const ClipboardContent: React.FC<{
   records: ClipboardRecord[];
   selected: number;
 }> = ({ records, selected }) => {
-  const hasItems = () => records.length > 0;
+  const hasItems = records.length > 0;
 
   const selectedIsImage = () => {
     // assuming hasItems has already been called
@@ -75,7 +75,7 @@ const ClipboardContent: React.FC<{
 
   return (
     <div className="h-full flex justify-center items-center">
-      {hasItems() && records[selected].content}
+      {hasItems && records[selected].content}
     </div>
   );
 };
