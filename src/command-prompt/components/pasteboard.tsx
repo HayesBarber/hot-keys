@@ -73,7 +73,11 @@ const ClipboardContent: React.FC<{
     return records[selected].type === "Image";
   };
 
-  return <div>{hasItems() && records[selected].content}</div>;
+  return (
+    <div className="h-full flex justify-center items-center">
+      {hasItems() && records[selected].content}
+    </div>
+  );
 };
 
 const PasteboardItems: React.FC<{
