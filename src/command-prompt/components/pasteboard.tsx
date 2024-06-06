@@ -68,14 +68,22 @@ const ClipboardContent: React.FC<{
 }> = ({ records, selected }) => {
   const hasItems = records.length > 0;
 
-  const selectedIsImage = () => {
-    // assuming hasItems has already been called
-    return records[selected].type === "Image";
+  const determineContent = () => {
+    if (!hasItems) return <></>;
+
+    const content = records[selected].content;
+    const selectedIsImage = records[selected].type === "Image";
+
+    if (selectedIsImage) {
+      return <img src={content} />;
+    }
+
+    return <div>{content}</div>;
   };
 
   return (
     <div className="h-full flex justify-center items-center">
-      {hasItems && records[selected].content}
+      {determineContent()}
     </div>
   );
 };
