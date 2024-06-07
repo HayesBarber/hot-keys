@@ -16,9 +16,17 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
   const [selected, setSelected] = useState(0);
   const ref = useFocus();
 
+  const onValueChange = (value: string) => {
+    setSelected(parseInt(value));
+  };
+
   const onRecordSelected = (record: ClipboardRecord) => {
     window.electronAPI.copyToClipboard(record);
     back();
+  };
+
+  const deleteSelected = () => {
+    window.electronAPI.deletePasteboardItem(selected);
   };
 
   return (
@@ -28,7 +36,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
           <CommandComponent
             ref={ref}
             value={`${selected}`}
-            onValueChange={(value) => setSelected(parseInt(value))}
+            onValueChange={onValueChange}
             className="rounded-xl outline-none focus:outline-none flex flex-col"
           >
             <CommandList className="grow">
@@ -54,6 +62,8 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
             Clear pasteboard
           </FooterButton>
           <hr className="h-[20px] w-[1px] bg-border" />
+          <FooterButton onClick={deleteSelected}>Delete Item</FooterButton>
+          <hr className="h-[20px] w-[1px] bg-border" />
           <FooterButton onClick={() => window.electronAPI.pasteToPasteboard()}>
             Add to pasteboard: ⌘⇧V
           </FooterButton>
@@ -70,7 +80,14 @@ const ClipboardContent: React.FC<{
   const hasItems = records.length > 0;
 
   const determineContent = () => {
-    if (!hasItems) return <></>;
+    if (
+      !hasItems ||
+      Number.isNaN(selected) ||
+      selected < 0 ||
+      selected > records.length - 1
+    ) {
+      return <></>;
+    }
 
     const content = records[selected].content;
     const selectedIsImage = records[selected].type === "Image";
