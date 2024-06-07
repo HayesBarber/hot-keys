@@ -83,7 +83,7 @@ const ClipboardContent: React.FC<{
   };
 
   return (
-    <div className="h-full flex justify-center items-center">
+    <div className="h-full flex justify-center items-center overflow-auto">
       {determineContent()}
     </div>
   );
