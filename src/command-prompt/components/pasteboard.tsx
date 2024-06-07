@@ -2,6 +2,7 @@ import { ClipboardRecord } from "../../models/clipboardRecord";
 import usePasteboard from "../../hooks/usePasteboard";
 import { FooterButton, FooterMain } from "./footer";
 import useFocus from "../../hooks/useFocus";
+import useKey from "../../hooks/useKey";
 import { ArrowBigLeft, Copy } from "lucide-react";
 import {
   Command as CommandComponent,
@@ -15,6 +16,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
   const pasteboardItems = usePasteboard();
   const [selected, setSelected] = useState(0);
   const ref = useFocus();
+  useKey("Backspace", () => deleteSelected());
 
   const onValueChange = (value: string) => {
     setSelected(parseInt(value));
@@ -62,7 +64,9 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
             Clear pasteboard
           </FooterButton>
           <hr className="h-[20px] w-[1px] bg-border" />
-          <FooterButton onClick={deleteSelected}>Delete Item</FooterButton>
+          <FooterButton onClick={deleteSelected}>
+            Delete Item {"\u232B"}
+          </FooterButton>
           <hr className="h-[20px] w-[1px] bg-border" />
           <FooterButton onClick={() => window.electronAPI.pasteToPasteboard()}>
             Add to pasteboard: ⌘⇧V
