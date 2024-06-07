@@ -18,6 +18,7 @@ const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
 
   const onRecordSelected = (record: ClipboardRecord) => {
     window.electronAPI.copyToClipboard(record);
+    back();
   };
 
   return (
