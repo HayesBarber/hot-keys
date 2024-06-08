@@ -7,6 +7,7 @@ import {
   PredefinedAccelerators,
   defaultPredefinedAccelerators,
 } from "../models/predefinedAccelorators";
+import { errorOnStartup } from "./errorOnStartup";
 
 class RegisterHotKeysService {
   private hotKeysFileName = "hot-keys.json";
@@ -98,13 +99,7 @@ class RegisterHotKeysService {
 
     const message = "There was an error parsing your hot-keys.json";
 
-    dialog.showMessageBoxSync({
-      type: "error",
-      message: message,
-      buttons: ["Quit"],
-    });
-
-    app.exit();
+    errorOnStartup(message);
   };
 }
 

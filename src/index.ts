@@ -15,6 +15,7 @@ import {
   PredefinedAccelerators,
   defaultPredefinedAccelerators,
 } from "./models/predefinedAccelorators";
+import { errorOnStartup } from "./lib/errorOnStartup";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -59,7 +60,12 @@ app.on("ready", async () => {
 
   registerIpcListeners();
 
-  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  try {
+    await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  } catch (error) {
+    errorOnStartup("There was an error starting up the application");
+    return;
+  }
 
   show();
 
