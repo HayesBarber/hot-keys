@@ -38,17 +38,21 @@ const registerHotKeys = (
   const viewPasteboard =
     hotKeys.viewPasteboard ?? defaultPredefinedAccelerators.viewPasteboard;
 
-  globalShortcut.register(toggleUI, () => {
-    toggleFunction();
-  });
-
-  globalShortcut.register(addToPasteboard, () => {
-    clipboardService.readClipboard();
-  });
-
-  globalShortcut.register(viewPasteboard, () => {
-    clipboardService.showPasteboard();
-  });
+  if (toggleUI.length) {
+    globalShortcut.register(toggleUI, () => {
+      toggleFunction();
+    });
+  }
+  if (addToPasteboard.length) {
+    globalShortcut.register(addToPasteboard, () => {
+      clipboardService.readClipboard();
+    });
+  }
+  if (viewPasteboard.length) {
+    globalShortcut.register(viewPasteboard, () => {
+      clipboardService.showPasteboard();
+    });
+  }
 
   return {
     toggleUI,

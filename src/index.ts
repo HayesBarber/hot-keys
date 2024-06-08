@@ -49,6 +49,7 @@ app.on("ready", async () => {
 
   clipboardService = new ClipboardService(window);
 
+  // todo try catch
   accelerators = registerHotKeys(commands, toggleWindow, clipboardService);
 
   ipcMain.on("command-selected", onCommandSelected);
