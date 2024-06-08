@@ -23,4 +23,4 @@ interface CommandExecutable {
   execute: () => void;
 }
 
-export { Command, CommandClient, CommandExecutable };
+export { HotKeys, Command, CommandClient, CommandExecutable };
