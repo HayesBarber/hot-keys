@@ -1,7 +1,13 @@
 interface PredefinedAccelerators {
-  toggle: string;
+  toggleUI: string;
   addToPasteboard: string;
   viewPasteboard: string;
 }
 
-export { PredefinedAccelerators };
+const defaultPredefinedAccelerators: PredefinedAccelerators = {
+  toggleUI: "Option+Space",
+  addToPasteboard: "Command+Shift+V",
+  viewPasteboard: "Option+Shift+V",
+};
+
+export { PredefinedAccelerators, defaultPredefinedAccelerators };

@@ -3,6 +3,7 @@ import { exec } from "child_process";
 import { CommandExecutable, HotKeys } from "../models/command";
 import ClipboardService from "./clipboardService";
 import { readFileFromHomeDirectory } from "./fileUtils";
+import { defaultPredefinedAccelerators } from "../models/predefinedAccelorators";
 
 const registerHotKeys = (
   commandExecutables: CommandExecutable[],
@@ -31,11 +32,13 @@ const registerHotKeys = (
     }
   });
 
-  const toggle = hotKeys.toggleUI ?? "Option+Space";
-  const addToPasteboard = hotKeys.addToPasteboard ?? "Command+Shift+V";
-  const viewPasteboard = hotKeys.viewPasteboard ?? "Option+Shift+V";
+  const toggleUI = hotKeys.toggleUI ?? defaultPredefinedAccelerators.toggleUI;
+  const addToPasteboard =
+    hotKeys.addToPasteboard ?? defaultPredefinedAccelerators.addToPasteboard;
+  const viewPasteboard =
+    hotKeys.viewPasteboard ?? defaultPredefinedAccelerators.viewPasteboard;
 
-  globalShortcut.register(toggle, () => {
+  globalShortcut.register(toggleUI, () => {
     toggleFunction();
   });
 
@@ -48,7 +51,7 @@ const registerHotKeys = (
   });
 
   return {
-    toggle,
+    toggleUI,
     addToPasteboard,
     viewPasteboard,
   };
