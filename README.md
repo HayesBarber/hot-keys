@@ -77,6 +77,20 @@ The `commands` field are your hot-keys. The `hotKey` field is optional if you do
 }
 ```
 
+### A note on $PATH
+
+If a command is not working, it may be due to `command not found`.
+
+Try specifying the path to the command.
+
+EX: `/usr/local/bin/code -n` instead of `code -n`.
+
+You can get the path to a command via:
+
+```bash
+type -a code
+```
+
 ## Dev environment setup _todo_
 
 1. Clone the repo
