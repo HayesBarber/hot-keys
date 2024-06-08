@@ -99,11 +99,11 @@ For security reasons, Hot-Keys does not continually poll your clipboard.
 
 Instead, you use the `addToPasteboard` hot-key (or the UI), which will read your clipboard and add it to your pasteboard.
 
-**_There is a reason you must explicitly paste into Hot-Keys_**
+**_There is a reason you must explicitly paste into Hot-Keys._**
 
-**_Your clipboard may very well contain sensitive data (EX: you copied a password)_**
+**_Your clipboard may very well contain sensitive data (EX: you copied a password)._**
 
-**_Your pasteboard is not encrypted, so please do not put sensitive data there_**
+**_Your pasteboard is not encrypted, so please do not put sensitive data there._**
 
 ## Dev environment setup _todo_
 
