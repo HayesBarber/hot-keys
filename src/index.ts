@@ -55,7 +55,7 @@ app.on("ready", async () => {
 
   if (hotKeysService.shouldAbort) return;
 
-  accelerators = hotKeysService.defaultAccelerators();
+  accelerators = hotKeysService.predefinedAccelerators();
 
   registerIpcListeners();
 

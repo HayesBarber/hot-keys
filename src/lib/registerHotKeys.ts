@@ -31,7 +31,7 @@ class RegisterHotKeysService {
     }
   }
 
-  public defaultAccelerators = (): PredefinedAccelerators => {
+  public predefinedAccelerators = (): PredefinedAccelerators => {
     return {
       toggleUI: this.toggleUI,
       addToPasteboard: this.addToPasteboard,
