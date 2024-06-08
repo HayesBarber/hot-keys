@@ -19,6 +19,7 @@ const Pasteboard: React.FC = () => {
   const [selected, setSelected] = useState(0);
   const ref = useFocus();
   useKey("Backspace", () => deleteSelected());
+  useKey("ArrowLeft", () => back());
   const { setShowPasteboard, predefinedAccelerators } = useGlobalState();
 
   const onValueChange = (value: string) => {
