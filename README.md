@@ -47,7 +47,7 @@ code hot-keys.json
 These have defaults if they are not present.
 Use an empty string if you do not want to use them.
 
-The `commands` field are your hot-keys. The `hotKey` field is optional if you do not want to take up a keyboard shortcut.
+The `commands` field is your hot-keys. The `hotKey` field is optional if you do not want to take up a keyboard shortcut.
 
 ```json
 {
