@@ -43,16 +43,17 @@ touch hot-keys.json
 code hot-keys.json
 ```
 
+`toggleUI`,`addToPasteboard`, and `viewPasteboard` are the "built in" accelerators.
+These have defaults if they are not present.
+Use an empty string if you do not want to use them.
+
+The `commands` field are your hot-keys. The `hotKey` field is optional if you do not want to take up a keyboard shortcut.
+
 ```json
 {
-  // "built in" accelerators
-  // these have defaults if they are not present
-  // use an empty string if you do not want to use it
   "toggleUI": "Option+Space",
   "addToPasteboard": "Command+Shift+V",
   "viewPasteboard": "Option+Shift+V",
-  // these are your hot-keys
-  // the "hotKey" field is optional if you do not want to take up a keyboard shortcut
   "commands": [
     {
       "hotKey": "Option+Command+P",
