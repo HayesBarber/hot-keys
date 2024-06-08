@@ -8,6 +8,7 @@ import {
   defaultPredefinedAccelerators,
 } from "../models/predefinedAccelorators";
 
+// todo make this a class
 const registerHotKeys = (
   commandExecutables: CommandExecutable[],
   toggleFunction: () => void,
