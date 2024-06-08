@@ -10,14 +10,14 @@ export type GlobalState = {
   setShowPasteboard: (show: boolean) => void;
 };
 
-export const initialGlobalState: GlobalState = {
+export const defaultGlobalState: GlobalState = {
   showPasteboard: false,
   predefinedAccelerators: defaultPredefinedAccelerators,
   setShowPasteboard: () => null,
 };
 
 export const GlobalProviderContext =
-  createContext<GlobalState>(initialGlobalState);
+  createContext<GlobalState>(defaultGlobalState);
 
 export const useGlobalState = () => {
   const context = useContext(GlobalProviderContext);
