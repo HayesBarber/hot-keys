@@ -18,7 +18,7 @@ import { useGlobalState } from "../../hooks/useGlobalState";
 const Commands: React.FC = () => {
   const inputRef = useFocus();
   const commands = useCommands();
-  const { setShowPasteboard } = useGlobalState();
+  const { setShowPasteboard, predefinedAccelerators } = useGlobalState();
 
   const showPasteboard = () => {
     setShowPasteboard(true);
@@ -51,11 +51,13 @@ const Commands: React.FC = () => {
       <FooterMain>
         <FooterButton onClick={() => showPasteboard()}>
           <Clipboard className="icon" />
-          View Pasteboard: ⌥⇧V
+          View Pasteboard
+          {acceleratorToDisplay(predefinedAccelerators.viewPasteboard, ":")}
         </FooterButton>
         <div className="flex items-center">
           <FooterButton onClick={() => window.electronAPI.hide()}>
-            Show/Hide: ⌥Space
+            Show/Hide
+            {acceleratorToDisplay(predefinedAccelerators.toggleUI, ":")}
           </FooterButton>
           <hr className="h-[20px] w-[1px] bg-border" />
           <FooterButton onClick={() => window.electronAPI.quit()}>

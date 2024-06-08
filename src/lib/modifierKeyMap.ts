@@ -7,11 +7,17 @@ export const modifierKeyMap: Record<string, string> = {
   Function: "Fn",
 };
 
-export const acceleratorToDisplay = (accelerator: string) => {
+export const acceleratorToDisplay = (accelerator: string, prefix?: string) => {
   const parts: string[] = accelerator.split("+");
   parts.forEach((part, index, arr) => {
     arr[index] = modifierKeyMap[part] ?? part;
   });
 
-  return parts.join("");
+  const joined = parts.join("");
+
+  if (prefix && joined) {
+    return `${prefix} ${joined}`;
+  }
+
+  return joined;
 };

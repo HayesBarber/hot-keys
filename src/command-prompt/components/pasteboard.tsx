@@ -12,13 +12,14 @@ import {
 } from "../../components/command";
 import { useState } from "react";
 import { useGlobalState } from "../../hooks/useGlobalState";
+import { acceleratorToDisplay } from "../../lib/modifierKeyMap";
 
 const Pasteboard: React.FC = () => {
   const pasteboardItems = usePasteboard();
   const [selected, setSelected] = useState(0);
   const ref = useFocus();
   useKey("Backspace", () => deleteSelected());
-  const { setShowPasteboard } = useGlobalState();
+  const { setShowPasteboard, predefinedAccelerators } = useGlobalState();
 
   const onValueChange = (value: string) => {
     setSelected(parseInt(value));
@@ -75,7 +76,8 @@ const Pasteboard: React.FC = () => {
           </FooterButton>
           <hr className="h-[20px] w-[1px] bg-border" />
           <FooterButton onClick={() => window.electronAPI.pasteToPasteboard()}>
-            Add to pasteboard: ⌘⇧V
+            Add to pasteboard
+            {acceleratorToDisplay(predefinedAccelerators.addToPasteboard, ":")}
           </FooterButton>
         </div>
       </FooterMain>
