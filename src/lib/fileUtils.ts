@@ -4,13 +4,18 @@ import { readFileSync, writeFileSync } from "fs";
 
 export function readFileFromHomeDirectory<T>(
   fileName: string,
-  defaultValue: T
+  defaultValue: T,
+  isValid: (parsed: any) => boolean
 ) {
   try {
     const home = homedir();
     const filePath = join(home, fileName);
     const fileContent = readFileSync(filePath, "utf-8");
     const parsed: T = JSON.parse(fileContent);
+
+    if (!isValid(parsed)) {
+      throw "parsed was invalid";
+    }
 
     return parsed;
   } catch (error) {

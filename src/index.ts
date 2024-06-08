@@ -8,9 +8,14 @@ import {
   nativeImage,
 } from "electron";
 import { CommandClient, CommandExecutable } from "./models/command";
-import { registerHotKeys } from "./lib/registerHotKeys";
+import { RegisterHotKeysService } from "./lib/registerHotKeys";
 import { join } from "path";
 import ClipboardService from "./lib/clipboardService";
+import {
+  PredefinedAccelerators,
+  defaultPredefinedAccelerators,
+} from "./models/predefinedAccelorators";
+import { errorOnStartup } from "./lib/errorOnStartup";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -19,30 +24,57 @@ let tray: Tray | null = null;
 let window: BrowserWindow | null = null;
 let commands: CommandExecutable[] = [];
 let clipboardService: ClipboardService = null;
+let accelerators: PredefinedAccelerators = defaultPredefinedAccelerators;
 
-const getClientCommands = () =>
-  Object.values(commands).map((e, i) => {
+const getClientCommands = () => {
+  return Object.values(commands).map((e, i) => {
     return {
       hotKey: e.hotKey ?? "",
       displayName: e.displayName,
       index: i,
     };
   });
+};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
 app.on("ready", async () => {
   buildMenu();
 
+  await createWindow();
+
+  clipboardService = new ClipboardService(window);
+
+  const hotKeysService = new RegisterHotKeysService(
+    commands,
+    toggleWindow,
+    clipboardService
+  );
+
+  if (hotKeysService.shouldAbort) return;
+
+  accelerators = hotKeysService.predefinedAccelerators();
+
+  registerIpcListeners();
+
+  try {
+    await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  } catch (error) {
+    errorOnStartup("There was an error starting up the application");
+    return;
+  }
+
+  show();
+
+  setTimeout(() => {
+    app.dock.hide();
+  }, 2000);
+});
+
+const registerIpcListeners = () => {
   ipcMain.on("command-selected", onCommandSelected);
   ipcMain.on("hide", () => hide());
   ipcMain.on("quit", () => app.quit());
@@ -52,24 +84,15 @@ app.on("ready", async () => {
   ipcMain.on("readyForPasteboard", (e) =>
     e.reply("sendPasteboard", clipboardService.clipboardRecords)
   );
-
-  await createWindow();
-
-  clipboardService = new ClipboardService(window);
-
-  registerHotKeys(commands, toggle, clipboardService);
-
-  show();
-
-  setTimeout(() => {
-    app.dock.hide();
-  }, 2000);
-});
+  ipcMain.on("readyForAccelerators", (e) =>
+    e.reply("sendAccelerators", accelerators)
+  );
+};
 
 const focused = () => window.isFocused();
 const hide = () => window.hide();
 const show = () => window.show();
-const toggle = () => (focused() ? hide() : show());
+const toggleWindow = () => (focused() ? hide() : show());
 
 const buildMenu = () => {
   const template: (Electron.MenuItemConstructorOptions | Electron.MenuItem)[] =
@@ -137,8 +160,6 @@ const createWindow = async (): Promise<void> => {
   });
 
   window.setVisibleOnAllWorkspaces(true);
-
-  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
 const onCommandSelected = (_event: IpcMainEvent, command: CommandClient) => {

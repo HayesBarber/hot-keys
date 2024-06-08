@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { CommandClient } from "../models/command";
 import { ClipboardRecord } from "../models/clipboardRecord";
+import { PredefinedAccelerators } from "../models/predefinedAccelorators";
 
 contextBridge.exposeInMainWorld("electronAPI", {
   commandSelected: (command: CommandClient) =>
@@ -28,4 +29,11 @@ contextBridge.exposeInMainWorld("electronAPI", {
     ipcRenderer.send("deletePasteboardItem", i),
   copyToClipboard: (clipboardRecord: ClipboardRecord) =>
     ipcRenderer.send("copyToClipboard", clipboardRecord),
+  readyForAccelerators: () => ipcRenderer.send("readyForAccelerators"),
+  listenForAccelerators: (callback: (value: PredefinedAccelerators) => any) => {
+    ipcRenderer.on(
+      "sendAccelerators",
+      (_event, value: PredefinedAccelerators) => callback(value)
+    );
+  },
 });

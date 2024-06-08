@@ -80,8 +80,13 @@ class ClipboardService {
     this.writeToClipboardFile();
   };
 
-  private readClipboardFile = () =>
-    readFileFromHomeDirectory<ClipboardRecord[]>(this.clipboardFileName, []);
+  private readClipboardFile = () => {
+    return readFileFromHomeDirectory<ClipboardRecord[]>(
+      this.clipboardFileName,
+      [],
+      (parsed) => Array.isArray(parsed)
+    );
+  };
 
   private clear = () => {
     this.clipboardRecords = [];

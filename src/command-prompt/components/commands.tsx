@@ -1,7 +1,7 @@
 import { CommandClient } from "../../models/command";
 import useFocus from "../../hooks/useFocus";
 import useCommands from "../../hooks/useCommands";
-import { modifierKeyMap } from "../../lib/modifierKeyMap";
+import { acceleratorToDisplay, modifierKeyMap } from "../../lib/modifierKeyMap";
 import { FooterButton, FooterMain } from "./footer";
 import { Clipboard } from "lucide-react";
 import {
@@ -13,12 +13,16 @@ import {
   CommandList,
   CommandShortcut,
 } from "../../components/command";
+import { useGlobalState } from "../../hooks/useGlobalState";
 
-const Commands: React.FC<{ showPasteboard: () => void }> = ({
-  showPasteboard,
-}) => {
+const Commands: React.FC = () => {
   const inputRef = useFocus();
   const commands = useCommands();
+  const { setShowPasteboard, predefinedAccelerators } = useGlobalState();
+
+  const showPasteboard = () => {
+    setShowPasteboard(true);
+  };
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.target.select();
@@ -47,11 +51,13 @@ const Commands: React.FC<{ showPasteboard: () => void }> = ({
       <FooterMain>
         <FooterButton onClick={() => showPasteboard()}>
           <Clipboard className="icon" />
-          View Pasteboard: ⌥⇧V
+          View Pasteboard
+          {acceleratorToDisplay(predefinedAccelerators.viewPasteboard, ":")}
         </FooterButton>
         <div className="flex items-center">
           <FooterButton onClick={() => window.electronAPI.hide()}>
-            Show/Hide: ⌥Space
+            Show/Hide
+            {acceleratorToDisplay(predefinedAccelerators.toggleUI, ":")}
           </FooterButton>
           <hr className="h-[20px] w-[1px] bg-border" />
           <FooterButton onClick={() => window.electronAPI.quit()}>
@@ -90,16 +96,13 @@ const CommandListItem: React.FC<{
   command: CommandClient;
   onSelect: (hotKey: CommandClient) => void;
 }> = ({ command, onSelect }) => {
-  const parts: string[] = command.hotKey.split("+");
-  parts.forEach((part, index, arr) => {
-    arr[index] = modifierKeyMap[part] ?? part;
-  });
+  const shortCut = acceleratorToDisplay(command.hotKey);
 
   return (
     <CommandItem onSelect={() => onSelect(command)}>
       <span>{command.displayName}</span>
-      {parts.length ? (
-        <CommandShortcut>{parts.join("")}</CommandShortcut>
+      {shortCut.length ? (
+        <CommandShortcut>{shortCut}</CommandShortcut>
       ) : (
         <div />
       )}
