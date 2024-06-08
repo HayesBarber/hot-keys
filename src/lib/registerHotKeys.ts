@@ -1,21 +1,22 @@
 import { globalShortcut, BrowserWindow } from "electron";
 import { exec } from "child_process";
-import { Command, CommandExecutable } from "../models/command";
+import { Command, CommandExecutable, HotKeys } from "../models/command";
 import ClipboardService from "./clipboardService";
 import { readFileFromHomeDirectory } from "./fileUtils";
-
-const parseCommands = () => {
-  return readFileFromHomeDirectory<Command[]>("hot-keys.json", []);
-};
 
 const registerHotKeys = (
   commandExecutables: CommandExecutable[],
   toggleFunction: () => void,
   clipboardService: ClipboardService
 ) => {
-  const commands = parseCommands();
+  const defaultHotKeys: HotKeys = { commands: [] };
 
-  commands.forEach((value) => {
+  const hotKeys = readFileFromHomeDirectory<HotKeys>(
+    "hot-keys.json",
+    defaultHotKeys
+  );
+
+  hotKeys.commands.forEach((value) => {
     commandExecutables.push({
       hotKey: value.hotKey,
       displayName: value.displayName,
@@ -29,15 +30,19 @@ const registerHotKeys = (
     }
   });
 
-  globalShortcut.register("Option+Space", () => {
+  const toggle = hotKeys.toggleUI ?? "Option+Space";
+  const addToPasteboard = hotKeys.addToPasteboard ?? "Command+Shift+V";
+  const viewPasteboard = hotKeys.viewPasteboard ?? "Option+Shift+V";
+
+  globalShortcut.register(toggle, () => {
     toggleFunction();
   });
 
-  globalShortcut.register("Command+Shift+V", () => {
+  globalShortcut.register(addToPasteboard, () => {
     clipboardService.readClipboard();
   });
 
-  globalShortcut.register("Option+Shift+V", () => {
+  globalShortcut.register(viewPasteboard, () => {
     clipboardService.showPasteboard();
   });
 };
