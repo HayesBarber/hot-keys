@@ -47,11 +47,15 @@ app.on("ready", async () => {
 
   clipboardService = new ClipboardService(window);
 
-  accelerators = new RegisterHotKeysService(
+  const hotKeysService = new RegisterHotKeysService(
     commands,
     toggleWindow,
     clipboardService
-  ).register();
+  );
+
+  if (hotKeysService.shouldAbort) return;
+
+  accelerators = hotKeysService.defaultAccelerators();
 
   registerIpcListeners();
 

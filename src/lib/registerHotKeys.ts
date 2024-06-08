@@ -14,27 +14,29 @@ class RegisterHotKeysService {
   private toggleUI = defaultPredefinedAccelerators.toggleUI;
   private addToPasteboard = defaultPredefinedAccelerators.addToPasteboard;
   private viewPasteboard = defaultPredefinedAccelerators.viewPasteboard;
+  public shouldAbort = false;
 
   constructor(
     private readonly commandExecutables: CommandExecutable[],
     private readonly toggleFunction: () => void,
     private readonly clipboardService: ClipboardService
-  ) {}
-
-  public register = (): PredefinedAccelerators => {
+  ) {
     try {
       this.readHotKeys();
       this.registerHotKeys();
       this.setPredefinedAccelorators();
       this.registerPredefinedAccelorators();
-      return {
-        toggleUI: this.toggleUI,
-        addToPasteboard: this.addToPasteboard,
-        viewPasteboard: this.viewPasteboard,
-      };
     } catch (error) {
       this.errorOnRegisteringHotKeys();
     }
+  }
+
+  public defaultAccelerators = (): PredefinedAccelerators => {
+    return {
+      toggleUI: this.toggleUI,
+      addToPasteboard: this.addToPasteboard,
+      viewPasteboard: this.viewPasteboard,
+    };
   };
 
   private readHotKeys = () => {
@@ -92,6 +94,8 @@ class RegisterHotKeysService {
   };
 
   private errorOnRegisteringHotKeys = () => {
+    this.shouldAbort = true;
+
     const message = "There was an error parsing your hot-keys.json";
 
     dialog.showMessageBoxSync({
@@ -101,8 +105,6 @@ class RegisterHotKeysService {
     });
 
     app.exit();
-
-    throw message;
   };
 }
 
