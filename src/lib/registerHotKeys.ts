@@ -5,7 +5,7 @@ import ClipboardService from "./clipboardService";
 import { readFileFromHomeDirectory } from "./fileUtils";
 
 const parseCommands = () =>
-  readFileFromHomeDirectory<Command[]>("commands.json", []);
+  readFileFromHomeDirectory<Command[]>("hot-keys.json", []);
 
 const registerHotKeys = (
   commandExecutables: CommandExecutable[],

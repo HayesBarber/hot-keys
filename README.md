@@ -1,4 +1,3 @@
-
 <div align="center">
     <img src="src/assets/tray-icon.png" alt="Icon" height="300px"/>
 </div>
@@ -13,75 +12,78 @@ Map commands to keyboard shortcuts.
 
 ## Built with
 
-* [**Electron**](https://www.electronjs.org)
-* [**React**](https://react.dev)
-* [**shadcn/ui**](https://ui.shadcn.com)
-* [**cmdk**](https://github.com/pacocoursey/cmdk)
-* [**tailwindcss**](https://tailwindcss.com)
-* [**Geist Font**](https://github.com/vercel/geist-font/blob/main/LICENSE.txt)
+- [**Electron**](https://www.electronjs.org)
+- [**React**](https://react.dev)
+- [**shadcn/ui**](https://ui.shadcn.com)
+- [**cmdk**](https://github.com/pacocoursey/cmdk)
+- [**tailwindcss**](https://tailwindcss.com)
+- [**Geist Font**](https://github.com/vercel/geist-font/blob/main/LICENSE.txt)
 
 ## Quick Start
 
-Download and install the latest release. ***todo***
+Download and install the latest release. **_todo_**
 
-Hot-Keys will read from a ```commands.json``` file in your ***home directory***.
+Hot-Keys will read from a `hot-keys.json` file in your **_home directory_**.
 
-This should be an ***array of json objects***.
+This should be an **_array of json objects_**.
 
 Each object should contain these fields:
 
-* ```hotKey``` (optional)
-* ```command```
-* ```displayName```
+- `hotKey` (optional)
+- `command`
+- `displayName`
 
-### Example commands.json
+### Example hot-keys.json
 
 ```bash
 cd ~
 ```
 
 ```bash
-touch commands.json
+touch hot-keys.json
 ```
 
 ```bash
 # if using VSCode
-code commands.json
+code hot-keys.json
 ```
 
 ```json
 [
-    {
-        "hotKey": "Option+Command+P",
-        "command": "osascript -e 'do shell script \"code -n\"'",
-        "displayName": "Open new VSCode window"
-    },
-    {
-        "hotKey": "Option+Command+I",
-        "command": "osascript -e 'quit app \"safari.app\"'",
-        "displayName": "Close Safari"
-    },
-    {
-        "command": "osascript -e 'quit app \"messages.app\"'",
-        "displayName": "Close Messages"
-    }
+  {
+    "hotKey": "Option+Command+P",
+    "command": "osascript -e 'do shell script \"code -n\"'",
+    "displayName": "Open new VSCode window"
+  },
+  {
+    "hotKey": "Option+Command+I",
+    "command": "osascript -e 'quit app \"safari.app\"'",
+    "displayName": "Close Safari"
+  },
+  {
+    "command": "osascript -e 'quit app \"messages.app\"'",
+    "displayName": "Close Messages"
+  }
 ]
 ```
 
-You can execute the commands by their ```hotKey``` or via the UI.
+You can execute the commands by their `hotKey` or via the UI.
 
-Hitting ***Command+Shift+Space*** will toggle the UI to be shown / hidden.
+Hitting **_Command+Shift+Space_** will toggle the UI to be shown / hidden.
 
-*Note: The UI does not have to be visible for the hotKeys to work. You do not have to use the UI.*
+_Note: The UI does not have to be visible for the hotKeys to work. You do not have to use the UI._
 
 ## Dev environment setup
 
 1. Clone the repo
 2. Install dependencies
+
 ```bash
 npm install
 ```
+
 3. Run the application
+
 ```bash
 npm run start
 ```
