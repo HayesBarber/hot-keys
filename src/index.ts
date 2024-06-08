@@ -43,6 +43,16 @@ app.on("window-all-closed", () => {
 app.on("ready", async () => {
   buildMenu();
 
+  await createWindow();
+
+  clipboardService = new ClipboardService(window);
+
+  const { toggle, addToPasteboard, viewPasteboard } = registerHotKeys(
+    commands,
+    toggleWindow,
+    clipboardService
+  );
+
   ipcMain.on("command-selected", onCommandSelected);
   ipcMain.on("hide", () => hide());
   ipcMain.on("quit", () => app.quit());
@@ -53,11 +63,7 @@ app.on("ready", async () => {
     e.reply("sendPasteboard", clipboardService.clipboardRecords)
   );
 
-  await createWindow();
-
-  clipboardService = new ClipboardService(window);
-
-  registerHotKeys(commands, toggle, clipboardService);
+  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   show();
 
@@ -69,7 +75,7 @@ app.on("ready", async () => {
 const focused = () => window.isFocused();
 const hide = () => window.hide();
 const show = () => window.show();
-const toggle = () => (focused() ? hide() : show());
+const toggleWindow = () => (focused() ? hide() : show());
 
 const buildMenu = () => {
   const template: (Electron.MenuItemConstructorOptions | Electron.MenuItem)[] =
@@ -137,8 +143,6 @@ const createWindow = async (): Promise<void> => {
   });
 
   window.setVisibleOnAllWorkspaces(true);
-
-  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
 const onCommandSelected = (_event: IpcMainEvent, command: CommandClient) => {
