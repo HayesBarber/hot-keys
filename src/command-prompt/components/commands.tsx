@@ -13,12 +13,16 @@ import {
   CommandList,
   CommandShortcut,
 } from "../../components/command";
+import { useGlobalState } from "../../hooks/useGlobalState";
 
-const Commands: React.FC<{ showPasteboard: () => void }> = ({
-  showPasteboard,
-}) => {
+const Commands: React.FC = () => {
   const inputRef = useFocus();
   const commands = useCommands();
+  const { setShowPasteboard } = useGlobalState();
+
+  const showPasteboard = () => {
+    setShowPasteboard(true);
+  };
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.target.select();

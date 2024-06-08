@@ -11,15 +11,21 @@ import {
   CommandItem,
 } from "../../components/command";
 import { useState } from "react";
+import { useGlobalState } from "../../hooks/useGlobalState";
 
-const Pasteboard: React.FC<{ back: () => void }> = ({ back }) => {
+const Pasteboard: React.FC = () => {
   const pasteboardItems = usePasteboard();
   const [selected, setSelected] = useState(0);
   const ref = useFocus();
   useKey("Backspace", () => deleteSelected());
+  const { setShowPasteboard } = useGlobalState();
 
   const onValueChange = (value: string) => {
     setSelected(parseInt(value));
+  };
+
+  const back = () => {
+    setShowPasteboard(false);
   };
 
   const onRecordSelected = (record: ClipboardRecord) => {
