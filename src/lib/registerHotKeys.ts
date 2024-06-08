@@ -4,8 +4,9 @@ import { Command, CommandExecutable } from "../models/command";
 import ClipboardService from "./clipboardService";
 import { readFileFromHomeDirectory } from "./fileUtils";
 
-const parseCommands = () =>
-  readFileFromHomeDirectory<Command[]>("hot-keys.json", []);
+const parseCommands = () => {
+  return readFileFromHomeDirectory<Command[]>("hot-keys.json", []);
+};
 
 const registerHotKeys = (
   commandExecutables: CommandExecutable[],
