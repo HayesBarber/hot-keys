@@ -7,7 +7,7 @@
 Two main features:
 
 1. Map commands to keyboard shortcuts (or execute them throught the UI)
-2. Pasteboard
+2. A pasteboard for viewing / re-copying
 
 <div align="center">
     <img src="src/assets/ui-image.png" alt="UI"/>
