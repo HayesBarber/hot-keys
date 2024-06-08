@@ -55,6 +55,18 @@ app.on("ready", async () => {
   // todo try catch
   accelerators = registerHotKeys(commands, toggleWindow, clipboardService);
 
+  registerIpcListeners();
+
+  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
+  show();
+
+  setTimeout(() => {
+    app.dock.hide();
+  }, 2000);
+});
+
+const registerIpcListeners = () => {
   ipcMain.on("command-selected", onCommandSelected);
   ipcMain.on("hide", () => hide());
   ipcMain.on("quit", () => app.quit());
@@ -67,15 +79,7 @@ app.on("ready", async () => {
   ipcMain.on("readyForAccelerators", (e) =>
     e.reply("sendAccelerators", accelerators)
   );
-
-  await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  show();
-
-  setTimeout(() => {
-    app.dock.hide();
-  }, 2000);
-});
+};
 
 const focused = () => window.isFocused();
 const hide = () => window.hide();
