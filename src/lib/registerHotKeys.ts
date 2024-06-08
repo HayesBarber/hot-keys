@@ -10,7 +10,7 @@ import {
 
 class RegisterHotKeysService {
   private hotKeysFileName = "hot-keys.json";
-  private hotKeys: HotKeys = { commands: [] };
+  private hotKeys: HotKeys;
   private toggleUI = defaultPredefinedAccelerators.toggleUI;
   private addToPasteboard = defaultPredefinedAccelerators.addToPasteboard;
   private viewPasteboard = defaultPredefinedAccelerators.viewPasteboard;
@@ -23,7 +23,7 @@ class RegisterHotKeysService {
 
   public register = (): PredefinedAccelerators => {
     try {
-      this.hotKeys = this.readHotKeys();
+      this.readHotKeys();
       this.registerHotKeys();
       this.setPredefinedAccelorators();
       this.registerPredefinedAccelorators();
@@ -37,8 +37,8 @@ class RegisterHotKeysService {
     }
   };
 
-  private readHotKeys = (): HotKeys => {
-    return readFileFromHomeDirectory<HotKeys>(
+  private readHotKeys = () => {
+    this.hotKeys = readFileFromHomeDirectory<HotKeys>(
       this.hotKeysFileName,
       this.hotKeys,
       (parsed) => Array.isArray(parsed.commands)
