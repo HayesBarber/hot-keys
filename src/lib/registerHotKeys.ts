@@ -3,13 +3,16 @@ import { exec } from "child_process";
 import { CommandExecutable, HotKeys } from "../models/command";
 import ClipboardService from "./clipboardService";
 import { readFileFromHomeDirectory } from "./fileUtils";
-import { defaultPredefinedAccelerators } from "../models/predefinedAccelorators";
+import {
+  PredefinedAccelerators,
+  defaultPredefinedAccelerators,
+} from "../models/predefinedAccelorators";
 
 const registerHotKeys = (
   commandExecutables: CommandExecutable[],
   toggleFunction: () => void,
   clipboardService: ClipboardService
-) => {
+): PredefinedAccelerators => {
   const defaultHotKeys: HotKeys = { commands: [] };
 
   const hotKeys = readFileFromHomeDirectory<HotKeys>(
