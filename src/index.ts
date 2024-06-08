@@ -25,14 +25,15 @@ let commands: CommandExecutable[] = [];
 let clipboardService: ClipboardService = null;
 let accelerators: PredefinedAccelerators = defaultPredefinedAccelerators;
 
-const getClientCommands = () =>
-  Object.values(commands).map((e, i) => {
+const getClientCommands = () => {
+  return Object.values(commands).map((e, i) => {
     return {
       hotKey: e.hotKey ?? "",
       displayName: e.displayName,
       index: i,
     };
   });
+};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
