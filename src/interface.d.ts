@@ -1,5 +1,6 @@
 import { CommandClient } from "./models/command";
 import { ClipboardRecord } from "./models/clipboardRecord";
+import { PredefinedAccelerators } from "./models/predefinedAccelorators";
 
 export interface IElectronAPI {
   commandSelected: (command: CommandClient) => void;
@@ -14,6 +15,10 @@ export interface IElectronAPI {
   showPasteboard: (callback: () => void) => void;
   deletePasteboardItem: (i: number) => void;
   copyToClipboard: (clipboardRecord: ClipboardRecord) => void;
+  readyForAccelerators: () => void;
+  listenForAccelerators: (
+    callback: (value: PredefinedAccelerators) => any
+  ) => void;
 }
 
 declare global {

@@ -1,6 +1,6 @@
-import { globalShortcut, BrowserWindow } from "electron";
+import { globalShortcut } from "electron";
 import { exec } from "child_process";
-import { Command, CommandExecutable, HotKeys } from "../models/command";
+import { CommandExecutable, HotKeys } from "../models/command";
 import ClipboardService from "./clipboardService";
 import { readFileFromHomeDirectory } from "./fileUtils";
 

@@ -11,6 +11,7 @@ import { CommandClient, CommandExecutable } from "./models/command";
 import { registerHotKeys } from "./lib/registerHotKeys";
 import { join } from "path";
 import ClipboardService from "./lib/clipboardService";
+import { PredefinedAccelerators } from "./models/predefinedAccelorators";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -19,6 +20,7 @@ let tray: Tray | null = null;
 let window: BrowserWindow | null = null;
 let commands: CommandExecutable[] = [];
 let clipboardService: ClipboardService = null;
+let accelerators: PredefinedAccelerators = null;
 
 const getClientCommands = () =>
   Object.values(commands).map((e, i) => {
@@ -47,11 +49,7 @@ app.on("ready", async () => {
 
   clipboardService = new ClipboardService(window);
 
-  const { toggle, addToPasteboard, viewPasteboard } = registerHotKeys(
-    commands,
-    toggleWindow,
-    clipboardService
-  );
+  accelerators = registerHotKeys(commands, toggleWindow, clipboardService);
 
   ipcMain.on("command-selected", onCommandSelected);
   ipcMain.on("hide", () => hide());
@@ -61,6 +59,9 @@ app.on("ready", async () => {
   );
   ipcMain.on("readyForPasteboard", (e) =>
     e.reply("sendPasteboard", clipboardService.clipboardRecords)
+  );
+  ipcMain.on("readyForAccelerators", (e) =>
+    e.reply("sendAccelerators", accelerators)
   );
 
   await window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
