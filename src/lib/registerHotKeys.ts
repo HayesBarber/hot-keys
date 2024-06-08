@@ -31,21 +31,23 @@ const registerHotKeys = (
     }
   });
 
-  const toggle = hotKeys.toggleUI ?? "Option+Space";
-  const addToPasteboard = hotKeys.addToPasteboard ?? "Command+Shift+V";
-  const viewPasteboard = hotKeys.viewPasteboard ?? "Option+Shift+V";
+  hotKeys.toggleUI = hotKeys.toggleUI ?? "Option+Space";
+  hotKeys.addToPasteboard = hotKeys.addToPasteboard ?? "Command+Shift+V";
+  hotKeys.viewPasteboard = hotKeys.viewPasteboard ?? "Option+Shift+V";
 
-  globalShortcut.register(toggle, () => {
+  globalShortcut.register(hotKeys.toggleUI, () => {
     toggleFunction();
   });
 
-  globalShortcut.register(addToPasteboard, () => {
+  globalShortcut.register(hotKeys.addToPasteboard, () => {
     clipboardService.readClipboard();
   });
 
-  globalShortcut.register(viewPasteboard, () => {
+  globalShortcut.register(hotKeys.viewPasteboard, () => {
     clipboardService.showPasteboard();
   });
+
+  return hotKeys;
 };
 
 export { registerHotKeys };
