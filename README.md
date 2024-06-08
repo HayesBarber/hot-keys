@@ -91,6 +91,20 @@ You can get the path to a command via:
 type -a code
 ```
 
+### Pasteboard feature
+
+This feature allows you to save items for later, and view or re-copy them.
+
+For security reasons, Hot-Keys does not continually poll your clipboard.
+
+Instead, you use the `addToPasteboard` hot-key (or the UI), which will read your clipboard and add it to your pasteboard.
+
+**_There is a reason you must explicitly paste into Hot-Keys_**
+
+**_Your clipboard may very well contain sensitive data (EX: you copied a password)_**
+
+**_Your pasteboard is not encrypted, so please do not put sensitive data there_**
+
 ## Dev environment setup _todo_
 
 1. Clone the repo
