@@ -1,10 +1,10 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from "react";
 
-const useEscapeKey = (onEscape: () => void) => {
+const useKey = (key: string, onKey: () => void) => {
   const escFunction = useCallback((event: KeyboardEvent) => {
-    if (event.key === "Escape") {
+    if (event.key === key) {
       event.preventDefault();
-      onEscape();
+      onKey();
     }
   }, []);
 
@@ -17,4 +17,4 @@ const useEscapeKey = (onEscape: () => void) => {
   }, [escFunction]);
 };
 
-export default useEscapeKey;
+export default useKey;
