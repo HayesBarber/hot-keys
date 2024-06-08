@@ -1,7 +1,7 @@
 import { CommandClient } from "../../models/command";
 import useFocus from "../../hooks/useFocus";
 import useCommands from "../../hooks/useCommands";
-import { modifierKeyMap } from "../../lib/modifierKeyMap";
+import { acceleratorToDisplay, modifierKeyMap } from "../../lib/modifierKeyMap";
 import { FooterButton, FooterMain } from "./footer";
 import { Clipboard } from "lucide-react";
 import {
@@ -90,16 +90,13 @@ const CommandListItem: React.FC<{
   command: CommandClient;
   onSelect: (hotKey: CommandClient) => void;
 }> = ({ command, onSelect }) => {
-  const parts: string[] = command.hotKey.split("+");
-  parts.forEach((part, index, arr) => {
-    arr[index] = modifierKeyMap[part] ?? part;
-  });
+  const shortCut = acceleratorToDisplay(command.hotKey);
 
   return (
     <CommandItem onSelect={() => onSelect(command)}>
       <span>{command.displayName}</span>
-      {parts.length ? (
-        <CommandShortcut>{parts.join("")}</CommandShortcut>
+      {shortCut.length ? (
+        <CommandShortcut>{shortCut}</CommandShortcut>
       ) : (
         <div />
       )}
