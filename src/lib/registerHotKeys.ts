@@ -1,4 +1,4 @@
-import { globalShortcut } from "electron";
+import { app, dialog, globalShortcut } from "electron";
 import { exec } from "child_process";
 import { CommandExecutable, HotKeys } from "../models/command";
 import ClipboardService from "./clipboardService";
@@ -8,61 +8,102 @@ import {
   defaultPredefinedAccelerators,
 } from "../models/predefinedAccelorators";
 
-// todo make this a class
-const registerHotKeys = (
-  commandExecutables: CommandExecutable[],
-  toggleFunction: () => void,
-  clipboardService: ClipboardService
-): PredefinedAccelerators => {
-  const defaultHotKeys: HotKeys = { commands: [] };
+class RegisterHotKeysService {
+  private hotKeysFileName = "hot-keys.json";
+  private hotKeys: HotKeys = { commands: [] };
+  private toggleUI = defaultPredefinedAccelerators.toggleUI;
+  private addToPasteboard = defaultPredefinedAccelerators.addToPasteboard;
+  private viewPasteboard = defaultPredefinedAccelerators.viewPasteboard;
 
-  const hotKeys = readFileFromHomeDirectory<HotKeys>(
-    "hot-keys.json",
-    defaultHotKeys,
-    (parsed) => Array.isArray(parsed.commands)
-  );
+  constructor(
+    private readonly commandExecutables: CommandExecutable[],
+    private readonly toggleFunction: () => void,
+    private readonly clipboardService: ClipboardService
+  ) {}
 
-  hotKeys.commands.forEach((value) => {
-    commandExecutables.push({
-      hotKey: value.hotKey,
-      displayName: value.displayName,
-      execute: () => exec(value.command),
+  public register = (): PredefinedAccelerators => {
+    try {
+      this.hotKeys = this.readHotKeys();
+      this.registerHotKeys();
+      this.setPredefinedAccelorators();
+      this.registerPredefinedAccelorators();
+      return {
+        toggleUI: this.toggleUI,
+        addToPasteboard: this.addToPasteboard,
+        viewPasteboard: this.viewPasteboard,
+      };
+    } catch (error) {
+      this.errorOnRegisteringHotKeys();
+    }
+  };
+
+  private readHotKeys = (): HotKeys => {
+    return readFileFromHomeDirectory<HotKeys>(
+      this.hotKeysFileName,
+      this.hotKeys,
+      (parsed) => Array.isArray(parsed.commands)
+    );
+  };
+
+  private registerHotKeys = () => {
+    this.hotKeys.commands.forEach((value) => {
+      this.commandExecutables.push({
+        hotKey: value.hotKey,
+        displayName: value.displayName,
+        execute: () => exec(value.command),
+      });
+
+      if (value.hotKey) {
+        globalShortcut.register(value.hotKey, () => {
+          exec(value.command);
+        });
+      }
     });
+  };
 
-    if (value.hotKey) {
-      globalShortcut.register(value.hotKey, () => {
-        exec(value.command);
+  private setPredefinedAccelorators = () => {
+    if (this.hotKeys.toggleUI != null) {
+      this.toggleUI = this.hotKeys.toggleUI;
+    }
+    if (this.hotKeys.addToPasteboard != null) {
+      this.addToPasteboard = this.hotKeys.addToPasteboard;
+    }
+    if (this.hotKeys.viewPasteboard != null) {
+      this.viewPasteboard = this.hotKeys.viewPasteboard;
+    }
+  };
+
+  private registerPredefinedAccelorators = () => {
+    if (this.toggleUI.length) {
+      globalShortcut.register(this.toggleUI, () => {
+        this.toggleFunction();
       });
     }
-  });
-
-  const toggleUI = hotKeys.toggleUI ?? defaultPredefinedAccelerators.toggleUI;
-  const addToPasteboard =
-    hotKeys.addToPasteboard ?? defaultPredefinedAccelerators.addToPasteboard;
-  const viewPasteboard =
-    hotKeys.viewPasteboard ?? defaultPredefinedAccelerators.viewPasteboard;
-
-  if (toggleUI.length) {
-    globalShortcut.register(toggleUI, () => {
-      toggleFunction();
-    });
-  }
-  if (addToPasteboard.length) {
-    globalShortcut.register(addToPasteboard, () => {
-      clipboardService.readClipboard();
-    });
-  }
-  if (viewPasteboard.length) {
-    globalShortcut.register(viewPasteboard, () => {
-      clipboardService.showPasteboard();
-    });
-  }
-
-  return {
-    toggleUI,
-    addToPasteboard,
-    viewPasteboard,
+    if (this.addToPasteboard.length) {
+      globalShortcut.register(this.addToPasteboard, () => {
+        this.clipboardService.readClipboard();
+      });
+    }
+    if (this.viewPasteboard.length) {
+      globalShortcut.register(this.viewPasteboard, () => {
+        this.clipboardService.showPasteboard();
+      });
+    }
   };
-};
 
-export { registerHotKeys };
+  private errorOnRegisteringHotKeys = () => {
+    const message = "There was an error parsing your hot-keys.json";
+
+    dialog.showMessageBoxSync({
+      type: "error",
+      message: message,
+      buttons: ["Quit"],
+    });
+
+    app.exit();
+
+    throw message;
+  };
+}
+
+export { RegisterHotKeysService };

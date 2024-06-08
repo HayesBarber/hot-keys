@@ -8,7 +8,7 @@ import {
   nativeImage,
 } from "electron";
 import { CommandClient, CommandExecutable } from "./models/command";
-import { registerHotKeys } from "./lib/registerHotKeys";
+import { RegisterHotKeysService } from "./lib/registerHotKeys";
 import { join } from "path";
 import ClipboardService from "./lib/clipboardService";
 import {
@@ -47,8 +47,11 @@ app.on("ready", async () => {
 
   clipboardService = new ClipboardService(window);
 
-  // todo try catch
-  accelerators = registerHotKeys(commands, toggleWindow, clipboardService);
+  accelerators = new RegisterHotKeysService(
+    commands,
+    toggleWindow,
+    clipboardService
+  ).register();
 
   registerIpcListeners();
 
