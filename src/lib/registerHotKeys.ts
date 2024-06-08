@@ -13,7 +13,8 @@ const registerHotKeys = (
 
   const hotKeys = readFileFromHomeDirectory<HotKeys>(
     "hot-keys.json",
-    defaultHotKeys
+    defaultHotKeys,
+    (parsed) => Array.isArray(parsed.commands)
   );
 
   hotKeys.commands.forEach((value) => {
