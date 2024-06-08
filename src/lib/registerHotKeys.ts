@@ -22,7 +22,7 @@ class RegisterHotKeysService {
     private readonly clipboardService: ClipboardService
   ) {
     try {
-      this.readHotKeys();
+      this.setHotKeys();
       this.registerHotKeys();
       this.setPredefinedAccelorators();
       this.registerPredefinedAccelorators();
@@ -39,7 +39,7 @@ class RegisterHotKeysService {
     };
   };
 
-  private readHotKeys = () => {
+  private setHotKeys = () => {
     this.hotKeys = readFileFromHomeDirectory<HotKeys>(
       this.hotKeysFileName,
       this.hotKeys,
