@@ -36,11 +36,6 @@ const getClientCommands = () => {
   });
 };
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
-
 app.on("ready", async () => {
   buildMenu();
 
