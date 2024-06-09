@@ -155,6 +155,10 @@ const createWindow = async (): Promise<void> => {
   });
 
   window.setVisibleOnAllWorkspaces(true);
+
+  window.on("blur", () => {
+    hide();
+  });
 };
 
 const onCommandSelected = (_event: IpcMainEvent, command: CommandClient) => {
