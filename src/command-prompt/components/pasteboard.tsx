@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { useGlobalState } from "../../hooks/useGlobalState";
 import { acceleratorToDisplay } from "../../lib/modifierKeyMap";
+import { HorizontalDivider } from "../../components/divider";
 
 const Pasteboard: React.FC = () => {
   const pasteboardItems = usePasteboard();
@@ -71,11 +72,11 @@ const Pasteboard: React.FC = () => {
           <FooterButton onClick={() => window.electronAPI.clearPasteboard()}>
             Clear pasteboard
           </FooterButton>
-          <hr className="h-[20px] w-[1px] bg-border" />
+          <HorizontalDivider />
           <FooterButton onClick={deleteSelected}>
             Delete Item {"\u232B"}
           </FooterButton>
-          <hr className="h-[20px] w-[1px] bg-border" />
+          <HorizontalDivider />
           <FooterButton onClick={() => window.electronAPI.pasteToPasteboard()}>
             Add to pasteboard
             {acceleratorToDisplay(predefinedAccelerators.addToPasteboard, ":")}

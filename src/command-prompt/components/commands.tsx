@@ -14,6 +14,7 @@ import {
   CommandShortcut,
 } from "../../components/command";
 import { useGlobalState } from "../../hooks/useGlobalState";
+import { HorizontalDivider } from "../../components/divider";
 
 const Commands: React.FC = () => {
   const inputRef = useFocus();
@@ -59,7 +60,7 @@ const Commands: React.FC = () => {
             Show/Hide
             {acceleratorToDisplay(predefinedAccelerators.toggleUI, ":")}
           </FooterButton>
-          <hr className="h-[20px] w-[1px] bg-border" />
+          <HorizontalDivider />
           <FooterButton onClick={() => window.electronAPI.quit()}>
             Quit: ⌘Q
           </FooterButton>
