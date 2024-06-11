@@ -11,7 +11,7 @@ import { errorOnStartup } from "./errorOnStartup";
 
 class RegisterHotKeysService {
   private hotKeysFileName = "hot-keys.json";
-  private hotKeys: HotKeys;
+  private hotKeys: HotKeys = { commands: [] };
   private toggleUI = defaultPredefinedAccelerators.toggleUI;
   private addToPasteboard = defaultPredefinedAccelerators.addToPasteboard;
   private viewPasteboard = defaultPredefinedAccelerators.viewPasteboard;
