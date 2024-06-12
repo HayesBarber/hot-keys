@@ -6,7 +6,7 @@
 
 @layer util {
   .window {
-    @apply bg-background rounded-b-xl flex flex-col h-screen;
+    @apply bg-background flex flex-col h-screen;
   }
 
   .icon {

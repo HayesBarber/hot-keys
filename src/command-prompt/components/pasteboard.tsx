@@ -48,7 +48,7 @@ const Pasteboard: React.FC = () => {
             ref={ref}
             value={`${selected}`}
             onValueChange={onValueChange}
-            className="rounded-xl outline-none focus:outline-none flex flex-col"
+            className="outline-none focus:outline-none flex flex-col"
           >
             <CommandList className="grow">
               <PasteboardItems
