@@ -115,7 +115,7 @@ const ClipboardContent: React.FC<{
 
   return (
     <div className="h-full flex justify-center items-center overflow-auto">
-      <div className="px-2 h-full overflow-auto whitespace-pre-wrap">
+      <div className="px-2 h-full overflow-auto whitespace-pre-wrap text-popover-foreground">
         {determineContent()}
       </div>
     </div>
