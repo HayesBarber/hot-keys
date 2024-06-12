@@ -19,6 +19,8 @@ export interface IElectronAPI {
   listenForAccelerators: (
     callback: (value: PredefinedAccelerators) => any
   ) => void;
+  readyForTheme: () => void;
+  listenForTheme: (callback: (value: string) => any) => void;
 }
 
 declare global {

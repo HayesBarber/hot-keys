@@ -53,7 +53,7 @@ app.on("ready", async () => {
   if (hotKeysService.shouldAbort) return;
 
   accelerators = hotKeysService.predefinedAccelerators();
-  theme = hotKeysService.getTheme();
+  theme = hotKeysService.getTheme().toLowerCase();
 
   registerIpcListeners();
 
