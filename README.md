@@ -49,8 +49,13 @@ Use an empty string if you do not want to use them.
 
 The `commands` field is your hot-keys. The `hotKey` field is optional if you do not want to take up a keyboard shortcut.
 
+The `theme` field is for the UI-Theme. Options are `light` and `dark`.
+
+Whenever you edit your `hot-keys.json` you will need to restart the app for the changes to take effect.
+
 ```json
 {
+  "theme": "light",
   "toggleUI": "Option+Space",
   "addToPasteboard": "Command+Shift+V",
   "viewPasteboard": "Option+Shift+V",
