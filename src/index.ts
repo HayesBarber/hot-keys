@@ -25,6 +25,7 @@ let window: BrowserWindow | null = null;
 let commands: CommandExecutable[] = [];
 let clipboardService: ClipboardService = null;
 let accelerators: PredefinedAccelerators = defaultPredefinedAccelerators;
+let theme: string;
 
 const getClientCommands = () => {
   return Object.values(commands).map((e, i) => {
@@ -52,6 +53,7 @@ app.on("ready", async () => {
   if (hotKeysService.shouldAbort) return;
 
   accelerators = hotKeysService.predefinedAccelerators();
+  theme = hotKeysService.getTheme();
 
   registerIpcListeners();
 
@@ -82,6 +84,7 @@ const registerIpcListeners = () => {
   ipcMain.on("readyForAccelerators", (e) =>
     e.reply("sendAccelerators", accelerators)
   );
+  ipcMain.on("readyForTheme", (e) => e.reply("sendTheme", theme));
 };
 
 const focused = () => window.isFocused();
