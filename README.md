@@ -107,7 +107,7 @@ Hot-Keys will read and write to a `hot-keys-pasteboard.json` file in your home d
 
 **_Your pasteboard is not encrypted, so please do not put sensitive data there._**
 
-## Dev environment setup _todo_
+## Dev environment setup _(todo)_
 
 1. Clone the repo
 2. Install dependencies
