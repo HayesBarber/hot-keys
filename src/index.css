@@ -1,4 +1,4 @@
-@import './assets/fonts/fonts.css';
+@import "./assets/fonts/fonts.css";
 
 @tailwind base;
 @tailwind components;
@@ -6,11 +6,11 @@
 
 @layer util {
   .window {
-    @apply bg-background rounded-b-xl flex flex-col h-screen
+    @apply bg-background rounded-b-xl flex flex-col h-screen;
   }
 
   .icon {
-    @apply mr-2 h-4 w-4 shrink-0 opacity-50
+    @apply mr-2 h-4 w-4 shrink-0 opacity-50;
   }
 }
 
