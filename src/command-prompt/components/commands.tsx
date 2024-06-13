@@ -18,8 +18,8 @@ import { HorizontalDivider } from "../../components/divider";
 
 const Commands: React.FC = () => {
   const inputRef = useFocus();
-  const commands = useCommands();
-  const { setShowPasteboard, predefinedAccelerators } = useGlobalState();
+  const { setShowPasteboard, predefinedAccelerators, commands } =
+    useGlobalState();
 
   const showPasteboard = () => {
     setShowPasteboard(true);
