@@ -51,7 +51,7 @@ The `commands` field is your hot-keys. The `hotKey` field is optional if you do 
 
 The `theme` field is for the UI-Theme. Options are `light` and `dark`.
 
-Whenever you edit your `hot-keys.json` you will need to restart the app for the changes to take effect.
+Whenever you edit your `hot-keys.json`, you will need to restart the app for the changes to take effect.
 
 ```json
 {
