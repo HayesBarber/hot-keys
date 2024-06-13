@@ -3,6 +3,7 @@ interface HotKeys {
   toggleUI?: string;
   viewPasteboard?: string;
   addToPasteboard?: string;
+  theme?: string;
 }
 
 interface Command {

@@ -1,11 +1,13 @@
 import useKey from "../hooks/useKey";
 import Pasteboard from "./components/pasteboard";
 import Commands from "./components/commands";
-import useShowPasteboard from "..//hooks/useShowPasteboard";
+import useShowPasteboard from "../hooks/useShowPasteboard";
 import { GlobalProviderContext, GlobalState } from "../hooks/useGlobalState";
-import usePredefinedAccelerators from "..//hooks/usePredefinedAccelerators";
+import usePredefinedAccelerators from "../hooks/usePredefinedAccelerators";
+import useTheme from "../hooks/useTheme";
 
 const Prompt: React.FC = () => {
+  useTheme();
   useKey("Escape", () => window.electronAPI.hide());
   const { showPasteboard, setShowPasteboard } = useShowPasteboard();
   const predefinedAccelerators = usePredefinedAccelerators();

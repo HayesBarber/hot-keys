@@ -36,4 +36,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
       (_event, value: PredefinedAccelerators) => callback(value)
     );
   },
+  readyForTheme: () => ipcRenderer.send("readyForTheme"),
+  listenForTheme: (callback: (value: string) => any) => {
+    ipcRenderer.on("sendTheme", (_event, value: string) => callback(value));
+  },
 });

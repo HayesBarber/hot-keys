@@ -40,6 +40,8 @@ class RegisterHotKeysService {
     };
   };
 
+  public getTheme = () => this.hotKeys.theme ?? "light";
+
   private setHotKeys = () => {
     this.hotKeys = readFileFromHomeDirectory<HotKeys>(
       this.hotKeysFileName,
