@@ -1,5 +1,4 @@
 import { ClipboardRecord } from "../../models/clipboardRecord";
-import usePasteboard from "../../hooks/usePasteboard";
 import { FooterButton, FooterMain } from "./footer";
 import useFocus from "../../hooks/useFocus";
 import useKey from "../../hooks/useKey";
