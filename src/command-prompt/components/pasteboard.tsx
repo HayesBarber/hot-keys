@@ -1,5 +1,4 @@
 import { ClipboardRecord } from "../../models/clipboardRecord";
-import usePasteboard from "../../hooks/usePasteboard";
 import { FooterButton, FooterMain } from "./footer";
 import useFocus from "../../hooks/useFocus";
 import useKey from "../../hooks/useKey";
@@ -16,12 +15,12 @@ import { acceleratorToDisplay } from "../../lib/modifierKeyMap";
 import { HorizontalDivider } from "../../components/divider";
 
 const Pasteboard: React.FC = () => {
-  const pasteboardItems = usePasteboard();
   const [selected, setSelected] = useState(0);
   const ref = useFocus();
   useKey("Backspace", () => deleteSelected());
   useKey("ArrowLeft", () => back());
-  const { setShowPasteboard, predefinedAccelerators } = useGlobalState();
+  const { setShowPasteboard, predefinedAccelerators, pasteboard } =
+    useGlobalState();
 
   const onValueChange = (value: string) => {
     setSelected(parseInt(value));
@@ -53,14 +52,14 @@ const Pasteboard: React.FC = () => {
             <CommandList className="grow">
               <PasteboardItems
                 selectedIndex={selected}
-                records={pasteboardItems}
+                records={pasteboard}
                 onRecordSelected={onRecordSelected}
               />
             </CommandList>
           </CommandComponent>
         </div>
         <div className="w-[60%] my-2 border-l">
-          <ClipboardContent records={pasteboardItems} selected={selected} />
+          <ClipboardContent records={pasteboard} selected={selected} />
         </div>
       </div>
       <FooterMain>
