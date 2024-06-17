@@ -111,18 +111,3 @@ Hot-Keys will read and write to a `hot-keys-pasteboard.json` file in your home d
 **_Your clipboard may very well contain sensitive data (EX: you copied a password)._**
 
 **_Your pasteboard is not encrypted, so please do not put sensitive data there._**
-
-## Dev environment setup _(todo)_
-
-1. Clone the repo
-2. Install dependencies
-
-```bash
-npm install
-```
-
-3. Run the application
-
-```bash
-npm run start
-```
