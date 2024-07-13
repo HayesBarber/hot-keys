@@ -1,4 +1,4 @@
-# This project was rebuilt. [See Here](https://github.com/HayesBarber/hot-keys-v2)
+# This project was rebuilt and thus is archived. [See V2 Here](https://github.com/HayesBarber/hot-keys-v2)
 
 <div align="center">
     <img src="src/assets/tray-icon.png" alt="Icon" height="300px"/>
